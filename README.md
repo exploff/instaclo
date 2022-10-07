@@ -1,3 +1,8 @@
+# Version
+- Node : 16.17.1
+- NPM : 8.15.0
+- Angular : 14
+
 # Instaclo
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.5.
