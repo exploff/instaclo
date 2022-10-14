@@ -30,3 +30,10 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Boostrap
+
+npm i bootstrap
+npm i jquery
+
+add this line in your styless.scss if not exist => @import "~bootstrap/dist/css/bootstrap.css"
