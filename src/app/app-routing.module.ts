@@ -4,8 +4,8 @@ import { redirectUnauthorizedTo, canActivate, redirectLoggedInTo } from "@angula
 import { UserComponent } from './modules/user/user.component';
 import { GuestComponent } from './modules/guest/guest.component';
 
-const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(["login"]);
-const redirectLoggedInToUsers = () => redirectLoggedInTo(["user"]);
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(["guest"]);
+const redirectLoggedInToUsers = () => redirectLoggedInTo(["guest"]);
 
 const routes: Routes = [
   {
