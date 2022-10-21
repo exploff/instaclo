@@ -9,7 +9,9 @@ import { GuestComponent } from './guest.component';
     GuestComponent
   ],
   imports: [
-    CommonModule
+  ],
+  exports: [
+    GuestComponent
   ]
 })
 export class GuestModule { }
