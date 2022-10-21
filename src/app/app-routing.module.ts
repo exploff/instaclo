@@ -8,19 +8,18 @@ const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(["login"]);
 const redirectLoggedInToUsers = () => redirectLoggedInTo(["user"]);
 
 const routes: Routes = [
-{
-component: GuestComponent,
-path: "",
-loadChildren: () => import("./modules/guest/guest.module").then((module) => module.GuestModule),
-...canActivate(redirectLoggedInToUsers),
-},
-{
-component: UserComponent,
-path: "user",
-loadChildren: () => import("./modules/user/user.module").then((module) => module.UserModule),
-...canActivate(redirectUnauthorizedToLogin),
-},
-
+  {
+    component: GuestComponent,
+    path: "",
+    loadChildren: () => import("./modules/guest/guest.module").then((module) => module.GuestModule),
+    ...canActivate(redirectLoggedInToUsers),
+  },
+  {
+    component: UserComponent,
+    path: "user",
+    loadChildren: () => import("./modules/user/user.module").then((module) => module.UserModule),
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
 ]
 
 @NgModule({
