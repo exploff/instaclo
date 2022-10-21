@@ -113,6 +113,16 @@
               "src/**/*.html"
             ]
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "instaclo:build:production",
+            "firebaseProject": "instaclo-d1953",
+            "firebaseHostingSite": "instaclo-d1953"
+          }
         }
       }
     }

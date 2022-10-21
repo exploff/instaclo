@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "instaclo-d1953": {
+      "hosting": {
+        "instaclo": [
+          "instaclo-d1953"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "instaclo-d1953"
+  }
+}
