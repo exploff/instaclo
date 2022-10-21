@@ -1,5 +1,5 @@
 export interface Chat {
-  idChat : string;
+  id : string;
   fromUser : string;
   toUser : string;
   message: string
