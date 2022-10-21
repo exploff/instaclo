@@ -1,4 +1,4 @@
 export interface Notification {
-  idNotif : string;
+  id : string;
   message : string;
 }

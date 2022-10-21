@@ -1,6 +1,6 @@
 
 export interface Image {
-  idImage : string;
+  id : string;
   name : string;
   type : string;
   createDate : Date;
