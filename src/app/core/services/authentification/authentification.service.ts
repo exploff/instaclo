@@ -1,23 +1,25 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import { FirebaseError } from "@angular/fire/app";
 import { Auth, authState, signInWithEmailAndPassword, createUserWithEmailAndPassword, User, UserCredential, onAuthStateChanged, updateProfile, signOut } from "@angular/fire/auth";
 import { EMPTY, Observable, of } from "rxjs";
+
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthenticationService {
   public user: Observable<User | null> = EMPTY;
-  constructor(private readonly auth: Auth, private readonly errorService: ErrorService) {
+  constructor(private readonly auth: Auth, private readonly FirebaseError: FirebaseError) {
     if (this.auth) {
       this.user = authState(this.auth);
       onAuthStateChanged(this.auth, (user: User | null) => {
         this.user = of(user);
         console.log("USER : ", user);
       },
-      (error: Error) => {
-      console.log("ERROR : ", error);
-      }
-    );
+        (error: Error) => {
+          console.log("ERROR : ", error);
+        }
+      );
     }
   }
 
@@ -30,8 +32,7 @@ export class AuthenticationService {
     }
   }
 
-  public async signUp(email: string, password: string, firstname: string, lastname: string): Promise<UserCredential | null>
-  {
+  public async signUp(email: string, password: string, firstname: string, lastname: string): Promise<UserCredential | null> {
     try {
       const data: UserCredential = await createUserWithEmailAndPassword(this.auth, email, password);
       const displayName = `${lastname.toLocaleUpperCase()} ${firstname}`;
