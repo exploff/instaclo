@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { GuestModule } from './modules/guest/guest.module';
 import { SharedModule } from './modules/shared.module';
 import { UserModule } from './modules/user/user.module';
 
@@ -14,6 +15,7 @@ import { UserModule } from './modules/user/user.module';
     BrowserModule,
     AppRoutingModule,
     UserModule,
+    GuestModule,
     SharedModule
   ],
   providers: [],
