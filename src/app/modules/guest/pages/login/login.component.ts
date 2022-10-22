@@ -11,6 +11,7 @@ export class LoginComponent {
   public email: string = "";
   public password: string = "";
   public errorMessage: string = "";
+  public authService: AuthenticationService | undefined;
 
   constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
