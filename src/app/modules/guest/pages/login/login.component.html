@@ -1,33 +1,41 @@
 <div class="h-100 d-flex align-items-center justify-content-center">
-      <div class="row text-center">
-          <div class="col-12 card p-3">
-              <H4>Instaclo</H4>
-              <div class="formGroup">
-                  <input type="text" class="formControl" placeholder="Username" [(ngModel)]="email" required>
-              </div>
-              <div class="formGroup">
-                  <input type="password" class="formControl" placeholder="Password" [(ngModel)]="password" required>
-              </div>
-              <p *ngIf="errorMessage !== ''">{{ errorMessage }}</p>
-              <div>
-                  <div class="btn btn-sm btn-primary" (click)="login()">Se connecter</div>
-              </div>
-              <div>
-                  --------- ou ---------
-              </div>
-              <div class="formGroup">
-                  <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-                      <i class="bi bi-google"></i> Log in with Google
-                  </button>
-              </div>
-              <div class="forgotPassword">
-                  <span routerLink="/forgot-password">Forgot Password?</span>
-              </div>
+  <div class="row text-center mainRow">
+    <div class="colCard col-12 p-3">
+      <div class="row py-4">
+        <div class="col-12 mb-4">
+          <h2 class="titleCard">Instaclo</h2>
+        </div>
+        <div class="col-12 mb-2 d-flex justify-content-center">
+          <div class="formGroup">
+            <input type="text" class="formControl" placeholder="E-mail" [(ngModel)]="email" required>
           </div>
-          <div class="col-12 card mt-3 p-3">
-              <div class="redirectToLogin">
-                  <span>Don't have an account?<span class="redirect" routerLink="/sign-up"> Sign Up</span></span>
-              </div>
+        </div>
+        <div class="col-12 mb-3 d-flex justify-content-center">
+          <div class="formGroup">
+            <input type="password" class="formControl" placeholder="Mot de passe" [(ngModel)]="password" required>
           </div>
+          <p *ngIf="errorMessage !== ''">{{ errorMessage }}</p>
+        </div>
+        <div class="col-12">
+          <div class="btn btn-primary btnLogin" (click)="login()">Se connecter</div>
+        </div>
+        <div class="col-12 mt-2">
+          ou
+        </div>
+        <div class="col-12 Google mb-3">
+          <button type="button" class="btn googleBtn" (click)="GoogleLogin()">
+            <i class="bi bi-google"></i> Se connecter avec Google
+          </button>
+        </div>
+        <div class="forgotPassword">
+          <span class="forgotPassword" routerLink="/password-reset">Mot de passe oublié ?</span>
+        </div>
       </div>
+    </div>
+    <div class="colCardSecond col-12 mt-3 p-3">
+      <div class="redirectToSignUp">
+        <span>Vous n'avez pas de compte ?<span class="redirect" routerLink="/sign-up"> Inscription</span></span>
+      </div>
+    </div>
   </div>
+</div>

@@ -4,12 +4,15 @@ import {
   Auth,
   authState,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
   createUserWithEmailAndPassword,
   User,
   UserCredential,
   onAuthStateChanged,
   signOut,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup
 } from "@angular/fire/auth";
 import { EMPTY, Observable, of } from "rxjs";
 import { ErrorService } from "../error/error.service";
@@ -43,10 +46,8 @@ export class AuthenticationService {
       if (error instanceof FirebaseError) {
         this.errorService.addError({ id: this.errorService.generateId(), date: new Date(), message: error.message, stacktrace: error.stack });
       } else {
-        console.log(error);
         this.errorService.addError({ id: this.errorService.generateId(), date: new Date(), message: JSON.stringify(error) });
       }
-
       return null;
     }
   }
@@ -86,4 +87,31 @@ export class AuthenticationService {
       }
     }
   }
+
+  // Reset Forggot password
+  ForgotPassword(passwordResetEmail: string) {
+    return sendPasswordResetEmail(this.auth, passwordResetEmail)
+      .then(() => {
+        window.alert('Password reset email sent, check your inbox.');
+      })
+      .catch((error) => {
+        window.alert(error);
+      });
+  }
+
+  // Sign in with Google
+  GoogleAuth() {
+    return this.AuthLogin(new GoogleAuthProvider());
+  }
+  // Auth logic to run auth providers
+  AuthLogin(provider: GoogleAuthProvider) {
+    return signInWithPopup(this.auth, provider)
+      .then((result) => {
+        console.log('You have been successfully logged in!');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
 }

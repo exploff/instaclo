@@ -6,7 +6,7 @@ import { UserLayoutModule } from './user-layout/user-layout.module';
 @NgModule({
   imports: [
     GuestLayoutModule,
-    UserLayoutModule
+    UserLayoutModule,
   ],
   exports: [
     GuestLayoutModule,

@@ -1,15 +1,57 @@
-<div class="container">
-  <div class="card">
-    <input type="email" [(ngModel)]="email" placeholder="Email" />
-    <input type="text" [(ngModel)]="firstname" placeholder="Firstname" />
-    <input type="text" [(ngModel)]="lastname" placeholder="Lastname" />
-    <input type="text" [(ngModel)]="identifiant" placeholder="Identifiant" />
-    <input type="password" [(ngModel)]="password" placeholder="Password" />
-
-    <button (click)="signUp()">Sign Up</button>
-
-    <p *ngIf="errorMessage !== ''">{{ errorMessage }}</p>
-
-    <a routerLink="/login">Already an account ?</a>
+<div class="h-100 d-flex align-items-center justify-content-center">
+  <div class="row text-center mainRow">
+    <div class="colCard col-12 p-3">
+      <div class="row py-4">
+        <div class="col-12 mb-4">
+          <h2 class="titleCard">Instaclo</h2>
+        </div>
+        <div class="col-12">
+          <p class="textInfo">
+            Inscrivez-vous pour voir les photos et vidéos de vos amis.
+          </p>
+        </div>
+        <div class="col-12 Google">
+          <button type="button" class="btn googleBtn" (click)="GoogleLogin()">
+            <i class="bi bi-google"></i> Se connecter avec Google
+          </button>
+        </div>
+        <div class="col-12 mb-3">
+          ou
+        </div>
+        <div class="col-12 mb-2 d-flex justify-content-center">
+          <div class="formGroup">
+            <input type="text" class="formControl" placeholder="E-mail" [(ngModel)]="email" required>
+          </div>
+        </div>
+        <div class="col-12 mb-2 d-flex justify-content-center">
+          <div class="formGroup">
+            <input type="text" [(ngModel)]="firstname" placeholder="Prénom" required />
+          </div>
+        </div>
+        <div class="col-12 mb-2 d-flex justify-content-center">
+          <div class="formGroup">
+            <input type="text" [(ngModel)]="lastname" placeholder="Nom" required />
+          </div>
+        </div>
+        <div class="col-12 mb-2 d-flex justify-content-center">
+          <div class="formGroup">
+            <input type="text" [(ngModel)]="identifiant" placeholder="Identifiant" required />
+          </div>
+        </div>
+        <div class="col-12 mb-3 d-flex justify-content-center">
+          <div class="formGroup">
+            <input type="password" class="formControl" placeholder="Mot de passe" [(ngModel)]="password" required>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="btn btn-primary btnSignUp" (click)="signUp()">S'inscrire</div>
+        </div>
+      </div>
+    </div>
+    <div class="colCardSecond col-12 mt-3 p-3">
+      <div class="redirectToLogin">
+        <span>Vous avez déjà un compte ?<span class="redirect" routerLink="/login"> Connexion</span></span>
+      </div>
+    </div>
   </div>
 </div>

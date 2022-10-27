@@ -8,7 +8,9 @@ import { AuthenticationService } from "../../../core/services/authentification/a
   styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent {
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  public name = this.authenticationService.user;
+  constructor(private authenticationService: AuthenticationService, private router: Router) {
+  }
 
   public async signOut(): Promise<void> {
     await this.authenticationService.signOut();

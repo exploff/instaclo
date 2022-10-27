@@ -16,8 +16,11 @@ import { provideFunctions, getFunctions } from "@angular/fire/functions";
 import { SharedModule } from "./modules/shared.module";
 import { getStorage, provideStorage } from "@angular/fire/storage";
 
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+  ],
   imports: [
     SharedModule,
     BrowserModule,

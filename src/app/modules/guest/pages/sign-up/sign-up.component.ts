@@ -38,11 +38,14 @@ export class SignUpComponent {
       result = false;
     }
 
-    // if (this.password !== this.confirmPassword) {
-    //   result = false;
-    // }
-
-
     return result;
+  }
+  public async GoogleLogin(): Promise<void> {
+    try {
+      await this.authenticationService.GoogleAuth();
+      this.router.navigateByUrl("/user");
+    } catch (error) {
+      this.errorMessage = "Bad Credentials !";
+    }
   }
 }
