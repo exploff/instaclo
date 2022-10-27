@@ -13,7 +13,7 @@ export class LoginComponent {
   public password: string = "";
   public errorMessage: string = "";
 
-  constructor(public authenticationService: AuthenticationService, private router: Router) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
   public async login(): Promise<void> {
     try {

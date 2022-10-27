@@ -72,9 +72,6 @@ export class AuthenticationService {
     }
   }
 
-  /**
-   * This method is called to allow user to sign out
-   */
   public async signOut(): Promise<void> {
     try {
       await signOut(this.auth);
