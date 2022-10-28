@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 import { GuestModule } from './modules/guest/guest.module';
 import { UserModule } from './modules/user/user.module';
 import { SharedModule } from './modules/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SharedModule } from './modules/shared.module';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
