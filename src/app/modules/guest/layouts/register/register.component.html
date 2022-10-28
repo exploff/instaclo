@@ -1,4 +1,4 @@
-<div class="h-100 d-flex align-items-center justify-content-center">
+<div class="container d-flex align-items-center justify-content-center">
   <div class="row text-center mainRow">
     <div class="colCard col-12 p-3">
       <div class="row py-4">
@@ -13,62 +13,111 @@
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <mat-form-field appearance="fill">
             <mat-label>Entrez votre adresse email</mat-label>
-            <input matInput placeholder="pat@example.com" formControlName="email" required>
-            <mat-error *ngIf="registerForm.hasError('required', 'email')">Veuillez entrez une adresse mail !
+            <input
+              matInput
+              placeholder="pat@example.com"
+              formControlName="email"
+              required
+            />
+            <mat-error *ngIf="registerForm.hasError('required', 'email')"
+              >Veuillez entrez une adresse mail !
             </mat-error>
-            <mat-error *ngIf="registerForm.hasError('email', 'email')">Veuillez entrer une adresse valide</mat-error>
-
+            <mat-error *ngIf="registerForm.hasError('email', 'email')"
+              >Veuillez entrer une adresse valide</mat-error
+            >
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Entrez votre Nom</mat-label>
-            <input matInput placeholder="Loiseau" formControlName="firstname" required>
-            <mat-error *ngIf="registerForm.hasError('required', 'firstname')">Veuillez entre un firstname</mat-error>
-
+            <input
+              matInput
+              placeholder="Loiseau"
+              formControlName="firstname"
+              required
+            />
+            <mat-error *ngIf="registerForm.hasError('required', 'firstname')"
+              >Veuillez entre un firstname</mat-error
+            >
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Entrez votre Prénom</mat-label>
-            <input matInput placeholder="Thomas" formControlName="lastname" required>
-            <mat-error *ngIf="registerForm.hasError('required', 'lastname')">Veuillez entre un prénom</mat-error>
-
+            <input
+              matInput
+              placeholder="Thomas"
+              formControlName="lastname"
+              required
+            />
+            <mat-error *ngIf="registerForm.hasError('required', 'lastname')"
+              >Veuillez entre un prénom</mat-error
+            >
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Entrez votre Pseudo</mat-label>
-            <input matInput placeholder="TotoL" formControlName="pseudo" required>
-            <mat-error *ngIf="registerForm.hasError('required', 'pseudo')">Veuillez entre un pseudo</mat-error>
-            <mat-error *ngIf="registerForm.hasError('minlength', 'pseudo')">Veuillez entre un pseudo plus grand
+            <input
+              matInput
+              placeholder="TotoL"
+              formControlName="pseudo"
+              required
+            />
+            <mat-error *ngIf="registerForm.hasError('required', 'pseudo')"
+              >Veuillez entre un pseudo</mat-error
+            >
+            <mat-error *ngIf="registerForm.hasError('minlength', 'pseudo')"
+              >Veuillez entre un pseudo plus grand
             </mat-error>
-
           </mat-form-field>
 
           <mat-form-field appearance="fill">
             <mat-label>Entrez votre mot de passe</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required>
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-              [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              formControlName="password"
+              required
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide"
+            >
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
             </button>
-            <mat-error *ngIf="registerForm.hasError('required', 'password')">Veuillez entre un password</mat-error>
+            <mat-error *ngIf="registerForm.hasError('required', 'password')"
+              >Veuillez entre un password</mat-error
+            >
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Confirmer votre mot de passe</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" required
-              pattern="{{ registerForm.value.password }}">
-            <mat-error *ngIf="registerForm.hasError('required', 'confirmPassword')">Veuillez entre un password
+            <input
+              matInput
+              [type]="hide ? 'password' : 'text'"
+              formControlName="confirmPassword"
+              required
+              pattern="{{ registerForm.value.password }}"
+            />
+            <mat-error
+              *ngIf="registerForm.hasError('required', 'confirmPassword')"
+              >Veuillez entre un password
             </mat-error>
-            <mat-error *ngIf="registerForm.value.confirmPassword">Les mots de passe ne sont pas
-              identiques
+            <mat-error *ngIf="registerForm.value.confirmPassword"
+              >Les mots de passe ne sont pas identiques
             </mat-error>
           </mat-form-field>
 
           <div class="col-12 mt-2">
-            <button mat-raised-button type="submit" color="primary" [disabled]="!registerForm.valid">S'inscrire</button>
+            <button
+              mat-raised-button
+              type="submit"
+              color="primary"
+              [disabled]="!registerForm.valid"
+            >
+              S'inscrire
+            </button>
           </div>
-
         </form>
 
-        <div class="col-12 mt-2">
-          ou
-        </div>
+        <div class="col-12 mt-2">ou</div>
         <!--
         <div class="col-12 Google mb-3">
           <button type="button" class="btn googleBtn" (click)="googleLogin()">
@@ -77,13 +126,22 @@
         </div> -->
 
         <div class="forgotPassword">
-          <span class="forgotPassword" routerLink="/password-reset">Mot de passe oublié ?</span>
+          <span class="forgotPassword" routerLink="/password-reset"
+            >Mot de passe oublié ?</span
+          >
         </div>
       </div>
     </div>
     <div class="colCardSecond col-12 mt-3 p-3">
       <div class="redirectToSignUp">
-        <span>Vous n'avez pas de compte ?<span class="redirect" routerLink="/sign-up"> Inscription</span></span>
+        <span
+          >Vous n'avez pas de compte ?<span
+            class="redirect"
+            routerLink="/login"
+          >
+            Inscription</span
+          ></span
+        >
       </div>
     </div>
   </div>

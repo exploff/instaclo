@@ -4,7 +4,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialDesignModule } from '../shared/material-design.module';
 
-const MODULES = [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, MaterialDesignModule];
+const MODULES = [
+  CommonModule,
+  FormsModule,
+  ReactiveFormsModule,
+  RouterModule,
+  MaterialDesignModule,
+];
 
 const PIPES: any = [];
 
@@ -16,6 +22,6 @@ const DIRECTIVES: any = [];
   declarations: [...COMPONENTS, ...DIRECTIVES],
   imports: [...MODULES],
   exports: [...MODULES, ...COMPONENTS, ...DIRECTIVES],
-  providers: [...PIPES]
+  providers: [...PIPES],
 })
-export class SharedModule { }
+export class SharedModule {}

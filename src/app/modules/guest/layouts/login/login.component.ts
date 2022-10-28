@@ -6,25 +6,32 @@ import { AuthenticationService } from 'src/app/core/services/authentification/au
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-
   public email = new FormControl('', [Validators.required, Validators.email]);
-  public password = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  public password = new FormControl('', [
+    Validators.required,
+    Validators.minLength(8),
+  ]);
   public errorMessage: string = '';
   public hide: boolean = true;
 
-  constructor(private authentificationService: AuthenticationService, private router: Router) { }
+  constructor(
+    private authentificationService: AuthenticationService,
+    private router: Router
+  ) {}
 
   public async login(): Promise<void> {
     try {
       if (this.email != null && this.password != null) {
-        const result = await this.authentificationService.signIn(this.email.value!, this.password.value!);
+        const result = await this.authentificationService.signIn(
+          this.email.value!,
+          this.password.value!
+        );
         if (result == null) {
           this.errorMessage = "Erreur d'authentification";
         } else {
-          console.log("test");
           this.router.navigateByUrl('/user');
         }
       }
@@ -49,14 +56,17 @@ export class LoginComponent {
     if (this.password.hasError('required')) {
       return 'Vous devez entrer un mot de passe';
     }
-    return this.password.hasError('minlength') ? 'Le mot de passe doit contenir au moins 8 caractères' : '';
+    return this.password.hasError('minlength')
+      ? 'Le mot de passe doit contenir au moins 8 caractères'
+      : '';
   }
 
   public getErrorMessageEmail() {
     if (this.email.hasError('required')) {
       return 'Vous devez entrer une valeur';
     }
-    return this.email.hasError('email') ? 'Veuillez entrer une adresse email' : '';
+    return this.email.hasError('email')
+      ? 'Veuillez entrer une adresse email'
+      : '';
   }
-
 }
