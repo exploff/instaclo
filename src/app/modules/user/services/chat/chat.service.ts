@@ -2,9 +2,9 @@ import { Injectable } from "@angular/core";
 import { Firestore } from "@angular/fire/firestore";
 import { AggregateField, AggregateQuerySnapshot, collection, CollectionReference, DocumentData, DocumentReference } from "firebase/firestore";
 import { Observable } from "rxjs";
-import { GenericFirestoreService } from "src/app/core/services/generic-firestore.service";
-import { FIREBASE_COLLECTION_PATHS } from "../../constants/firestore-collection.constant";
+import { FIREBASE_COLLECTION_PATHS } from "../../../../core/constants/firestore-collection.constant";
 import { Chat } from "../../models/chat.model";
+import { GenericFirestoreService } from "../firestore/generic-firestore.service";
 
 export class ChatService {
 
