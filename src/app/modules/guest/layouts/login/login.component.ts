@@ -31,6 +31,13 @@ export class LoginComponent {
     }
   }
 
+  public getErrorPassword() {
+    if (this.password.hasError('required')) {
+      return 'Vous devez entrer un mot de passe';
+    }
+    return this.password.hasError('minlength') ? 'Le mot de passe doit contenir au moins 8 caractères' : '';
+  }
+
   public getErrorMessageEmail() {
     if (this.email.hasError('required')) {
       return 'Vous devez entrer une valeur';
