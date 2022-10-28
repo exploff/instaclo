@@ -48,16 +48,13 @@ export class AuthenticationService {
   }
 
   public async signUp(email: string, password: string, firstname: string,
-    lastname: string, identifiant: string, userService: UserService): Promise<UserCredential | null> {
+    lastname: string, identifiant: string): Promise<UserCredential | null> {
 
     try {
       const data: UserCredential = await createUserWithEmailAndPassword(this.auth, email, password);
       const displayName: string = firstname + ' ' + lastname;
 
       await updateProfile(data.user, { displayName: displayName });
-
-      //TODO : ajouter l'user dans firebase
-      console.log(data);
 
       return data;
     } catch (error) {

@@ -23,9 +23,11 @@ export class LoginComponent {
         const result = await this.authentificationService.signIn(this.email.value!, this.password.value!);
         if (result == null) {
           this.errorMessage = "Erreur d'authentification";
+        } else {
+          console.log("test");
+          this.router.navigateByUrl('/user');
         }
       }
-      this.router.navigateByUrl('/user');
     } catch (error) {
       console.log(error);
     }

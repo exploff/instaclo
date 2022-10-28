@@ -6,9 +6,9 @@
           <h2 class="titleCard">Instaclo</h2>
         </div>
 
-          <div class="alert alert-danger" *ngIf="errorMessage" role="alert">
-            {{ errorMessage }}
-          </div>
+        <div class="alert alert-danger" *ngIf="errorMessage" role="alert">
+          {{ errorMessage }}
+        </div>
 
         <form>
           <mat-form-field appearance="fill">
@@ -20,14 +20,16 @@
           <mat-form-field appearance="fill">
             <mat-label>Entrez votre mot de passe</mat-label>
             <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password" required>
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
             <mat-error *ngIf="password.invalid">{{getErrorPassword()}}</mat-error>
           </mat-form-field>
 
           <div class="col-12 mt-2">
-            <button mat-raised-button type="submit" (click)="login()" color="primary" [disabled]="password.invalid || email.invalid">Se connecter</button>
+            <button mat-raised-button type="submit" (click)="login()" color="primary"
+              [disabled]="password.invalid || email.invalid">Se connecter</button>
           </div>
 
         </form>
@@ -49,7 +51,7 @@
     </div>
     <div class="colCardSecond col-12 mt-3 p-3">
       <div class="redirectToSignUp">
-        <span>Vous n'avez pas de compte ?<span class="redirect" routerLink="/sign-up"> Inscription</span></span>
+        <span>Vous n'avez pas de compte ?<span class="redirect" routerLink="/register"> Inscription</span></span>
       </div>
     </div>
   </div>
