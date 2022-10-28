@@ -16,18 +16,18 @@ const routes: Routes = [
         path: "login",
         component: LoginComponent,
       },
-      {
-        path: "sign-up",
-        //component: SignUpComponent,
-      },
-      {
-        path: "not-found",
-        //component: NotFoundComponent,
-      },
-      {
-        path: "password-reset",
-        //component: PasswordResetComponent,
-      },
+      // {
+      //   path: "sign-up",
+      //   //component: SignUpComponent,
+      // },
+      // {
+      //   path: "not-found",
+      //   //component: NotFoundComponent,
+      // },
+      // {
+      //   path: "password-reset",
+      //   //component: PasswordResetComponent,
+      // },
     ],
   },
 ];
