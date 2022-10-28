@@ -6,10 +6,9 @@
           <h2 class="titleCard">Instaclo</h2>
         </div>
 
-        <p>
-          AFFICHER UNE POPUP POUR LERREUR
-          {{ errorMessage }}
-        </p>
+          <div class="alert alert-danger" *ngIf="errorMessage" role="alert">
+            {{ errorMessage }}
+          </div>
 
         <form>
           <mat-form-field appearance="fill">
@@ -28,7 +27,7 @@
           </mat-form-field>
 
           <div class="col-12 mt-2">
-            <button mat-raised-button type="submit" (click)="login()" color="primary">Se connecter</button>
+            <button mat-raised-button type="submit" (click)="login()" color="primary" [disabled]="password.invalid || email.invalid">Se connecter</button>
           </div>
 
         </form>
@@ -36,12 +35,13 @@
         <div class="col-12 mt-2">
           ou
         </div>
-        <!--
+
         <div class="col-12 Google mb-3">
           <button type="button" class="btn googleBtn" (click)="googleLogin()">
             <i class="bi bi-google"></i> Se connecter avec Google
           </button>
-        </div>-->
+        </div>
+
         <div class="forgotPassword">
           <span class="forgotPassword" routerLink="/password-reset">Mot de passe oublié ?</span>
         </div>

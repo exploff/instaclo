@@ -31,6 +31,18 @@ export class LoginComponent {
     }
   }
 
+  public async googleLogin(): Promise<void> {
+    try {
+      const result = await this.authentificationService.googleAuth();
+      if (result == null) {
+        this.errorMessage = "Erreur d'authentification";
+      }
+      this.router.navigateByUrl('/user');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   public getErrorPassword() {
     if (this.password.hasError('required')) {
       return 'Vous devez entrer un mot de passe';
