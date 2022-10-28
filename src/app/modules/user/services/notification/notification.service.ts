@@ -3,7 +3,7 @@ import { Firestore } from '@angular/fire/firestore';
 import { FIREBASE_COLLECTION_PATHS } from '../../constants/firestore-collection.constant';
 import { GenericFirestoreService } from '../generic-firestore.service';
 import { AggregateField, AggregateQuerySnapshot, collection, CollectionReference, DocumentData, DocumentReference } from "firebase/firestore";
-import { Notification } from "../../models/notification.model";
+import { Notification } from "../../../modules/user/models/notification.model";
 import { Observable } from "rxjs";
 
 @Injectable({
