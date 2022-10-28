@@ -8,14 +8,18 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { GuestModule } from './modules/guest/guest.module';
 import { UserModule } from './modules/user/user.module';
+import { GuestModule } from './modules/guest/guest.module';
 import { SharedModule } from './modules/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GuestLayoutComponent } from './layouts/guest-layout/guest-layout.component';
+import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GuestLayoutComponent,
+    UserLayoutComponent
   ],
   imports: [
     BrowserModule,
