@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 // Material
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatInputModule } from '@angular/material/input';
@@ -12,13 +12,13 @@ import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
     MatFormFieldModule,
     MatGridListModule,
     NoopAnimationsModule,
     MatInputModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatIconModule
   ],
   exports: [
     MatFormFieldModule,
@@ -28,7 +28,6 @@ import { MatIconModule } from '@angular/material/icon';
     MatButtonModule,
     MatCheckboxModule,
     MatIconModule
-
   ]
 })
 export class MaterialDesignModule { }

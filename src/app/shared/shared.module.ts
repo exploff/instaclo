@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialDesignModule } from '../shared/material-design.module';
+import { HttpClientModule } from '@angular/common/http';
 
-const MODULES = [CommonModule, FormsModule, ReactiveFormsModule, RouterModule, MaterialDesignModule];
+const MODULES = [CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule, RouterModule, MaterialDesignModule];
 
 const PIPES: any = [];
 
