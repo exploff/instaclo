@@ -51,17 +51,17 @@
           </mat-form-field>
           <mat-form-field appearance="fill">
             <mat-label>Confirmer votre mot de passe</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" required>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" required
+              pattern="{{ registerForm.value.password }}">
             <mat-error *ngIf="registerForm.hasError('required', 'confirmPassword')">Veuillez entre un password
             </mat-error>
-            <!-- <mat-error *ngIf="registerForm.hasError('confirmPassword', 'confirmPassword')">Les mots de passe ne sont pas
+            <mat-error *ngIf="registerForm.value.confirmPassword">Les mots de passe ne sont pas
               identiques
-            </mat-error> -->
+            </mat-error>
           </mat-form-field>
 
           <div class="col-12 mt-2">
-            <button mat-raised-button type="submit" color="primary"
-              [disabled]="registerForm.invalid">S'inscrire</button>
+            <button mat-raised-button type="submit" color="primary" [disabled]="!registerForm.valid">S'inscrire</button>
           </div>
 
         </form>

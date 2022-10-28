@@ -16,10 +16,10 @@ export class RegisterComponent {
     lastname: new FormControl('', [Validators.required]),
     pseudo: new FormControl('', [Validators.required, Validators.minLength(4)]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    confirmPassword: new FormControl('', [Validators.required]),
   },
     {
-      // validators: confirmPasswordValidator,
+      validators: checkMatchField("password", "confirmPassword"),
     }
   )
 
@@ -49,42 +49,11 @@ export class RegisterComponent {
     }
   }
 
-  // public getErrorMessageEmail() {
-  //   if (this.email.hasError('required')) {
-  //     return 'Vous devez entrer une valeur';
-  //   }
-  //   return this.email.hasError('email') ? 'Veuillez entrer une adresse email' : '';
-  // }
-  // public getErrorMessageFirstname() {
-  //   return this.firstname.hasError('required') ? "Vous devez entrer une valeur" : "";
-  // }
-  // public getErrorMessageLastname() {
-  //   return this.lastname.hasError('required') ? "Vous devez entrer une valeur" : "";
-
-  // }
-  // public getErrorMessagePseudo() {
-  //   if (this.pseudo.hasError('required')) {
-  //     return 'Vous devez entrer une valeur';
-  //   }
-  //   return this.email.hasError('minlength') ? 'Veuillez entrer un speudo plus grand' : '';
-  // }
-
-  // public getErrorMessagePassword() {
-  //   if (this.password.hasError('required')) {
-  //     return 'Vous devez entrer une valeur';
-  //   }
-  //   return this.password.hasError('minlength') ? 'Veuillez entrer un mot de passe plus grand' : '';
-  // }
-
-  // public getErrorMessageConfirmPassword() {
-  //   if (this.confirmPassword.hasError('required')) {
-  //     return 'Vous devez entrer une valeur';
-  //   }
-  //   return this.confirmPassword.hasError('minlength') ? 'Veuillez entrer un mot de passe plus grand' : '';
-  // }
-
   onSubmit(): void {
+    console.log(this.registerForm.valid);
+
     if (this.registerForm.invalid) {
+
       return;
     } else {
       this.register(this.registerForm);
@@ -94,11 +63,21 @@ export class RegisterComponent {
 
 }
 
-// export const confirmPasswordValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-//   const password = control.get('password');
-//   const confirmPassword = control.get('confirmPassword');
-//   return password && confirmPassword && password.value == confirmPassword.value ? {
-//     confirmPassword: true
-//   } : null
-// }
+export function checkMatchField(controlName: string, checkControlName: string): ValidatorFn {
+  return (controls: AbstractControl) => {
+    const control = controls.get(controlName);
+    const checkControl = controls.get(checkControlName);
+
+    if (checkControl?.errors && !checkControl.errors['matching']) {
+      return null;
+    }
+
+    if (control?.value !== checkControl?.value) {
+      controls.get(checkControlName)?.setErrors({ matching: true });
+      return { matching: true };
+    } else {
+      return null;
+    }
+  };
+}
 
