@@ -25,15 +25,15 @@ export class AuthenticationService {
   public user: Observable<User | null> = EMPTY;
 
   constructor(private readonly auth: Auth) {
-    if(this.auth) {
+    if (this.auth) {
       this.user = authState(this.auth);
       onAuthStateChanged(this.auth, (user) => {
         this.user = of(user);
       },
-      (error) => {
-        // TODO : Catch error in signin and signup function
-        console.error(error);
-      });
+        (error) => {
+          // TODO : Catch error in signin and signup function
+          console.error(error);
+        });
     }
   }
 
@@ -50,21 +50,51 @@ export class AuthenticationService {
   public async signUp(email: string, password: string, firstname: string,
     lastname: string, identifiant: string, userService: UserService): Promise<UserCredential | null> {
 
-      try {
-        const data: UserCredential = await createUserWithEmailAndPassword(this.auth, email, password);
-        const displayName: string = firstname + ' ' + lastname;
+    try {
+      const data: UserCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      const displayName: string = firstname + ' ' + lastname;
 
-        await updateProfile(data.user, {displayName: displayName});
+      await updateProfile(data.user, { displayName: displayName });
 
-        //TODO : ajouter l'user dans firebase
-        console.log(data);
+      //TODO : ajouter l'user dans firebase
+      console.log(data);
 
-        return data;
-      } catch (error) {
-        console.error(error);
-      }
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
 
-      return null;
+    return null;
+  }
+
+  public async signOut(): Promise<void> {
+    try {
+      await signOut(this.auth);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  public async forgotPassword(passwordResetEmail: string): Promise<void | null> {
+    try {
+      return await sendPasswordResetEmail(this.auth, passwordResetEmail)
+    } catch (error) {
+      console.log(error);
+    }
+    return null
+  }
+
+  googleAuth() {
+    return this.authLogin(new GoogleAuthProvider());
+  }
+
+  public async authLogin(provider: GoogleAuthProvider): Promise<UserCredential | null> {
+    try {
+      return await signInWithPopup(this.auth, provider);
+    } catch (error) {
+      console.log(error);
+    }
+    return null
   }
 
 }
