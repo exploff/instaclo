@@ -15,7 +15,6 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     MatFormFieldModule,
     MatGridListModule,
-    NoopAnimationsModule,
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule
@@ -23,7 +22,6 @@ import { MatIconModule } from '@angular/material/icon';
   exports: [
     MatFormFieldModule,
     MatGridListModule,
-    NoopAnimationsModule,
     MatInputModule,
     MatButtonModule,
     MatCheckboxModule,

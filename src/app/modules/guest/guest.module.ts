@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { LoginComponent } from './layouts/login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 import { SharedModule } from '../../shared/shared.module';
 import { GuestRoutingModule } from './guest-routing.module';
 

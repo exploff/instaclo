@@ -15,7 +15,7 @@ import {
   signInWithPopup
 } from "@angular/fire/auth";
 import { EMPTY, Observable, of } from "rxjs";
-import { UserService } from "../user/user.service";
+import { UserService } from "src/app/core/services/user/user.service";
 
 @Injectable({
   providedIn: 'root'
