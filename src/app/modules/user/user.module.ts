@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { SharedModule } from 'src/app/shared/shared.module';
+
 
 import { UserRoutingModule } from './user-routing.module';
 
@@ -7,6 +9,7 @@ import { UserRoutingModule } from './user-routing.module';
   declarations: [
   ],
   imports: [
+    SharedModule,
     UserRoutingModule,
   ],
   exports: [
