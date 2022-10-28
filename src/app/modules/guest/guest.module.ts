@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-
-import { LoginComponent } from './layouts/login/login.component';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { GuestRoutingModule } from './guest-routing.module';
+import { LoginComponent } from './layouts/login/login.component';
+
+
 
 @NgModule({
   declarations: [
