@@ -1,8 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import "@angular/material/theming";
+
+$my-app-primary: mat-palette($mat-blue-grey);
+$my-typography: mat-typography-config(
+  $font-family: "'Poppins', sans-serif",
+);
+@include mat-core($my-typography);
+
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+}
 
 a {
   text-decoration: none;
+}
+
+.main {
+  background-color: #FAFAFA;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+
+
+@media screen and (min-width: 600px) {
+  .main {
+    width: 90vw;
+  }
+
+}
+
+@media screen and (min-width: 1200px) {
+  .main {
+    width: 85vw;
+  }
+
+}
+
+
+$my-app-accent: mat-palette($mat-pink, 500, 900, A100);
+$my-app-warn: mat-palette($mat-deep-orange);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include angular-material-theme($my-app-theme);
+.alternate-theme {
+  $alternate-primary: mat-palette($mat-light-blue);
+  $alternate-accent: mat-palette($mat-yellow, 400);
+  $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent);
+  @include angular-material-theme($alternate-theme);
 }

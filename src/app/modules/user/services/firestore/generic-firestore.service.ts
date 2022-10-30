@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { addDoc, collectionData, deleteDoc, docData, getCountFromServer, DocumentReference, Firestore, query, updateDoc, where, limit, orderBy, startAfter, WithFieldValue } from "@angular/fire/firestore";
+import { addDoc, collectionData, deleteDoc, docData, getCountFromServer, DocumentReference, Firestore, query, updateDoc, where, limit, orderBy, startAfter, WithFieldValue, getDoc } from "@angular/fire/firestore";
 import { CollectionReference, doc, DocumentData } from "@firebase/firestore";
 import { AggregateField, AggregateQuerySnapshot } from "@firebase/firestore";
 import { Observable } from "rxjs";
