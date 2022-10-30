@@ -1,4 +1,69 @@
 
+.profil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5rem 2rem;
+
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 50%;
+      img {
+        width: 100%;
+        border-radius: 50%;
+        max-width: 300px;
+      }
+    }
+    .description {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-evenly;
+      width: 50%;
+      padding: 2rem;
+      .pseudo {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      .bio {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .images {
+    margin-top: 5rem;
+    border-top: #f2f4f9 solid 0.1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    .image {
+      margin: 0.5rem;
+      display: flex;
+      background-color: red;
+      width: 200px;
+      height: 200px;
+    }
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .profil {
+    margin: 10rem 5rem;
+  }
+}
+
 .profile-header {
   box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
   border: 1px solid #f2f4f9;
