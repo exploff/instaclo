@@ -7,9 +7,23 @@
         <img src="/assets/images/blank-profile.png" alt="image">
       </div>
       <div class="description">
-        <p class="pseudo">pseudo</p>
+        <p class="pseudo">{{ user?.firstName }} {{ user?.lastName }}</p>
         <p class="followers">followers </p>
-        <p class="bio">bio</p>
+        <p class="bio">
+          {{ user?.pseudo }}<br/>
+
+
+          <span *ngIf="isEditable">
+            <input type="text" [formControl]="bio" id="bio"  />
+            <i class="bi bi-check" (click)="updateBio()"></i>
+          </span>
+          <span *ngIf="!isEditable">
+            {{ user?.bio }}
+            <i class="bi bi-pencil" (click)="editBio()"></i>
+          </span>
+        </p>
+
+
       </div>
     </div>
     <div class="images">
