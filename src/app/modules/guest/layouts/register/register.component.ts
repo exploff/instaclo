@@ -59,19 +59,17 @@ export class RegisterComponent {
       if (!result) {
         this.errorMessage = 'Veuillez saisir des infomartions correctes !';
       } else {
-        //Julien a ameliore c'etait juste pour tester !! je pense qu'in doit disctuer de l'id et du password
         const data: User = {
-          id: '1',
+          id: '',
+          uid: result.user.uid,
           firstName: group.controls['firstname'].value!,
           lastName: group.controls['lastname'].value!,
           pseudo: group.controls['pseudo'].value!,
           bio: '',
-          dateOfBirthday: '',
-          email: group.controls['email'].value!,
-          password: group.controls['password'].value!,
+          email: group.controls['email'].value!
         };
         this.userService.addNewUser(data);
-        this.router.navigateByUrl('/login');
+        this.router.navigate(['/login'], { queryParams: { register: 'true' } });
       }
     } catch (error) {
       console.log(error);

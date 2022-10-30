@@ -1,69 +1,14 @@
-<div class="container">
-<div class="profile-page tx-13">
-    <div class="row">
-        <div class="col-12 grid-margin">
-            <div class="profile-header">
-                <div class="cover">
-                    <div class="gray-shade"></div>
-                    <figure>
-                        <img src="https://bootdey.com/img/Content/bg1.jpg" class="img-css" alt="profile cover">
-                    </figure>
-                    <div class="cover-body d-flex justify-content-between align-items-center">
-                        <div>
-                            <img class="profile-pic" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="profile">
-                            <span class="profile-name">Amiah Burton</span>
-                        </div>
-                        <div class="d-none d-md-block">
-                            <button class="btn btn-primary btn-icon-text btn-edit-profile">
-                               qr-code
-                               <!--TODO qrcode-->
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="header-links">
-                    <ul class="links d-flex align-items-center mt-3 mt-md-0">
-                        <li class="header-link-item d-flex align-items-center" routerLinkActive="active">
-                          <svg version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 90" fill="none" stroke="currentColor"  width="30" height="30" class="feather feather-home me-2 icon-md">
-                            <path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
-                              d="M75 85.002C75 87.75 72.75 90 70.001 90H29.999C27.25 90 25 87.75 25 85.002V14.999C25 12.25 27.25 10 29.999 10h40.002C72.75 10 75 12.25 75 14.999v70.003z" />
-                            <path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
-                              d="M25 22.5h50v50.003H25z" />
-                            <circle fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
-                              stroke-miterlimit="10" cx="50" cy="81.249" r="3.75" />
-                            <path fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
-                              d="M59.999 81.249H67.5h-7.501zM46.251 16.249h7.499-7.499zM32.5 81.249H40h-7.5z" />
-                          </svg>
-                            <a [routerLink]="['/user/home']" class="pt-1px d-none d-md-block" href="#">Accueil</a>
-                        </li>
-                        <li class="header-link-item ms-3 ps-3 border-start d-flex align-items-center" routerLinkActive="active">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user me-2 icon-md">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
-                            <a [routerLink]="['/user/profil']" class="pt-1px d-none d-md-block" href="#">Profil</a>
-                        </li>
-                        <li class="header-link-item  ms-3 ps-3 border-start d-flex align-items-center" routerLinkActive="active">
-                          <svg version="1.0" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"  width="24" height="24" viewBox="0 0 100 100" class="feather feather-chat me-2 icon-md">
-                            <path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
-                              d="M34.87 61.382c-4.811 6.008-12.196 9.87-20.493 9.87 4.197-4.193 7.138-9.157 8.903-14.422C15.196 52.021 10 44.592 10 36.249 10 21.751 25.672 10 45.001 10c19.332 0 35 11.751 35 26.249 0 14.5-15.668 26.252-35 26.252-3.523 0-6.923-.393-10.131-1.119z" />
-                            <path fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
-                              d="M90 64.999c0-5.162-2.794-9.819-7.295-13.202-7.094 10.805-21.326 18.204-37.704 18.204-1.384 0-2.762-.065-4.133-.169 2.848 8.01 12.558 13.919 24.134 13.919a32.63 32.63 0 0 0 7.235-.803C75.675 87.244 80.948 90 86.874 90a26.264 26.264 0 0 1-6.357-10.302C86.29 76.264 90 70.959 90 64.999z" />
-                          </svg>
-                            <a [routerLink]="['/user/chat']" class="pt-1px d-none d-md-block" href="#">Chat <span class="text-muted tx-12">3</span></a>
-                        </li>
-                        <li class="header-link-item  ms-3 ps-3 border-start d-flex align-items-center" routerLinkActive="active">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-image me-2 icon-md">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                                <polyline points="21 15 16 10 5 21"></polyline>
-                            </svg>
-                            <a [routerLink]="['/user/photos']" class="pt-1px d-none d-md-block" href="#">Photos</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="navbar">
+  <div class="navbar-logo">
+    <img src="/assets/images/instaclo.png" alt="image">
+    <h3>InstaClo</h3>
+  </div>
+
+  <ul class="navbar-container">
+    <li><a [routerLink]="['/user/home']" class="navbar-item"><i class="bi bi-house-door-fill"></i><span>Accueil</span></a></li>
+    <li><a [routerLink]="['/user/profil']" class="navbar-item"><i class="bi bi-person"></i><span>Profil</span></a></li>
+    <li><a [routerLink]="['/user/chat']" class="navbar-item"><i class="bi bi-chat-dots"></i><span>Chat</span></a></li>
+    <li><a (click)="signOut()" class="navbar-item"><i class="bi bi-power"></i><span>Déconnexion</span></a></li>
+  </ul>
+
 </div>

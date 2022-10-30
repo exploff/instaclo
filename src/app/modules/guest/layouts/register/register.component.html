@@ -81,7 +81,7 @@
               [attr.aria-label]="'Hide password'"
               [attr.aria-pressed]="hide"
             >
-              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
             </button>
             <mat-error *ngIf="registerForm.hasError('required', 'password')"
               >Veuillez entre un password</mat-error
@@ -133,15 +133,10 @@
       </div>
     </div>
     <div class="colCardSecond col-12 mt-3 p-3">
-      <div class="redirectToSignUp">
-        <span
-          >Vous n'avez pas de compte ?<span
-            class="redirect"
-            routerLink="/login"
-          >
-            Inscription</span
-          ></span
-        >
+      <div class="redirectToSignIn">
+        <span>Vous avez déjà un compte ?
+          <span class="redirect" routerLink="/login">Connexion</span>
+        </span>
       </div>
     </div>
   </div>

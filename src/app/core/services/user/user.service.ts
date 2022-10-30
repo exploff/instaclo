@@ -25,15 +25,18 @@ export class UserService {
       return this.genericFirestoreService.fetchAll<User>(this.userCollection, "id", direction);
   }
 
-  public fetchMoviesByPagination(startAfterUser: string, maxResult: number = 30, direction: "asc" | "desc" = "asc") {
+  public fetchUsersByPagination(startAfterUser: string, maxResult: number = 30, direction: "asc" | "desc" = "asc") {
 
       return this.genericFirestoreService.fetchByPagination<User>(this.userCollection, "id",
       startAfterUser, maxResult, direction) as Observable<User[]>;
   }
 
-  public fetchUserById(id: string): Observable<User> {
-      return this.genericFirestoreService.fetchById<User>(FIREBASE_COLLECTION_PATHS.USER, id);
+  public fetchUserByUID(uid: string): Observable<User[]> {
+    return this.genericFirestoreService.fetchByProperty<User>(this.userCollection, "uid",uid, 1);
+  }
 
+  public fetchUserById(id: string): Observable<User[]> {
+    return this.genericFirestoreService.fetchByProperty<User>(this.userCollection, "id", id, 1);
   }
 
   public fetchUserFromUser(fromUser: string): Observable<User[]> {
@@ -41,7 +44,12 @@ export class UserService {
   }
 
   public addNewUser(user: User): Promise<DocumentReference<DocumentData>> {
-      return this.genericFirestoreService.create(this.userCollection, user);
+      const doc = this.genericFirestoreService.create(this.userCollection, user);
+      doc.then((docRef) => {
+          user.id = docRef.id;
+          this.updateUser(user);
+      })
+      return doc;
   }
 
   public updateUser(user: User): Promise<void> {

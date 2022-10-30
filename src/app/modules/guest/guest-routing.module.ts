@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { LoginComponent } from "./layouts/login/login.component";
 import { RegisterComponent } from "./layouts/register/register.component";
+import { PasswordResetComponent } from "./password-reset/password-reset.component";
 
 
 const routes: Routes = [
@@ -21,14 +22,10 @@ const routes: Routes = [
         path: "register",
         component: RegisterComponent,
       },
-      // {
-      //   path: "not-found",
-      //   //component: NotFoundComponent,
-      // },
-      // {
-      //   path: "password-reset",
-      //   //component: PasswordResetComponent,
-      // },
+      {
+        path: "password-reset",
+        component: PasswordResetComponent,
+      },
     ],
   },
 ];

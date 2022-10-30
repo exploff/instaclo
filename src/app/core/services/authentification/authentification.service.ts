@@ -64,21 +64,22 @@ export class AuthenticationService {
     return null;
   }
 
-  public async signOut(): Promise<void> {
+  public async signOut(): Promise<void | null> {
     try {
-      await signOut(this.auth);
+      return await signOut(this.auth);
     } catch (error) {
       console.log(error);
     }
+    return null;
   }
 
   public async forgotPassword(passwordResetEmail: string): Promise<void | null> {
     try {
-      return await sendPasswordResetEmail(this.auth, passwordResetEmail)
+      return await sendPasswordResetEmail(this.auth, passwordResetEmail);
     } catch (error) {
       console.log(error);
     }
-    return null
+    return null;
   }
 
   googleAuth() {
