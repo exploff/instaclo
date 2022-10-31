@@ -8,17 +8,25 @@
       </div>
       <div class="description">
         <p class="pseudo">{{ user?.firstName }} {{ user?.lastName }}</p>
-        <p class="followers">followers </p>
+        <div class="followers">
+          <div class="number">X photos</div>
+          <div class="number">X following</div>
+          <div class="number">X followers</div>
+        </div>
         <p class="bio">
           {{ user?.pseudo }}<br/>
-
-
           <span *ngIf="isEditable">
-            <input type="text" [formControl]="bio" id="bio"  />
-            <i class="bi bi-check" (click)="updateBio()"></i>
+            <p>
+              <textarea matInput
+                cdkTextareaAutosize
+                cdkAutosizeMinRows="3"
+                cdkAutosizeMaxRows="8"
+                [formControl]="bio"></textarea>
+            </p>
+            <i class="bi bi-check-lg" (click)="updateBio()"></i>
           </span>
           <span *ngIf="!isEditable">
-            {{ user?.bio }}
+            <p>{{ user?.bio }}</p>
             <i class="bi bi-pencil" (click)="editBio()"></i>
           </span>
         </p>
