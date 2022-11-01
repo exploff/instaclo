@@ -15,6 +15,7 @@ body {
 }
 body {
   margin: 0;
+  background-color: #fafafa;
 }
 
 a {
@@ -22,8 +23,8 @@ a {
 }
 
 .main {
-  background-color: #fafafa;
   position: absolute;
+  top: 80px;
 }
 
 $my-app-accent: mat-palette($mat-pink, 500, 900, A100);
