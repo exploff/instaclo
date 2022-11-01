@@ -25,6 +25,7 @@ a {
 .main {
   position: absolute;
   top: 80px;
+  height: 100%;
 }
 
 $my-app-accent: mat-palette($mat-pink, 500, 900, A100);
