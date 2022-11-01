@@ -4,23 +4,14 @@
       <a class="text-dark h2" href="#"> Instaclo</a>
     </div>
     <div class="col-8">
-      <form class="d-flex flex-column" (ngSubmit)="onSubmit()">
-        <div class="row">
-          <div class="col-10">
-            <input
-              class="form-control me-2"
-              type="search"
-              [formControl]="pseudo"
-              (keyup)="search($event)"
-              placeholder="Search by name"
-            />
-          </div>
-          <div class="col-2">
-            <button class="btn p-0" type="submit">
-              <i class="bi bi-search"></i>
-            </button>
-          </div>
-        </div>
+      <form class="d-flex flex-column">
+        <input
+          class="form-control me-2"
+          type="search"
+          [formControl]="pseudo"
+          (keyup)="search($event)"
+          placeholder="Search by name"
+        />
 
         <div class="mt-2 ms-1 dropdownSearch" *ngIf="bUser">
           <a class="dropdown-item" href="#"
@@ -45,27 +36,14 @@
       Instaclo</a
     >
     <div class="navbarContent" id="navbarSupportedContent">
-      <form
-        class="d-md-flex mx-auto d-none flex-column"
-        (ngSubmit)="onSubmit()"
-      >
-        <div class="row">
-          <div class="col-10">
-            <input
-              class="form-control me-2"
-              type="search"
-              [formControl]="pseudo"
-              (keyup)="search($event)"
-              placeholder="Search by name"
-            />
-          </div>
-          <div class="col-2">
-            <button class="btn p-0" type="submit">
-              <i class="bi bi-search"></i>
-            </button>
-          </div>
-        </div>
-
+      <form class="d-md-flex mx-auto d-none flex-column">
+        <input
+          class="form-control me-2"
+          type="search"
+          [formControl]="pseudo"
+          (keyup)="search($event)"
+          placeholder="Search by name"
+        />
         <div class="mt-2 ms-1 dropdownSearch" *ngIf="bUser">
           <a class="dropdown-item" href="#"
             >{{ user.pseudo }} ({{ user.lastName }} {{ user.firstName }})</a
