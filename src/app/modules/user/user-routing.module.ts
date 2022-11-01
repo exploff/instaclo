@@ -4,30 +4,36 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './layouts/home/home.component';
 import { ProfilComponent } from './layouts/profil/profil.component';
+import { EditProfilComponent } from './layouts/edit-profil/edit-profil.component';
 
-const routes: Routes = [{
-    path: "",
-    redirectTo: "home",
-    pathMatch: "full",
+const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full',
   },
   {
-    path: "",
+    path: '',
     children: [
       {
-        path: "home",
+        path: 'home',
         component: HomeComponent,
       },
       {
-        path: "profil",
+        path: 'profil',
         component: ProfilComponent,
       },
       {
-        path: "chat",
+        path: 'chat',
         component: ChatComponent,
       },
       {
-        path: "photos",
+        path: 'photos',
         component: PhotosComponent,
+      },
+      {
+        path: 'edit-profil',
+        component: EditProfilComponent,
       },
     ],
   },
@@ -35,6 +41,6 @@ const routes: Routes = [{
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UserRoutingModule { }
+export class UserRoutingModule {}

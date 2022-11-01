@@ -1,0 +1,28 @@
+<div class="main">
+  <form (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-4">
+        <button routerLink="/user/profil">Annuler</button>
+      </div>
+      <div class="col-4">Modifier profil</div>
+      <div class="col-4"><button type="submit">terminé</button></div>
+    </div>
+    <div class="row">
+      <div class="col-12"></div>
+      <div class="col-12">Modifier la photo de profil</div>
+    </div>
+
+    <label for="">Nom</label>
+    <input
+      type="text"
+      value="{{ user?.firstName }}"
+      [formControl]="firstname"
+    />
+    <label for="">Prénom</label>
+    <input type="text" value="{{ user?.lastName }}" [formControl]="lastname" />
+    <label for="">Nom d'utilisateur</label>
+    <input type="text" value="{{ user?.pseudo }}" [formControl]="pseudo" />
+    <label for="">Bio</label>
+    <input type="text" value="{{ user?.bio }}" [formControl]="bio" />
+  </form>
+</div>
