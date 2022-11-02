@@ -45,7 +45,7 @@ export class RegisterComponent {
     private authenticationService: AuthenticationService,
     private router: Router,
     private userService: UserService
-  ) {}
+  ) { }
 
   public async register(group: FormGroup): Promise<void> {
     try {
@@ -70,6 +70,39 @@ export class RegisterComponent {
         };
         this.userService.addNewUser(data);
         this.router.navigate(['/login'], { queryParams: { register: 'true' } });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  public async googleLogin(): Promise<void> {
+    try {
+      const result = await this.authenticationService.googleAuth();
+      if (result == null) {
+        this.errorMessage = "Erreur d'authentification";
+      } else {
+        const user = await this.userService.fetchUserByUID(result.user.uid);
+        user.subscribe((val) => {
+          console.log(val);
+          if (val.length > 0) {
+            console.log('user exists');
+          } else {
+            console.log('user does not exist');
+            var displayName = result.user.displayName;
+            const data: User = {
+              id: "",
+              uid: result.user.uid,
+              firstName: displayName ? displayName.split(' ')[0] : '',
+              lastName: displayName ? displayName.split(' ')[1] : '',
+              pseudo: displayName ? displayName : '',
+              bio: "",
+              email: result.user.email ? result.user.email : ''
+            };
+            this.userService.addNewUser(data);
+          }
+        });
+        this.router.navigateByUrl('/user');
       }
     } catch (error) {
       console.log(error);
