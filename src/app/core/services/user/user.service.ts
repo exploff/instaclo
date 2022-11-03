@@ -76,7 +76,7 @@ export class UserService {
   }
 
   public fetchUserByPseudo(pseudo: string): Observable<User[]> {
-    return this.genericFirestoreService.fetchByProperty<User>(
+    return this.genericFirestoreService.fetchByPseudo<User>(
       this.userCollection,
       'pseudo',
       pseudo

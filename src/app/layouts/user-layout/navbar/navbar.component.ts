@@ -19,18 +19,18 @@ export class NavbarComponent {
     private authenticationService: AuthenticationService,
     private router: Router,
     private userService: UserService
-  ) {}
+  ) { }
 
   search($event: any) {
     let q = $event.target.value;
-    if (this.pseudo?.value !== null) {
-      this.searchByPseudo(this.pseudo?.value);
+    if (q == "") {
+      this.bUser = false;
+    } else {
+      if (this.pseudo?.value !== null) {
+        this.searchByPseudo(this.pseudo?.value);
+      }
     }
-  }
-  onSubmit() {
-    if (this.pseudo?.value !== null) {
-      this.searchByPseudo(this.pseudo?.value);
-    }
+
   }
 
   public searchByPseudo(pseudo: string) {
