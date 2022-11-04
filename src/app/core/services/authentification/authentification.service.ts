@@ -100,4 +100,13 @@ export class AuthenticationService {
     return null
   }
 
+  public async getCurrentUser():Promise<User|null>{
+     try {
+      return await this.auth.currentUser;
+    } catch (error) {
+      console.log(error);
+    }
+    return null
+
+  }
 }
