@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { FirebaseError } from 'firebase/app';
 import { User } from 'src/app/core/models/user.model';
 import { AuthenticationService } from 'src/app/core/services/authentification/authentification.service';
 import { UserService } from 'src/app/core/services/user/user.service';
@@ -66,13 +67,21 @@ export class RegisterComponent {
           lastName: group.controls['lastname'].value!,
           pseudo: group.controls['pseudo'].value!,
           bio: '',
-          email: group.controls['email'].value!
+          email: group.controls['email'].value!,
+          keywords: this.userService.generateKeywords(group.controls['pseudo'].value!)
         };
-        this.userService.addNewUser(data);
+        await this.userService.addNewUser(data);
         this.router.navigate(['/login'], { queryParams: { register: 'true' } });
       }
     } catch (error) {
-      console.log(error);
+      if (error as FirebaseError) {
+        let e = error as FirebaseError;
+        if (e.message.includes("email-already-in-use")) {
+          this.errorMessage = 'Cette adresse mail est déjà utilisée.';
+        }
+      } else {
+        this.errorMessage = 'Une erreur est survenue.';
+      }
     }
   }
 
@@ -83,7 +92,7 @@ export class RegisterComponent {
         this.errorMessage = "Erreur d'authentification";
       } else {
         const user = await this.userService.fetchUserByUID(result.user.uid);
-        user.subscribe((val) => {
+        user.subscribe(async (val) => {
           console.log(val);
           if (val.length > 0) {
             console.log('user exists');
@@ -97,9 +106,10 @@ export class RegisterComponent {
               lastName: displayName ? displayName.split(' ')[1] : '',
               pseudo: displayName ? displayName : '',
               bio: "",
-              email: result.user.email ? result.user.email : ''
+              email: result.user.email ? result.user.email : '',
+              keywords: this.userService.generateKeywords(displayName ? displayName : '')
             };
-            this.userService.addNewUser(data);
+            await this.userService.addNewUser(data);
           }
         });
         this.router.navigateByUrl('/user');

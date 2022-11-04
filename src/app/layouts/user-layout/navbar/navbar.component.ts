@@ -35,7 +35,7 @@ export class NavbarComponent {
   }
 
   public searchByPseudo(pseudo: string) {
-    this.userService.fetchUserByPseudo(pseudo).subscribe((users) => {
+    this.userService.fetchUserByKeywords(pseudo).subscribe((users) => {
       this.testArray = [];
       users.forEach(user => {
         this.testArray.push(user)

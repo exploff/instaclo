@@ -6,4 +6,5 @@ export interface User {
   pseudo: string;
   bio: string;
   email: string;
+  keywords: string[];
 }
