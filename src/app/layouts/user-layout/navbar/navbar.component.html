@@ -9,8 +9,11 @@
           placeholder="Search by name" />
 
         <div class="mt-2 ms-1 dropdownSearch" *ngIf="bUser">
-          <a class="dropdown-item" href="#">{{ user.pseudo }} ({{ user.lastName }} {{ user.firstName }})</a>
-          <hr />
+          <div *ngFor="let item of testArray">
+            <!-- <a class="dropdown-item" href="#">{{ item.pseudo }} ({{ item.lastName }} {{ item.firstName }})</a> -->
+            {{item}}
+            <hr />
+          </div>
         </div>
       </form>
     </div>
@@ -26,9 +29,15 @@
       <form class="d-md-flex mx-auto d-none flex-column">
         <input class="form-control me-2" type="search" [formControl]="pseudo" (keyup)="search($event)"
           placeholder="Search by name" />
-        <div class="mt-2 ms-1 dropdownSearch" *ngIf="bUser">
+        <!-- <div class="mt-2 ms-1 dropdownSearch" *ngIf="bUser">
           <a class="dropdown-item" href="#">{{ user.pseudo }} ({{ user.lastName }} {{ user.firstName }})</a>
           <hr />
+        </div> -->
+        <div class="mt-2 ms-1 dropdownSearch" *ngIf="bUser">
+          <div *ngFor="let item of testArray">
+            <a class="dropdown-item" href="#">{{ item.pseudo }} ({{ item.lastName }} {{ item.firstName }})</a>
+            <hr />
+          </div>
         </div>
       </form>
       <ul class="navbar-nav ms-auto">

@@ -12,6 +12,7 @@ import { UserService } from 'src/app/core/services/user/user.service';
 })
 export class NavbarComponent {
   public user!: User;
+  public testArray: any[] = [];
   public pseudo = new FormControl('');
   public bUser: boolean = false;
 
@@ -35,8 +36,12 @@ export class NavbarComponent {
 
   public searchByPseudo(pseudo: string) {
     this.userService.fetchUserByPseudo(pseudo).subscribe((users) => {
-      if (users[0]) {
-        this.user = users[0];
+      this.testArray = [];
+      users.forEach(user => {
+        this.testArray.push(user)
+      });
+      if (this.testArray[0]) {
+        // this.user = testArray;
         this.bUser = true;
       } else {
         this.bUser = false;
