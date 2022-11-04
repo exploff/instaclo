@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
         this.errorMessage = "Erreur d'authentification";
       } else {
         const user = await this.userService.fetchUserByUID(result.user.uid);
-        user.subscribe((val) => {
+        user.subscribe(async (val) => {
           console.log(val);
           if (val.length > 0) {
             console.log('user exists');
@@ -88,9 +88,10 @@ export class LoginComponent implements OnInit {
               lastName: displayName ? displayName.split(' ')[1] : '',
               pseudo: displayName ? displayName : '',
               bio: "",
-              email: result.user.email ? result.user.email : ''
+              email: result.user.email ? result.user.email : '',
+              keywords: this.userService.generateKeywords(displayName ? displayName : '')
             };
-            this.userService.addNewUser(data);
+            await this.userService.addNewUser(data);
           }
         });
         this.router.navigateByUrl('/user');

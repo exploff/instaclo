@@ -65,9 +65,8 @@ export class AuthenticationService {
       return data;
     } catch (error) {
       console.error(error);
+      throw error;
     }
-
-    return null;
   }
 
   public async signOut(): Promise<void | null> {

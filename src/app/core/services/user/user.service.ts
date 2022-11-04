@@ -75,8 +75,16 @@ export class UserService {
     );
   }
 
+
+  public fetchUserByKeywords(pseudo: string): Observable<User[]> {
+    return this.genericFirestoreService.fetchByKeywords<User>(
+      this.userCollection,
+      pseudo
+    );
+  }
+
   public fetchUserByPseudo(pseudo: string): Observable<User[]> {
-    return this.genericFirestoreService.fetchByPseudo<User>(
+    return this.genericFirestoreService.fetchByProperty<User>(
       this.userCollection,
       'pseudo',
       pseudo
@@ -93,6 +101,7 @@ export class UserService {
   }
 
   public addNewUser(user: User): Promise<DocumentReference<DocumentData>> {
+
     const doc = this.genericFirestoreService.create(this.userCollection, user);
     doc.then((docRef) => {
       user.id = docRef.id;
@@ -113,5 +122,19 @@ export class UserService {
       FIREBASE_COLLECTION_PATHS.USER,
       id
     );
+  }
+
+  public generateKeywords(string: String): string[] {
+    let pseudo = string.toLowerCase();
+    let keywords: string[] = [];
+    let words: string[] = pseudo.split(' ');
+    for (let word of words) {
+      let keyword: string = '';
+      for (let i = 0; i < word.length; i++) {
+        keyword += word[i];
+        keywords.push(keyword);
+      }
+    }
+    return keywords;
   }
 }
