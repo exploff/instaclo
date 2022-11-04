@@ -43,7 +43,7 @@ export class GenericFirestoreService {
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 
-  public fetchByPseudo<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValue: string, maxResult: number = 5):
+  public fetchByPseudo<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValue: string, maxResult: number = 1):
     Observable<T[]> {
     const request = query(collection, orderBy(propertyName, "asc"), startAt(propertyValue.toUpperCase()), endAt(propertyValue.toLowerCase() + "\uf8ff"), limit(maxResult));
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
