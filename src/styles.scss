@@ -9,13 +9,13 @@ $my-typography: mat-typography-config(
 );
 @include mat-core($my-typography);
 
-
 html,
 body {
-  height: 100%;
+  height: 100vh;
 }
 body {
   margin: 0;
+  background-color: #fafafa;
 }
 
 a {
@@ -23,29 +23,10 @@ a {
 }
 
 .main {
-  background-color: #FAFAFA;
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 80px;
   height: 100%;
-  width: 100%;
 }
-
-
-@media screen and (min-width: 600px) {
-  .main {
-    width: 90vw;
-  }
-
-}
-
-@media screen and (min-width: 1200px) {
-  .main {
-    width: 85vw;
-  }
-
-}
-
 
 $my-app-accent: mat-palette($mat-pink, 500, 900, A100);
 $my-app-warn: mat-palette($mat-deep-orange);

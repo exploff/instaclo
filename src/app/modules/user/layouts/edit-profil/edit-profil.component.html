@@ -1,0 +1,91 @@
+<div class="main container-fluid">
+  <div class="container mx-auto">
+    <button routerLink="/user/profil" class="btn btn-secondary">Annuler</button>
+    <h2 class="text-center mb-5 mt-3" style="white-space: nowrap">
+      Modifier mon profil
+    </h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="row text-center mb-5">
+        <div class="col-12 mb-3">
+          <img
+            src="/assets/images/blank-profile.png"
+            alt="image"
+            class="rounded-circle imgProfil"
+            width="105"
+            height="105"
+          />
+        </div>
+        <div class="col-12">Modifier la photo de profil</div>
+      </div>
+      <div class="mb-3 row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            readonly
+            class="form-control-plaintext"
+            id="staticEmail"
+            value="{{ user?.email }}"
+          />
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="firstName" class="col-sm-2 col-form-label">Nom</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            value="{{ user?.firstName }}"
+            [formControl]="firstname"
+            class="form-control"
+            id="firstName"
+          />
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="lastName" class="col-sm-2 col-form-label">Prénom</label>
+        <div class="col-sm-10">
+          <input
+            type="text"
+            value="{{ user?.firstName }}"
+            [formControl]="firstname"
+            class="form-control"
+            id="lastName"
+          />
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="pseudo" class="col-sm-2 col-form-label"
+          >Nom d'utilisateur</label
+        >
+        <div class="col-sm-10">
+          <input
+            type="text"
+            value="{{ user?.pseudo }}"
+            [formControl]="pseudo"
+            class="form-control"
+            id="pseudo"
+          />
+        </div>
+      </div>
+      <div class="mb-3 row">
+        <label for="bio" class="col-sm-2 col-form-label">Bio</label>
+        <div class="col-sm-10">
+          <textarea
+            id="bio"
+            rows="5"
+            cols="33"
+            type="text"
+            value="{{ user?.bio }}"
+            [formControl]="bio"
+            class="form-control"
+          >
+            It my story...
+          </textarea>
+        </div>
+      </div>
+      <div class="text-center mt-5">
+        <button type="submit" class="btn btn-secondary">Terminé</button>
+      </div>
+    </form>
+  </div>
+</div>

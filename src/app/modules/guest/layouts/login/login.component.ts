@@ -26,19 +26,19 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.queryParamMap
-    .subscribe(params => {
-      if (params.get('register')) {
-        this.successMessage = 'Votre compte a bien été créé !';
+      .subscribe(params => {
+        if (params.get('register')) {
+          this.successMessage = 'Votre compte a bien été créé !';
+        }
+        if (params.get('resetPassword')) {
+          this.successMessage = 'Si votre compte existe un email de réinitialisation vous a été envoyé !';
+        }
       }
-      if (params.get('resetPassword')) {
-        this.successMessage = 'Si votre compte existe un email de réinitialisation vous a été envoyé !';
-      }
-    }
-    );
+      );
   }
 
   onSubmit(): void {

@@ -37,6 +37,12 @@ export class AuthenticationService {
     }
   }
 
+  public getUserUID(): string | null {
+    if (this.auth.currentUser) {
+      return this.auth.currentUser.uid;
+    }
+    return null;
+  }
 
   public async signIn(email: string, password: string): Promise<UserCredential | null> {
     try {
