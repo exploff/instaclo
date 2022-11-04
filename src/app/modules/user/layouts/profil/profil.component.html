@@ -1,30 +1,36 @@
 <div class="main container-fluid mx-auto pt-5 pb-5">
   <div class="profil container">
-    <div class="row">
-      <div class="col-4 text-center">
-        <div class="imgProfil" [style.background-image]="'url(' + user.profilImage+ ')'">
-        </div>
-        <!-- <img
-          [src]="user.profilImage"
-          alt="image"
-          class="rounded-circle imgProfil"
-        /> -->
+    <div class="row gx-5">
+      <div class="col-4 col-xs-4 d-flex align-items-center">
+        <img alt="image" class="rounded-circle imgProfil" [style.background-image]="'url(' + user.profilImage+ ')'">
       </div>
-      <div class="col-8">
-        <div class="row">
-          <div class="col-12">
-            <p class="fw-bold firstAndLastname">{{ user.firstName }} {{ user.lastName }}</p>
+      <div class="col-8 mb-2 d-sm-none d-flex align-items-center">
+        <p class="pseudo">{{ user?.pseudo }}</p>
+      </div>
+      <div class="col-12 col-sm-8 mt-3 mt-sm-0">
+        <div class="row h-100">
+          <div class="col-12 mb-2 d-none d-sm-block">
+            <p class="pseudo">{{ user?.pseudo }}</p>
           </div>
-          <div class="col-4">{{ images.length }} photos</div>
-          <div class="col-4">{{ user.follows.length }} follows</div>
-          <div class="col-4">{{ user.followers.length }} followers</div>
-          <div class="col-12">{{ user.pseudo }}</div>
-          <div class="col-12">{{ user.bio }}</div>
+          <div class="col-4 text-center">
+            <span class=" fw-bold">{{ images.length }}</span>
+            <br>
+            <span class="secondTitleNumber">Publications</span>
+          </div>
+          <div class="col-4 text-center">
+            <span class="fw-bold">{{ user.follows.length }}</span>
+            <br>
+            <span class="secondTitleNumber">Followers</span>
+          </div>
+          <div class="col-4 text-center">
+            <span class=" fw-bold">{{ user.followers.length }}</span>
+            <br>
+            <span class="secondTitleNumber">Suivi(e)s</span>
+          </div>
+          <div class="col-12 firstnameLastname mt-3 mb-2 ">{{ user?.firstName }} {{ user?.lastName }}</div>
+          <div class="col-12">{{ user?.bio }}</div>
           <div class="col-12">
-            <button
-              class="btn btn-secondary btn-sm"
-              routerLink="/user/edit-profil"
-            >
+            <button class="btn btn-secondary w-100 btn-sm mt-2" routerLink="/user/edit-profil">
               Modifier le profil
             </button>
           </div>

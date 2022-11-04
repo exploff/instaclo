@@ -1,3 +1,19 @@
 .container {
   padding-bottom: 80px;
 }
+.imgProfil {
+  width: 120px;
+  height: 120px;
+  @media (min-width: 768px) {
+    width: 150px;
+    height: 150px;
+  }
+  @media (min-width: 992px) {
+    width: 180px;
+    height: 180px;
+  }
+  @media (min-width: 1200px) {
+    width: 250px;
+    height: 250px;
+  }
+}

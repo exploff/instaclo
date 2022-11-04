@@ -1,13 +1,21 @@
 .imgProfil {
-  width: 90px;
-  height: 90px;
-  object-fit: cover;
-  border-radius: 50%;
-  background-size: cover;
+  width: 100px;
+  height: 100px;
+
+  //width: 90px;
+  //height: 90px;
+  //object-fit: cover;
+  //border-radius: 50%;
+  //background-size: cover;
 
   @media (min-width: 425px) {
     width: 120px;
     height: 120px;
+  }
+
+  @media (min-width: 575px) {
+    width: 135px;
+    height: 135px;
   }
 
   @media (min-width: 768px) {
@@ -23,12 +31,18 @@
 
   // X-Large devices (large desktops, 1200px and up)
   @media (min-width: 1200px) {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
+    //width: 200px;
+    //height: 200px;
   }
 }
 
-.firstAndLastname {
+.pseudo {
   letter-spacing: 0.1rem;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 700;
+}
+.firstnameLastname{
+  font-size: 15px;
 }
