@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
-import { FIREBASE_COLLECTION_PATHS } from '../../constants/firestore-collection.constant';
-import { GenericFirestoreService } from '../generic-firestore.service';
 import { AggregateField, AggregateQuerySnapshot, collection, CollectionReference, DocumentData, DocumentReference } from "firebase/firestore";
-import { Image } from "../../../modules/user/models/image.model";
 import { Observable } from "rxjs";
+import { FIREBASE_COLLECTION_PATHS } from 'src/app/core/constants/firestore-collection.constant';
+import { GenericFirestoreService } from '../firestore/generic-firestore.service';
+import { Image } from "../../models/image.model";
 
 @Injectable({
   providedIn: 'root'
@@ -49,5 +49,10 @@ export class ImageService {
   }
   public deleteImage(id: string) {
     return this.genericFirestoreService.delete(FIREBASE_COLLECTION_PATHS.IMAGE, id);
+  }
+
+  public fetchUserImages(userID: string): Observable<Image[]> {
+
+    return this.genericFirestoreService.fetchByPropertyiInOrder<Image>(this.imageCollection, "userID", userID ,"createDate");
   }
 }

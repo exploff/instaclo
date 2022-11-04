@@ -1,8 +1,8 @@
 
 export interface Image {
   id : string;
-  name : string;
-  type : string;
+  userID: string;
+  path : string;
   createDate : Date;
   description : string;
 
