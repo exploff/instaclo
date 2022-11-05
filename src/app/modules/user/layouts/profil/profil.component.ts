@@ -16,7 +16,7 @@ import { lastValueFrom, take } from 'rxjs';
 export class ProfilComponent implements OnInit {
 
   id!: number;
-  public user: User | undefined;
+  public user!: User;
   public bio = new FormControl('');
   public isEditable = false;
   images!:Image[];
@@ -48,11 +48,9 @@ export class ProfilComponent implements OnInit {
   }
 
   getUserImages():void {
-    if(this.user){
       this.imageService.fetchUserImages(this.user.id).subscribe((data:Image[])=>{
         this.images=data
       })
-    }
   }
 
   public updateBio(): void {
@@ -68,21 +66,19 @@ export class ProfilComponent implements OnInit {
   }
 
   async onFollowUser(userID:string){
-      if(this.user){
-        //check if userID existe
-        if(!this.user.follows.includes(userID)){
-          this.user.follows.push(userID);
-          //update current user
-          this.userService.updateUser(this.user);
-          let followedUser= await lastValueFrom(this.userService.fetchUserById(userID).pipe(take(1)))
-          followedUser.followers.push(this.user.id);
-          // update followed user
-          this.userService.updateUser(followedUser);
-        }else{
-          // TODO change error handeling
-          throw new Error("le compte que vous essayer de suivre existe déja")
-        }
-      }
+    //check if userID existe
+    if(!this.user.follows.includes(userID)){
+      this.user.follows.push(userID);
+      //update current user
+      this.userService.updateUser(this.user);
+      let followedUser= await lastValueFrom(this.userService.fetchUserById(userID).pipe(take(1)))
+      followedUser.followers.push(this.user.id);
+      // update followed user
+      this.userService.updateUser(followedUser);
+    }else{
+      // TODO change error handeling
+      throw new Error("le compte que vous essayer de suivre existe déja")
+    }
   }
 
   async getCurrentUser():Promise<void>{
