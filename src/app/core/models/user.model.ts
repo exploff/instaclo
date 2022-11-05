@@ -6,5 +6,7 @@ export interface User {
   pseudo: string;
   bio: string;
   email: string;
+  followers:string[];
+  follows:string[];
   keywords: string[];
 }

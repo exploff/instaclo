@@ -8,7 +8,7 @@ import {
   DocumentData,
   DocumentReference,
 } from 'firebase/firestore';
-import { Observable } from 'rxjs';
+import { lastValueFrom, map, Observable, take } from 'rxjs';
 import { FIREBASE_COLLECTION_PATHS } from 'src/app/core/constants/firestore-collection.constant';
 import { GenericFirestoreService } from '../../../modules/user/services/firestore/generic-firestore.service';
 import { User } from '../../models/user.model';
@@ -66,12 +66,10 @@ export class UserService {
     );
   }
 
-  public fetchUserById(id: string): Observable<User[]> {
-    return this.genericFirestoreService.fetchByProperty<User>(
-      this.userCollection,
-      'id',
-      id,
-      1
+  public fetchUserById(id: string): Observable<User> {
+    return this.genericFirestoreService.fetchById<User>(
+       FIREBASE_COLLECTION_PATHS.USER,
+      id
     );
   }
 
@@ -137,4 +135,8 @@ export class UserService {
     }
     return keywords;
   }
+  public async getCurrentUser(uid :string):Promise<User>{
+    return await lastValueFrom(this.fetchUserByUID(uid).pipe(take(1),map(user=>user[0])))
+  }
+
 }

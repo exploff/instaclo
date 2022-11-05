@@ -89,7 +89,9 @@ export class LoginComponent implements OnInit {
               pseudo: displayName ? displayName : '',
               bio: "",
               email: result.user.email ? result.user.email : '',
-              keywords: this.userService.generateKeywords(displayName ? displayName : '')
+              keywords: this.userService.generateKeywords(displayName ? displayName : ''),
+              followers:[],
+              follows:[],
             };
             await this.userService.addNewUser(data);
           }
