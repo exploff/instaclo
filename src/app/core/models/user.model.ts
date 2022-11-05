@@ -1,6 +1,7 @@
 export interface User {
   id: string;
   uid: string;
+  profilImage:string;
   firstName: string;
   lastName: string;
   pseudo: string;

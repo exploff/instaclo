@@ -63,6 +63,7 @@ export class RegisterComponent {
         const data: User = {
           id: '',
           uid: result.user.uid,
+          profilImage:"/assets/images/blank-profile.png",
           firstName: group.controls['firstname'].value!,
           lastName: group.controls['lastname'].value!,
           pseudo: group.controls['pseudo'].value!,
@@ -104,6 +105,7 @@ export class RegisterComponent {
             const data: User = {
               id: "",
               uid: result.user.uid,
+              profilImage:"/assets/images/blank-profile.png",
               firstName: displayName ? displayName.split(' ')[0] : '',
               lastName: displayName ? displayName.split(' ')[1] : '',
               pseudo: displayName ? displayName : '',

@@ -84,6 +84,7 @@ export class LoginComponent implements OnInit {
             const data: User = {
               id: "",
               uid: result.user.uid,
+              profilImage:"/assets/images/blank-profile.png",
               firstName: displayName ? displayName.split(' ')[0] : '',
               lastName: displayName ? displayName.split(' ')[1] : '',
               pseudo: displayName ? displayName : '',
