@@ -12,22 +12,26 @@ import { ImageService } from '../../services/image/image.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  user!: User;
-  listFollowsImages!:Image[]
-  constructor(private authenticationService: AuthenticationService,private userService: UserService,private imageService:ImageService) { }
 
-  async ngOnInit() {
-    await this.getCurrentUser()
-    await this.getlistFollowsImages()
+  public user!: User;
+
+  public listFollowsImages!:Image[];
+
+  constructor(private authenticationService: AuthenticationService, private userService: UserService, private imageService:ImageService) { }
+
+  public async ngOnInit() {
+    await this.getCurrentUser();
+    await this.getListFollowsImages();
   }
 
-  async getlistFollowsImages(){
-    this.listFollowsImages=await this.imageService.fetchUserfollowsImages(this.user)
+  public async getListFollowsImages(){
+    this.listFollowsImages = await this.imageService.fetchUserfollowsImages(this.user);
   }
-  async getCurrentUser():Promise<void>{
-    let uid =this.authenticationService.getUserUID()
-    if(uid){
-      this.user= await this.userService.getCurrentUser(uid)
+
+  public async getCurrentUser():Promise<void>{
+    let uid = this.authenticationService.getUserUID();
+    if (uid) {
+      this.user = await this.userService.getCurrentUser(uid);
     }
   }
 }

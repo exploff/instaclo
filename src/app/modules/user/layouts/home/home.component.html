@@ -1,3 +1,14 @@
-<ng-container *ngFor="let image of listFollowsImages">
-  <app-card-image [image]="image"></app-card-image>
-</ng-container>
+<div class="main container-fluid mx-auto pt-5 pb-5">
+  <div class="container">
+
+    <ng-container *ngFor="let image of listFollowsImages">
+      <div class="row justify-content-center">
+        <div class="col mw-50">
+          <app-card-image [image]="image"></app-card-image>
+        </div>
+      </div>
+    </ng-container>
+
+  </div>
+</div>
+

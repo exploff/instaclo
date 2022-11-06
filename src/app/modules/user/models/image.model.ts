@@ -6,5 +6,5 @@ export interface Image {
   path : string;
   createDate : Timestamp;
   description : string;
-
+  like: string[];
 }

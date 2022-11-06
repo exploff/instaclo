@@ -76,8 +76,8 @@ export class ProfilComponent implements OnInit {
       // update followed user
       this.userService.updateUser(followedUser);
     }else{
-      // TODO change error handeling
-      throw new Error("le compte que vous essayer de suivre existe déja")
+      // TODO : change error handeling et supprimer le follow
+      throw new Error("User already followed")
     }
   }
 

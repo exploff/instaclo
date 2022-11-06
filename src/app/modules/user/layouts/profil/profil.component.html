@@ -2,20 +2,22 @@
   <div class="profil container">
     <div class="row">
       <div class="col-4 text-center">
-        <img
+        <div class="imgProfil" [style.background-image]="'url(' + user.profilImage+ ')'">
+        </div>
+        <!-- <img
           [src]="user.profilImage"
           alt="image"
           class="rounded-circle imgProfil"
-        />
+        /> -->
       </div>
       <div class="col-8">
         <div class="row">
           <div class="col-12">
             <p class="fw-bold firstAndLastname">{{ user.firstName }} {{ user.lastName }}</p>
           </div>
-          <div class="col-4">X photos</div>
-          <div class="col-4">X followin</div>
-          <div class="col-4">X followers</div>
+          <div class="col-4">{{ images.length }} photos</div>
+          <div class="col-4">{{ user.follows.length }} follows</div>
+          <div class="col-4">{{ user.followers.length }} followers</div>
           <div class="col-12">{{ user.pseudo }}</div>
           <div class="col-12">{{ user.bio }}</div>
           <div class="col-12">
