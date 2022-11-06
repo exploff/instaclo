@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user.model';
 import { AuthenticationService } from 'src/app/core/services/authentification/authentification.service';
 import { UserService } from 'src/app/core/services/user/user.service';
@@ -10,7 +10,7 @@ import { UserService } from 'src/app/core/services/user/user.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   public user!: User;
   public testArray: any[] = [];
   public pseudo = new FormControl('');
@@ -19,7 +19,7 @@ export class NavbarComponent {
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
   ) { }
 
   search($event: any) {
@@ -31,7 +31,6 @@ export class NavbarComponent {
         this.searchByPseudo(this.pseudo?.value);
       }
     }
-
   }
 
   public searchByPseudo(pseudo: string) {
@@ -41,7 +40,6 @@ export class NavbarComponent {
         this.testArray.push(user)
       });
       if (this.testArray[0]) {
-        // this.user = testArray;
         this.bUser = true;
       } else {
         this.bUser = false;
@@ -57,4 +55,21 @@ export class NavbarComponent {
       console.log(error);
     }
   }
+
+  ngOnInit(): void {
+    let uid = this.authenticationService.getUserUID();
+    try {
+      if (uid != null) {
+        this.userService.fetchUserByUID(uid).subscribe((users) => {
+          this.user = users[0];
+        });
+      } else {
+        this.router.navigate(['/login']);
+      }
+    } catch (error) {
+      console.error(error);
+      this.router.navigate(['/login']);
+    }
+  }
+
 }

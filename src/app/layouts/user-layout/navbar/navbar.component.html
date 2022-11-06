@@ -7,11 +7,12 @@
       <form class="d-flex flex-column">
         <input class="form-control me-2" type="search" [formControl]="pseudo" (keyup)="search($event)"
           placeholder="Search by name" />
-
         <div class="mt-2 ms-1 dropdownSearch" *ngIf="bUser">
           <div *ngFor="let item of testArray">
-            <!-- <a class="dropdown-item" href="#">{{ item.pseudo }} ({{ item.lastName }} {{ item.firstName }})</a> -->
-            {{item}}
+            <a class="dropdown-item" [routerLink]="['/user/profil/'+item.id]">{{ item.pseudo }} ({{ item.lastName
+              }}
+              {{
+              item.firstName }})</a>
             <hr />
           </div>
         </div>
@@ -29,13 +30,12 @@
       <form class="d-md-flex mx-auto d-none flex-column">
         <input class="form-control me-2" type="search" [formControl]="pseudo" (keyup)="search($event)"
           placeholder="Search by name" />
-        <!-- <div class="mt-2 ms-1 dropdownSearch" *ngIf="bUser">
-          <a class="dropdown-item" href="#">{{ user.pseudo }} ({{ user.lastName }} {{ user.firstName }})</a>
-          <hr />
-        </div> -->
         <div class="mt-2 ms-1 dropdownSearch" *ngIf="bUser">
           <div *ngFor="let item of testArray">
-            <a class="dropdown-item" href="#">{{ item.pseudo }} ({{ item.lastName }} {{ item.firstName }})</a>
+            <a class="dropdown-item" [routerLink]="['/user/profil/'+item.id]">{{ item.pseudo }} ({{ item.lastName
+              }}
+              {{
+              item.firstName }})</a>
             <hr />
           </div>
         </div>
@@ -55,7 +55,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <a class="dropdown-item" [routerLink]="['/user/profil']">Profil</a>
+              <a class="dropdown-item" [routerLink]="['/user/profil/'+user.id]">Profil</a>
             </li>
             <li>
               <a class="dropdown-item" [routerLink]="['/user/edit-profil']">Paramètres</a>
@@ -69,7 +69,7 @@
           </ul>
         </li>
         <li class="nav-item px-3 px-md-0 d-block d-md-none">
-          <a class="nav-link" [routerLink]="['/user/profil']">
+          <a class="nav-link" [routerLink]="['/user/profil/'+user.uid]">
             <i class="bi bi-person-circle"></i>
           </a>
         </li>

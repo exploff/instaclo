@@ -15,15 +15,21 @@ import { lastValueFrom, take } from 'rxjs';
 })
 export class ProfilComponent implements OnInit {
 
-  id!: number;
+  public id!: string;
   public user!: User;
-  public bio = new FormControl('');
-  public isEditable = false;
   images!:Image[];
 
-
-  constructor(private authenticationService: AuthenticationService, private userService: UserService, private router: Router, private route: ActivatedRoute,
-              private imageService:ImageService ) {
+  constructor(private authenticationService: AuthenticationService, private userService: UserService, private router: Router, private route: ActivatedRoute, private imageService:ImageService ) {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      if (params.get('id') !== "") {
+        let id = params.get('id');
+        if (id != null) {
+          this.userService.fetchUserById(id).subscribe((users) => {
+            this.user = users[0];
+          });
+        }
+      }
+    })
   }
 
   async ngOnInit(): Promise<void> {
@@ -32,12 +38,13 @@ export class ProfilComponent implements OnInit {
     this.getUserImages()
   }
 
-
-
   private authentification():void{
     try {
-      if (this.user) {
-          this.bio.setValue(this.user.bio);
+      let uid = this.authenticationService.getUserUID();
+      if (uid != null) {
+        this.userService.fetchUserByUID(uid).subscribe((users) => {
+          this.user = users[0];
+        });
       } else {
         this.router.navigate(['/login']);
       }
@@ -53,17 +60,6 @@ export class ProfilComponent implements OnInit {
       })
   }
 
-  public updateBio(): void {
-    if (this.user) {
-      this.user.bio = this.bio.value == null ? '' : this.bio.value;
-      this.userService.updateUser(this.user);
-    }
-    this.isEditable = false;
-  }
-
-  public editBio(): void {
-    this.isEditable = true;
-  }
 
   async onFollowUser(userID:string){
     //check if userID existe
