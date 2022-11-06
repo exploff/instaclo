@@ -4,6 +4,8 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '
 import { User } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { ImageService } from 'src/app/modules/user/services/image/image.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-card-image',
@@ -20,7 +22,7 @@ export class CardImageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('descriptionUser') description!: ElementRef;
 
-  constructor(private userService:UserService, private imageService: ImageService) { }
+  constructor(public dialog: MatDialog, private userService:UserService, private imageService: ImageService) { }
 
   async ngOnInit(): Promise<void> {
     await this.getImageUser();
@@ -32,8 +34,6 @@ export class CardImageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log(this.description.nativeElement.innerHTML);
-
     var max = 50;
     if (this.description.nativeElement.innerHTML.length > max) {
       this.description.nativeElement.innerHTML = this.description.nativeElement.innerHTML.substring(0, max) + ' ... ';
@@ -57,4 +57,16 @@ export class CardImageComponent implements OnInit, AfterViewInit {
     }
     this.imageService.updateImage(this.image);
   }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '250px',
+      data: {name: "test", animal: "animal"},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
 }
