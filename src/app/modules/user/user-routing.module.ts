@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './layouts/home/home.component';
 import { ProfilComponent } from './layouts/profil/profil.component';
 import { EditProfilComponent } from './layouts/edit-profil/edit-profil.component';
+import { UsersResolverResolver } from './services/resolver/users-resolver.resolver';
 
 const routes: Routes = [
   {
@@ -20,8 +21,11 @@ const routes: Routes = [
         component: HomeComponent,
       },
       {
-        path: 'profil',
+        path: 'profil/:id',
         component: ProfilComponent,
+        resolve: {
+          user: UsersResolverResolver
+        }
       },
       {
         path: 'chat',
@@ -43,4 +47,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserRoutingModule {}
+export class UserRoutingModule { }

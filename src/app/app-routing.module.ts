@@ -9,17 +9,17 @@ const redirectLoggedInToUsers = () => redirectLoggedInTo(["user"]);
 
 const routes: Routes = [
   {
-  component: GuestLayoutComponent,
-  path: "",
-  loadChildren: () => import("./modules/guest/guest.module").then((module) => module.GuestModule),
-  ...canActivate(redirectLoggedInToUsers),
-},
-{
-  component: UserLayoutComponent,
-  path: "user",
-  loadChildren: () => import("./modules/user/user.module").then((module) => module.UserModule),
-  ...canActivate(redirectUnauthorizedToLogin),
-},
+    component: GuestLayoutComponent,
+    path: "",
+    loadChildren: () => import("./modules/guest/guest.module").then((module) => module.GuestModule),
+    ...canActivate(redirectLoggedInToUsers),
+  },
+  {
+    component: UserLayoutComponent,
+    path: "user",
+    loadChildren: () => import("./modules/user/user.module").then((module) => module.UserModule),
+    ...canActivate(redirectUnauthorizedToLogin),
+  },
 
 ]
 

@@ -12,12 +12,24 @@ import { UserService } from 'src/app/core/services/user/user.service';
 })
 export class ProfilComponent implements OnInit {
 
-  id!: number;
+  public id!: string;
   public user: User | undefined;
   public bio = new FormControl('');
   public isEditable = false;
 
   constructor(private authenticationService: AuthenticationService, private userService: UserService, private router: Router, private route: ActivatedRoute) {
+    // let uid = this.authenticationService. getUserUID();
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      if (params.get('id') !== "") {
+        let id = params.get('id');
+        if (id != null) {
+          this.userService.fetchUserById(id).subscribe((users) => {
+            this.user = users[0];
+          });
+        }
+      }
+    })
+
   }
 
   public updateBio(): void {
@@ -33,19 +45,12 @@ export class ProfilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      console.log(params);
-
-      // if (params) {
-      //   this.id = +params.get('id');
-      // }
-    })
+    console.log(this.route.snapshot.data);
     try {
       let uid = this.authenticationService.getUserUID();
       if (uid != null) {
         this.userService.fetchUserByUID(uid).subscribe((users) => {
           this.user = users[0];
-          this.bio.setValue(this.user.bio);
         });
       } else {
         this.router.navigate(['/login']);
