@@ -63,12 +63,15 @@ export class RegisterComponent {
         const data: User = {
           id: '',
           uid: result.user.uid,
+          profilImage:"/assets/images/blank-profile.png",
           firstName: group.controls['firstname'].value!,
           lastName: group.controls['lastname'].value!,
           pseudo: group.controls['pseudo'].value!,
           bio: '',
           email: group.controls['email'].value!,
-          keywords: this.userService.generateKeywords(group.controls['pseudo'].value!)
+          keywords: this.userService.generateKeywords(group.controls['pseudo'].value!),
+          followers:[],
+          follows:[],
         };
         await this.userService.addNewUser(data);
         this.router.navigate(['/login'], { queryParams: { register: 'true' } });
@@ -102,12 +105,15 @@ export class RegisterComponent {
             const data: User = {
               id: "",
               uid: result.user.uid,
+              profilImage:"/assets/images/blank-profile.png",
               firstName: displayName ? displayName.split(' ')[0] : '',
               lastName: displayName ? displayName.split(' ')[1] : '',
               pseudo: displayName ? displayName : '',
               bio: "",
               email: result.user.email ? result.user.email : '',
-              keywords: this.userService.generateKeywords(displayName ? displayName : '')
+              keywords: this.userService.generateKeywords(displayName ? displayName : ''),
+              followers:[],
+              follows:[],
             };
             await this.userService.addNewUser(data);
           }

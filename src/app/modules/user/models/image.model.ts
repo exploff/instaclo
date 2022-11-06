@@ -1,9 +1,10 @@
+import { Timestamp } from "firebase/firestore";
 
 export interface Image {
   id : string;
   userID: string;
   path : string;
-  createDate : Date;
+  createDate : Timestamp;
   description : string;
-
+  like: string[];
 }

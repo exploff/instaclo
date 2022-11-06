@@ -1,10 +1,11 @@
+import { Image } from './../../models/image.model';
 import { Injectable } from '@angular/core';
 import { Firestore } from '@angular/fire/firestore';
 import { AggregateField, AggregateQuerySnapshot, collection, CollectionReference, DocumentData, DocumentReference } from "firebase/firestore";
-import { Observable } from "rxjs";
+import { lastValueFrom, map, Observable, take } from "rxjs";
 import { FIREBASE_COLLECTION_PATHS } from 'src/app/core/constants/firestore-collection.constant';
 import { GenericFirestoreService } from '../firestore/generic-firestore.service';
-import { Image } from "../../models/image.model";
+import { User } from 'src/app/core/models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,25 @@ export class ImageService {
   public fetchUserImages(userID: string): Observable<Image[]> {
 
     return this.genericFirestoreService.fetchByPropertyiInOrder<Image>(this.imageCollection, "userID", userID ,"createDate");
+  }
+
+  public async fetchUserfollowsImages(user: User):Promise<Image[]> {
+    //TODO catch error and limitation for performence
+    let listFollowsId=user.follows
+    let listFollowsImage:Image[]=[];
+
+    let currentUserImages= await lastValueFrom(this.fetchUserImages(user.id).pipe(take(1)))
+
+    for(let image of currentUserImages){
+      listFollowsImage.push(image)
+    }
+    for(let follow of listFollowsId) {
+      let listFollowImage:Image[] =await lastValueFrom(this.fetchUserImages(follow).pipe(take(1)))
+      for(let image of listFollowImage){
+        listFollowsImage.push(image)
+      }
+    }
+
+    return listFollowsImage.sort((a, b)=>b.createDate.toMillis() - a.createDate.toMillis())
   }
 }

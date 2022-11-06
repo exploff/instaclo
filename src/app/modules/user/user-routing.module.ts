@@ -35,6 +35,10 @@ const routes: Routes = [
         path: 'edit-profil',
         component: EditProfilComponent,
       },
+      {
+        path: '**',
+        component: HomeComponent,
+      }
     ],
   },
 ];
