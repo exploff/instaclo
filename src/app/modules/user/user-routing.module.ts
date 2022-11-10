@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './layouts/home/home.component';
 import { ProfilComponent } from './layouts/profil/profil.component';
 import { EditProfilComponent } from './layouts/edit-profil/edit-profil.component';
+import { ChatRoomListComponent } from './layouts/chat-room-list/chat-room-list.component';
 
 const routes: Routes = [
   {
@@ -25,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'chat',
-        component: ChatComponent,
+        component: ChatRoomListComponent,
       },
       {
         path: 'photos',

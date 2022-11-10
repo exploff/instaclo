@@ -3,7 +3,7 @@ import { Firestore } from "@angular/fire/firestore";
 import { AggregateField, AggregateQuerySnapshot, collection, CollectionReference, DocumentData, DocumentReference } from "firebase/firestore";
 import { Observable } from "rxjs";
 import { FIREBASE_COLLECTION_PATHS } from "../../../../core/constants/firestore-collection.constant";
-import { Chat } from "../../models/chat.model";
+import { Chat } from "../../models/chat-room.model";
 import { GenericFirestoreService } from "../firestore/generic-firestore.service";
 
 export class ChatService {
@@ -20,12 +20,6 @@ export class ChatService {
 
   public fetchAll(direction: "asc" | "desc" = "asc"): Observable<Chat[]> {
       return this.genericFirestoreService.fetchAll<Chat>(this.chatCollection, "id", direction);
-  }
-
-  public fetchMoviesByPagination(startAfterChat: string, maxResult: number = 30, direction: "asc" | "desc" = "asc") {
-
-      return this.genericFirestoreService.fetchByPagination<Chat>(this.chatCollection, "id",
-      startAfterChat, maxResult, direction) as Observable<Chat[]>;
   }
 
   public fetchChatById(id: string): Observable<Chat> {
