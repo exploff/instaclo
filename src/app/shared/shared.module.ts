@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialDesignModule } from '../shared/material-design.module';
+import {ClickOutsideDirective} from "./directive/click-outside.directive";
 
 const MODULES = [
   CommonModule,
@@ -16,7 +17,7 @@ const PIPES: any = [];
 
 const COMPONENTS = [...PIPES];
 
-const DIRECTIVES: any = [];
+const DIRECTIVES: any = [ClickOutsideDirective];
 
 @NgModule({
   declarations: [...COMPONENTS, ...DIRECTIVES],

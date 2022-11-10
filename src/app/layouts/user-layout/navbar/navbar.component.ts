@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user.model';
@@ -15,15 +15,26 @@ export class NavbarComponent implements OnInit {
   public userArray: any[] = [];
   public pseudo = new FormControl('');
   public bUser: boolean = false;
+  public focus: boolean = false;
 
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
     private userService: UserService,
+
   ) {
   }
 
+  handleChange() {
+    this.focus = true;
+  }
+
+  onFocus() {
+    this.focus = false;
+  }
+
   search($event: any) {
+    this.focus = false;
     let q = $event.target.value;
     if (q == "") {
       this.bUser = false;
