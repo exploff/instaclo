@@ -1,6 +1,6 @@
 <div class="main container-fluid">
   <div class="container mx-auto">
-    <button routerLink="/user/profil" class="btn btn-secondary">Annuler</button>
+    <button [routerLink]="['/user/profil/'+user?.id]" class="btn btn-secondary">Annuler</button>
     <h2 class="text-center mb-5 mt-3" style="white-space: nowrap">
       Modifier mon profil
     </h2>

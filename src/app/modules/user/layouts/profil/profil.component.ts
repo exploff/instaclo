@@ -16,6 +16,7 @@ import { lastValueFrom, take } from 'rxjs';
 export class ProfilComponent implements OnInit {
 
   public id!: string;
+  public isUserCo = false;
   public user!: User;
   images!:Image[];
 

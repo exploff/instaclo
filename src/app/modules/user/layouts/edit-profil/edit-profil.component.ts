@@ -33,7 +33,7 @@ export class EditProfilComponent implements OnInit {
       this.user.pseudo = this.pseudo.value == null ? '' : this.pseudo.value;
       this.user.bio = this.bio.value == null ? '' : this.bio.value;
       this.userService.updateUser(this.user);
-      this.router.navigate(['/user/profil']);
+      this.router.navigate(['/user/profil/' + this.user.id]);
     }
   }
 

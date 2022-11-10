@@ -12,7 +12,7 @@ import { UserService } from 'src/app/core/services/user/user.service';
 })
 export class NavbarComponent implements OnInit {
   public user!: User;
-  public testArray: any[] = [];
+  public userArray: any[] = [];
   public pseudo = new FormControl('');
   public bUser: boolean = false;
 
@@ -20,7 +20,8 @@ export class NavbarComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private router: Router,
     private userService: UserService,
-  ) { }
+  ) {
+  }
 
   search($event: any) {
     let q = $event.target.value;
@@ -35,11 +36,11 @@ export class NavbarComponent implements OnInit {
 
   public searchByPseudo(pseudo: string) {
     this.userService.fetchUserByKeywords(pseudo).subscribe((users) => {
-      this.testArray = [];
+      this.userArray = [];
       users.forEach(user => {
-        this.testArray.push(user)
+        this.userArray.push(user)
       });
-      if (this.testArray[0]) {
+      if (this.userArray[0]) {
         this.bUser = true;
       } else {
         this.bUser = false;
@@ -60,8 +61,8 @@ export class NavbarComponent implements OnInit {
     let uid = this.authenticationService.getUserUID();
     try {
       if (uid != null) {
-        this.userService.fetchUserByUID(uid).subscribe((users) => {
-          this.user = users[0];
+        this.userService.fetchUserByUID(uid).subscribe((user) => {
+          this.user = user[0];
         });
       } else {
         this.router.navigate(['/login']);
@@ -73,3 +74,5 @@ export class NavbarComponent implements OnInit {
   }
 
 }
+
+

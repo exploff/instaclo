@@ -1,4 +1,4 @@
-<div class="container-fluid pt-2 d-block d-md-none bg-light">
+<div class="container-fluid pt-2 d-block d-md-none bg-light headerSmallScreen">
   <div class="row d-flex align-items-center">
     <div class="col-4">
       <a class="text-dark h2" href="#"> Instaclo</a>
@@ -8,7 +8,7 @@
         <input class="form-control me-2" type="search" [formControl]="pseudo" (keyup)="search($event)"
           placeholder="Search by name" />
         <div class="mt-2 ms-1 dropdownSearch" *ngIf="bUser">
-          <div *ngFor="let item of testArray">
+          <div *ngFor="let item of userArray">
             <a class="dropdown-item" [routerLink]="['/user/profil/'+item.id]">{{ item.pseudo }} ({{ item.lastName
               }}
               {{
@@ -31,7 +31,7 @@
         <input class="form-control me-2" type="search" [formControl]="pseudo" (keyup)="search($event)"
           placeholder="Search by name" />
         <div class="mt-2 ms-1 dropdownSearch" *ngIf="bUser">
-          <div *ngFor="let item of testArray">
+          <div *ngFor="let item of userArray">
             <a class="dropdown-item" [routerLink]="['/user/profil/'+item.id]">{{ item.pseudo }} ({{ item.lastName
               }}
               {{
@@ -55,7 +55,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <a class="dropdown-item" [routerLink]="['/user/profil/'+user.id]">Profil</a>
+              <a class="dropdown-item" *ngIf="user" [routerLink]="['/user/profil/'+user.id]">Profil</a>
             </li>
             <li>
               <a class="dropdown-item" [routerLink]="['/user/edit-profil']">Paramètres</a>
@@ -69,7 +69,7 @@
           </ul>
         </li>
         <li class="nav-item px-3 px-md-0 d-block d-md-none">
-          <a class="nav-link" [routerLink]="['/user/profil/'+user.uid]">
+          <a class="nav-link" *ngIf="user" [routerLink]="['/user/profil/'+user.id]">
             <i class="bi bi-person-circle"></i>
           </a>
         </li>
