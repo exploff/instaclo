@@ -45,6 +45,7 @@ export class ProfilComponent implements OnInit {
       if (uid != null) {
         this.userService.fetchUserByUID(uid).subscribe((users) => {
           this.user = users[0];
+          this.bio.setValue(this.user.bio);
         });
       } else {
         this.router.navigate(['/login']);
