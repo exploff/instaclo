@@ -2,6 +2,10 @@ i {
   font-size: 1.5rem;
   margin: 5px;
 }
+.headerSmallScreen{
+  padding-bottom: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+}
 .dropdownSearch {
   position: absolute;
   top: 55px;
@@ -16,6 +20,8 @@ i {
 }
 
 .navbar {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+
   .navbar-brand {
     display: flex;
     align-items: center;
@@ -55,3 +61,8 @@ input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   display: none;
 }
+
+
+
+
+

@@ -15,48 +15,33 @@ export class ProfilComponent implements OnInit {
   public id!: string;
   public user: User | undefined;
   public bio = new FormControl('');
-  public isEditable = false;
+  public isUserCo = false;
 
   constructor(private authenticationService: AuthenticationService, private userService: UserService, private router: Router, private route: ActivatedRoute) {
-    // let uid = this.authenticationService. getUserUID();
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      if (params.get('id') !== "") {
-        let id = params.get('id');
-        if (id != null) {
-          this.userService.fetchUserById(id).subscribe((users) => {
-            this.user = users[0];
-          });
-        }
-      }
-    })
-
-  }
-
-  public updateBio(): void {
-    if (this.user != undefined) {
-      this.user.bio = this.bio.value == null ? '' : this.bio.value;
-      this.userService.updateUser(this.user);
-    }
-    this.isEditable = false;
-  }
-
-  public editBio(): void {
-    this.isEditable = true;
+    this.route.params.subscribe(() => {
+        this.getUser()
+    });
   }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.data);
     try {
-      let uid = this.authenticationService.getUserUID();
-      if (uid != null) {
-        this.userService.fetchUserByUID(uid).subscribe((users) => {
-          this.user = users[0];
-        });
-      } else {
-        this.router.navigate(['/login']);
-      }
+      this.getUser()
     } catch (error) {
       console.error(error);
+      this.router.navigate(['/login']);
+    }
+  }
+
+  public getUser() {
+    let uid = this.authenticationService.getUserUID();
+    if (uid != null) {
+      if (this.route.snapshot.data['user'][0]['uid'] == uid) {
+        this.isUserCo = true;
+      }else{
+        this.isUserCo = false;
+      }
+      this.user = this.route.snapshot.data['user'][0];
+    } else {
       this.router.navigate(['/login']);
     }
   }

@@ -29,7 +29,7 @@
           </div>
           <div class="col-12 firstnameLastname mt-3 mb-2 ">{{ user?.firstName }} {{ user?.lastName }}</div>
           <div class="col-12">{{ user?.bio }}</div>
-          <div class="col-12">
+          <div class="col-12" *ngIf="isUserCo">
             <button class="btn btn-secondary w-100 btn-sm mt-2" routerLink="/user/edit-profil">
               Modifier le profil
             </button>
