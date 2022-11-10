@@ -1,37 +1,38 @@
-<div class="container-fluid pt-2 d-block d-md-none bg-light headerSmallScreen">
+<div appClickOutside (clickedOutside)="handleChange()">
+<div class="container-fluid pt-2 d-block d-md-none bg-light headerSmallScreen" >
   <div class="row d-flex align-items-center">
     <div class="col-4">
       <a class="text-dark h2" href="#"> Instaclo</a>
     </div>
     <div class="col-8">
       <form class="d-flex flex-column">
-        <input class="form-control me-2" type="search" [formControl]="pseudo" (keyup)="search($event)"
+        <input class="form-control me-2" type="search" [formControl]="pseudo" (keyup)="search($event)" (focus)="onFocus()"
           placeholder="Search by name" />
-        <div class="mt-2 ms-1 dropdownSearch" *ngIf="bUser">
-          <div *ngFor="let item of userArray">
-            <a class="dropdown-item" [routerLink]="['/user/profil/'+item.id]">{{ item.pseudo }} ({{ item.lastName
-              }}
-              {{
-              item.firstName }})</a>
-            <hr />
-          </div>
-        </div>
       </form>
+      <div class="dropdownSearch me-2" *ngIf="bUser && !focus" >
+        <div *ngFor="let item of userArray">
+          <a class="dropdown-item" [routerLink]="['/user/profil/'+item.id]">{{ item.pseudo }} ({{ item.lastName
+            }}
+            {{
+            item.firstName }})</a>
+          <hr />
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<nav class="navbar navbar-expand navbar-light bg-light">
+<nav class="navbar navbar-expand navbar-light bg-light" >
   <div class="container-fluid">
     <a class="navbar-brand ms-3 h2 text-dark" href="#"><img src="/assets/images/instaclo.png" width="36" height="36"
         class="me-2" />
       Instaclo</a>
     <div class="navbarContent" id="navbarSupportedContent">
       <form class="d-md-flex mx-auto d-none flex-column">
-        <input class="form-control me-2" type="search" [formControl]="pseudo" (keyup)="search($event)"
+        <input class="form-control me-2" type="search" [formControl]="pseudo" (keyup)="search($event)" (focus)="onFocus()"
           placeholder="Search by name" />
-        <div class="mt-2 ms-1 dropdownSearch" *ngIf="bUser">
-          <div *ngFor="let item of userArray">
+        <div class="ms-1 dropdownSearch" *ngIf="bUser && !focus" >
+          <div *ngFor="let item of userArray" >
             <a class="dropdown-item" [routerLink]="['/user/profil/'+item.id]">{{ item.pseudo }} ({{ item.lastName
               }}
               {{
@@ -81,3 +82,4 @@
     </div>
   </div>
 </nav>
+</div>
