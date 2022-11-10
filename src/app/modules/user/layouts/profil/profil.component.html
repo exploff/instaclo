@@ -2,33 +2,33 @@
   <div class="profil container">
     <div class="row gx-5">
       <div class="col-4 col-xs-4 d-flex align-items-center">
-        <img alt="image" class="rounded-circle imgProfil" [style.background-image]="'url(' + user.profilImage+ ')'">
+        <img class="rounded-circle imgProfil" [style.background-image]="'url(' + user.profilImage + ')'">
       </div>
       <div class="col-8 mb-2 d-sm-none d-flex align-items-center">
-        <p class="pseudo">{{ user?.pseudo }}</p>
+        <p class="pseudo">{{ user.pseudo }}</p>
       </div>
       <div class="col-12 col-sm-8 mt-3 mt-sm-0">
         <div class="row h-100">
           <div class="col-12 mb-2 d-none d-sm-block">
-            <p class="pseudo">{{ user?.pseudo }}</p>
+            <p class="pseudo">{{ user.pseudo }}</p>
           </div>
           <div class="col-4 text-center">
-            <span class=" fw-bold">{{ images.length }}</span>
+            <span class="fw-bold">{{ imageLength }}</span>
             <br>
             <span class="secondTitleNumber">Publications</span>
           </div>
           <div class="col-4 text-center">
-            <span class="fw-bold">{{ user.follows.length }}</span>
+            <span class="fw-bold">{{ followLength }}</span>
             <br>
             <span class="secondTitleNumber">Followers</span>
           </div>
           <div class="col-4 text-center">
-            <span class=" fw-bold">{{ user.followers.length }}</span>
+            <span class=" fw-bold">{{ followerLength }}</span>
             <br>
             <span class="secondTitleNumber">Suivi(e)s</span>
           </div>
-          <div class="col-12 firstnameLastname mt-3 mb-2 ">{{ user?.firstName }} {{ user?.lastName }}</div>
-          <div class="col-12">{{ user?.bio }}</div>
+          <div class="col-12 firstnameLastname mt-3 mb-2 ">{{ user.firstName }} {{ user.lastName }}</div>
+          <div class="col-12">{{ user.bio }}</div>
           <div class="col-12" *ngIf="isUserCo">
             <button class="btn btn-secondary w-100 btn-sm mt-2" routerLink="/user/edit-profil">
               Modifier le profil

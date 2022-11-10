@@ -7,13 +7,12 @@
     <form (ngSubmit)="onSubmit()">
       <div class="row text-center mb-5">
         <div class="col-12 mb-3">
-          <img src="/assets/images/blank-profile.png" alt="image" class="rounded-circle imgProfil" width="105"
-            height="105" />
+          <img class="rounded-circle imgProfil" [style.background-image]="'url(' + user?.profilImage + ')'">
         </div>
         <div class="col-12">Modifier la photo de profil</div>
       </div>
       <div class="mb-3 row">
-        <label for="inputPassword" class="col-sm-2 col-form-label">Email</label>
+        <label class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-10">
           <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{ user?.email }}" />
         </div>

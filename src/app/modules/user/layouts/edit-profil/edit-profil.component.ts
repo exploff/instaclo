@@ -41,8 +41,8 @@ export class EditProfilComponent implements OnInit {
     try {
       let uid = this.authenticationService.getUserUID();
       if (uid != null) {
-        this.userService.fetchUserByUID(uid).subscribe((users) => {
-          this.user = users[0];
+        this.userService.fetchUserByUID(uid).subscribe((user) => {
+          this.user = user[0];
           this.bio.setValue(this.user.bio);
           this.firstname.setValue(this.user.firstName);
           this.lastname.setValue(this.user.lastName);

@@ -19,49 +19,51 @@ export class ProfilComponent implements OnInit {
   public isUserCo = false;
   public user!: User;
   images!:Image[];
+  public followLength: number = 0;
+  public followerLength: number = 0;
+  public imageLength: number = 0;
 
   constructor(private authenticationService: AuthenticationService, private userService: UserService, private router: Router, private route: ActivatedRoute, private imageService:ImageService ) {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      if (params.get('id') !== "") {
-        let id = params.get('id');
-        if (id != null) {
-          this.userService.fetchUserById(id).subscribe((users) => {
-            this.user = users[0];
-          });
-        }
-      }
-    })
+    this.route.params.subscribe(() => {
+      this.getUser()
+    });
   }
 
-  async ngOnInit(): Promise<void> {
-    await this.getCurrentUser()
-    this.authentification()
-    this.getUserImages()
+    ngOnInit(): void {
+    this.getUser()
   }
 
-  private authentification():void{
-    try {
-      let uid = this.authenticationService.getUserUID();
-      if (uid != null) {
-        this.userService.fetchUserByUID(uid).subscribe((users) => {
-          this.user = users[0];
-          this.bio.setValue(this.user.bio);
-        });
-      } else {
-        this.router.navigate(['/login']);
+  getUser() {
+    let uid = this.authenticationService.getUserUID();
+    if (uid != null) {
+      if (this.route.snapshot.data['user']['uid'] == uid) {
+        this.isUserCo = true;
+      }else{
+        this.isUserCo = false;
       }
-    } catch (error) {
-      console.error(error);
-      this.router.navigate(['/login']);
+      this.user = this.route.snapshot.data['user'];
+      if (this.user.followers != undefined) {
+        this.followerLength = this.user.followers.length;
+      }else{
+        this.followerLength = 0;
+      }
+      if (this.user.follows != undefined) {
+        this.followLength = this.user.follows.length;
+      }else {
+        this.followLength = 0;
+      }
+      this.getUserImages(this.user.id);
+    } else {
+       this.router.navigate(['/login']);
     }
   }
 
-  getUserImages():void {
-      this.imageService.fetchUserImages(this.user.id).subscribe((data:Image[])=>{
-        this.images=data
+  getUserImages(id: string):void {
+      this.imageService.fetchUserImages(id).subscribe((data:Image[])=>{
+        this.images=data;
+        this.imageLength = data.length;
       })
   }
-
 
   async onFollowUser(userID:string){
     //check if userID existe
@@ -79,10 +81,10 @@ export class ProfilComponent implements OnInit {
     }
   }
 
-  async getCurrentUser():Promise<void>{
-    let uid =this.authenticationService.getUserUID()
-    if(uid){
-      this.user= await this.userService.getCurrentUser(uid)
-    }
-  }
+  // async getCurrentUser():Promise<void>{
+  //   let uid =this.authenticationService.getUserUID()
+  //   if(uid){
+  //     this.user= await this.userService.getCurrentUser(uid)
+  //   }
+  // }
 }
