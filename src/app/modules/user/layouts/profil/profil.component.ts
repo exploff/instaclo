@@ -19,8 +19,6 @@ export class ProfilComponent implements OnInit {
   public isUserCo = false;
   public user!: User;
   images!:Image[];
-  public followLength: number = 0;
-  public followerLength: number = 0;
   public imageLength: number = 0;
 
   constructor(private authenticationService: AuthenticationService, private userService: UserService, private router: Router, private route: ActivatedRoute, private imageService:ImageService ) {
@@ -41,17 +39,8 @@ export class ProfilComponent implements OnInit {
       }else{
         this.isUserCo = false;
       }
+      console.log(this.route.snapshot.data['user']);
       this.user = this.route.snapshot.data['user'];
-      if (this.user.followers != undefined) {
-        this.followerLength = this.user.followers.length;
-      }else{
-        this.followerLength = 0;
-      }
-      if (this.user.follows != undefined) {
-        this.followLength = this.user.follows.length;
-      }else {
-        this.followLength = 0;
-      }
       this.getUserImages(this.user.id);
     } else {
        this.router.navigate(['/login']);

@@ -16,7 +16,7 @@ export class UsersResolverResolver implements Resolve<User> {
       return this.userService.fetchUserById(id);
     }else{
       return new Observable<User>();
-      // return this.userService.fetchAll();
     }
   }
 }
+
