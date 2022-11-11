@@ -6,6 +6,7 @@ import { ProfilComponent } from './layouts/profil/profil.component';
 import { EditProfilComponent } from './layouts/edit-profil/edit-profil.component';
 import { UsersResolverResolver } from './services/resolver/users-resolver.resolver';
 import {ChatListComponent} from "./layouts/chat-list/chat-list.component";
+import {ChatRoomResolverResolver} from "./services/resolver/chat-room-resolver.resolver";
 
 const routes: Routes = [
   {
@@ -30,6 +31,9 @@ const routes: Routes = [
       {
         path: 'chat',
         component: ChatListComponent,
+        resolve: {
+          chatRooms: ChatRoomResolverResolver
+        }
       },
       {
         path: 'photos',

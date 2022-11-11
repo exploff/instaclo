@@ -6,6 +6,8 @@ import {AuthenticationService} from "../../../../core/services/authentification/
 import {User} from "../../../../core/models/user.model";
 import {ChatRoomService} from "../../services/chat-room/chat-room.service";
 import {ChatRoom} from "../../models/chat-room.model";
+import {ActivatedRoute} from "@angular/router";
+import {Chat} from "../../models/chat.model";
 
 
 @Component({
@@ -13,38 +15,22 @@ import {ChatRoom} from "../../models/chat-room.model";
   templateUrl: './chat-list.component.html',
   styleUrls: ['./chat-list.component.scss']
 })
+
 export class ChatListComponent implements OnInit {
 
   private user!: User;
   public chatRoom: ChatRoom[] = [];
-  public myUserFriend: User[] = [];
-  constructor(private chatRoomService : ChatRoomService, private chatService : ChatService, private userService : UserService, private authService : AuthenticationService) { }
+  public chat: Chat[] = [];
 
-
-  async getChatRoom() {
-    let uid = this.authService.getUserUID();
-    if (uid ) {
-      this.user = await this.userService.getCurrentUser(uid);
-    }
-    //TODO : need resolver fuck async await
-    this.chatRoomService.fetchChatRoomByUserId(this.user.id).subscribe((chatRoom) => {
-      this.chatRoom = chatRoom;
-      this.chatRoom[0].users.forEach((item) => {
-        console.log(item);
-        this.getUserInChatRoom(item);
-      })
-    });
+  constructor(private route : ActivatedRoute, private chatRoomService: ChatRoomService, private chatService: ChatService, private userService: UserService, private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
-    this.getChatRoom()
+    this.chatRoom = this.route.snapshot.data['chatRooms'];
   }
 
+  openChat(chatId: string) {
 
-  getUserInChatRoom(id: string) {
-    this.userService.fetchUserById(id).subscribe((user) => {
-      this.myUserFriend.push(user);
-    })
   }
 
 }

@@ -1,12 +1,64 @@
-<p>chat-list works!</p>
-<app-chat></app-chat>
-<!--div foreach user already discuss + click inside to open chat + search bar all user in firebase-->
+<div class="container-fluid bootstrap snippets bootdey">
+  <div class="tile tile-alt" id="messages-main">
+    <div class="ms-menu" *ngFor="let chat of chatRoom">
+      <div class="list-group lg-alt"  *ngFor="let user of chat.users">
+        <a class="list-group-item media" href="">
+          <div class="media-body">
+            <strong class="list-group-item-heading">{{user.pseudo}}</strong>
+          </div>
+        </a>
+      </div>
+    </div>
 
-<div class="mt-5" *ngFor="let item of chatRoom">
-  <p>
-    <span class="text-danger">{{item.id}}</span>
-    <br>
-    <small *ngFor="let user of myUserFriend">{{user.pseudo}}</small>
-  </p>
-  <hr>
+    <div class="ms-body">
+      <div class="action-header clearfix">
+        <div class="visible-xs" id="ms-menu-trigger">
+          <i class="fa fa-bars"></i>
+        </div>
+
+        <div class="pull-left hidden-xs">
+          <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar m-r-10">
+          <div class="lv-avatar pull-left">
+          </div>
+          <span>David Parbell</span>
+        </div>
+      </div>
+      <div class="message-feed right">
+        <div class="pull-right">
+          <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" class="img-avatar">
+        </div>
+        <div class="media-body">
+          <div class="mf-content">
+            Mauris volutpat magna nibh, et condimentum est rutrum a. Nunc sed turpis mi. In eu massa a sem pulvinar lobortis.
+          </div>
+          <small class="mf-date"><i class="fa fa-clock-o"></i> 20/02/2015 at 09:30</small>
+        </div>
+      </div>
+      <div class="message-feed media">
+        <div class="pull-left">
+          <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="img-avatar">
+        </div>
+        <div class="media-body">
+          <div class="mf-content">
+            Etiam ex arcumentum
+          </div>
+          <small class="mf-date"><i class="fa fa-clock-o"></i> 20/02/2015 at 09:33</small>
+        </div>
+      </div>
+      <div class="msb-reply">
+        <form>
+          <mat-form-field appearance="fill">
+            <mat-label>Entrez votre adresse email</mat-label>
+            <textarea
+              placeholder="What's on your mind..."
+              formControlName="message"
+            >
+            </textarea>
+          </mat-form-field>
+
+        <button type="submit" class="btn">Send</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
