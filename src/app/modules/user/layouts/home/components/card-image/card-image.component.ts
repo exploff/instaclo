@@ -32,8 +32,6 @@ export class CardImageComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log(this.description.nativeElement.innerHTML);
-
     var max = 50;
     if (this.description.nativeElement.innerHTML.length > max) {
       this.description.nativeElement.innerHTML = this.description.nativeElement.innerHTML.substring(0, max) + ' ... ';

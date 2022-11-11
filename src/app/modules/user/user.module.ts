@@ -12,5 +12,5 @@ import { UserRoutingModule } from './user-routing.module';
   imports: [SharedModule, UserRoutingModule],
   exports: [],
 })
-export class UserModule {}
+export class UserModule { }
 //TODO guest module

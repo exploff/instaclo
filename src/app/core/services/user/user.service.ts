@@ -31,7 +31,7 @@ export class UserService {
 
   public async countAll(): Promise<
     AggregateQuerySnapshot<{ count: AggregateField<number> }>
-  > {
+    > {
     return await this.genericFirestoreService.count(this.userCollection);
   }
 
@@ -68,7 +68,7 @@ export class UserService {
 
   public fetchUserById(id: string): Observable<User> {
     return this.genericFirestoreService.fetchById<User>(
-       FIREBASE_COLLECTION_PATHS.USER,
+      FIREBASE_COLLECTION_PATHS.USER,
       id
     );
   }

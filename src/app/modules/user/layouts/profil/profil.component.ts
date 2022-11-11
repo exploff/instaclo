@@ -15,54 +15,43 @@ import { lastValueFrom, take } from 'rxjs';
 })
 export class ProfilComponent implements OnInit {
 
-  id!: number;
+  public id!: string;
+  public isUserCo = false;
   public user!: User;
-  public bio = new FormControl('');
-  public isEditable = false;
   images!:Image[];
+  public imageLength: number = 0;
 
-
-  constructor(private authenticationService: AuthenticationService, private userService: UserService, private router: Router, private route: ActivatedRoute,
-              private imageService:ImageService ) {
+  constructor(private authenticationService: AuthenticationService, private userService: UserService, private router: Router, private route: ActivatedRoute, private imageService:ImageService ) {
+    this.route.params.subscribe(() => {
+      this.getUser()
+    });
   }
 
-  async ngOnInit(): Promise<void> {
-    await this.getCurrentUser()
-    this.authentification()
-    this.getUserImages()
+    ngOnInit(): void {
+    this.getUser()
   }
 
-
-
-  private authentification():void{
-    try {
-      if (this.user) {
-          this.bio.setValue(this.user.bio);
-      } else {
-        this.router.navigate(['/login']);
+  getUser() {
+    let uid = this.authenticationService.getUserUID();
+    if (uid != null) {
+      if (this.route.snapshot.data['user']['uid'] == uid) {
+        this.isUserCo = true;
+      }else{
+        this.isUserCo = false;
       }
-    } catch (error) {
-      console.error(error);
-      this.router.navigate(['/login']);
+      console.log(this.route.snapshot.data['user']);
+      this.user = this.route.snapshot.data['user'];
+      this.getUserImages(this.user.id);
+    } else {
+       this.router.navigate(['/login']);
     }
   }
 
-  getUserImages():void {
-      this.imageService.fetchUserImages(this.user.id).subscribe((data:Image[])=>{
-        this.images=data
+  getUserImages(id: string):void {
+      this.imageService.fetchUserImages(id).subscribe((data:Image[])=>{
+        this.images=data;
+        this.imageLength = data.length;
       })
-  }
-
-  public updateBio(): void {
-    if (this.user) {
-      this.user.bio = this.bio.value == null ? '' : this.bio.value;
-      this.userService.updateUser(this.user);
-    }
-    this.isEditable = false;
-  }
-
-  public editBio(): void {
-    this.isEditable = true;
   }
 
   async onFollowUser(userID:string){
@@ -81,10 +70,10 @@ export class ProfilComponent implements OnInit {
     }
   }
 
-  async getCurrentUser():Promise<void>{
-    let uid =this.authenticationService.getUserUID()
-    if(uid){
-      this.user= await this.userService.getCurrentUser(uid)
-    }
-  }
+  // async getCurrentUser():Promise<void>{
+  //   let uid =this.authenticationService.getUserUID()
+  //   if(uid){
+  //     this.user= await this.userService.getCurrentUser(uid)
+  //   }
+  // }
 }

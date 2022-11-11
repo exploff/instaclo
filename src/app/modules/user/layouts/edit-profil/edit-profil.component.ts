@@ -33,7 +33,7 @@ export class EditProfilComponent implements OnInit {
       this.user.pseudo = this.pseudo.value == null ? '' : this.pseudo.value;
       this.user.bio = this.bio.value == null ? '' : this.bio.value;
       this.userService.updateUser(this.user);
-      this.router.navigate(['/user/profil']);
+      this.router.navigate(['/user/profil/' + this.user.id]);
     }
   }
 
@@ -41,8 +41,8 @@ export class EditProfilComponent implements OnInit {
     try {
       let uid = this.authenticationService.getUserUID();
       if (uid != null) {
-        this.userService.fetchUserByUID(uid).subscribe((users) => {
-          this.user = users[0];
+        this.userService.fetchUserByUID(uid).subscribe((user) => {
+          this.user = user[0];
           this.bio.setValue(this.user.bio);
           this.firstname.setValue(this.user.firstName);
           this.lastname.setValue(this.user.lastName);
