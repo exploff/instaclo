@@ -32,8 +32,10 @@ export class ChatRoomService {
   }
 
   public fetchChatRoomByUserId(id: string): Observable<ChatRoom[]> {
-    console.log("fetchChatRoomByUserId", id);
     return this.genericFirestoreService.fetchByPropertyiInOrder<ChatRoom>(this.chatRoomCollection, "user_id", id, "created_date", "desc");
+  }
+  public fetchChatRoomByUserUid(uid: string): Observable<ChatRoom[]> {
+    return this.genericFirestoreService.fetchByPropertyiInOrder<ChatRoom>(this.chatRoomCollection, "user_uid", uid, "created_date", "desc");
   }
 
   public addNewChatRoom(chatRoom: ChatRoom): Promise<DocumentReference<DocumentData>> {
