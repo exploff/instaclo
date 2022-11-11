@@ -4,6 +4,8 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '
 import { User } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { ImageService } from 'src/app/modules/user/services/image/image.service';
+import { HomeResolverModel } from '../../models/HomeResolverModel';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-card-image',
@@ -11,6 +13,7 @@ import { ImageService } from 'src/app/modules/user/services/image/image.service'
   styleUrls: ['./card-image.component.scss']
 })
 export class CardImageComponent implements OnInit, AfterViewInit {
+  private resolverData!:HomeResolverModel;
 
   @Input()image!:Image;
 
@@ -20,15 +23,28 @@ export class CardImageComponent implements OnInit, AfterViewInit {
 
   @ViewChild('descriptionUser') description!: ElementRef;
 
-  constructor(private userService:UserService, private imageService: ImageService) { }
+  constructor(private userService:UserService, private imageService: ImageService,private route: ActivatedRoute) { }
 
-  async ngOnInit(): Promise<void> {
-    await this.getImageUser();
+  ngOnInit(): void {
+    this.route.params.subscribe()
+    this.resolverData=this.route.snapshot.data['user']
+
+    this.getImageUser();
     this.likedImage = this.image.like.includes(this.user.id) ? 'red' : '';
   }
 
-  async getImageUser() {
-    this.user = await lastValueFrom(this.userService.fetchUserById(this.image.userID).pipe(take(1)));
+  getImageUser() {
+    let returnUser!:User
+   this.resolverData.listFollowedUsers.forEach((user:User)=>{
+    if(user.id === this.image.userID){
+      returnUser=user
+    }
+   })
+    if(returnUser){
+      this.user =returnUser
+    }else{
+       this.user =this.resolverData.currentUser
+    }
   }
 
   ngAfterViewInit() {

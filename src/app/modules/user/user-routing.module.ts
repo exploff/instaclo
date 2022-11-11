@@ -1,3 +1,4 @@
+import { HomeResolverResolver } from './services/resolver/home-resolver.resolver';
 import { PhotosComponent } from './layouts/photos/photos.component';
 import { ChatComponent } from './layouts/chat/chat.component';
 import { NgModule } from '@angular/core';
@@ -19,6 +20,9 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
+        resolve: {
+          user: HomeResolverResolver
+        }
       },
       {
         path: 'profil/:id',
