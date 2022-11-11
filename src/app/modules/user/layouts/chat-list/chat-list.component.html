@@ -1,0 +1,12 @@
+<p>chat-list works!</p>
+<app-chat></app-chat>
+<!--div foreach user already discuss + click inside to open chat + search bar all user in firebase-->
+
+<div class="mt-5" *ngFor="let item of chatRoom">
+  <p>
+    <span class="text-danger">{{item.id}}</span>
+    <br>
+    <small *ngFor="let user of myUserFriend">{{user.pseudo}}</small>
+  </p>
+  <hr>
+</div>

@@ -6,6 +6,9 @@ import { FIREBASE_COLLECTION_PATHS } from "../../../../core/constants/firestore-
 import { Chat } from "../../models/chat.model";
 import { GenericFirestoreService } from "../firestore/generic-firestore.service";
 
+@Injectable({
+  providedIn: "root",
+})
 export class ChatService {
 
   private chatCollection: CollectionReference<DocumentData>;

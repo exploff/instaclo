@@ -6,9 +6,11 @@ import { HomeComponent } from './layouts/home/home.component';
 import { ProfilComponent } from './layouts/profil/profil.component';
 
 import { UserRoutingModule } from './user-routing.module';
+import { ChatListComponent } from './layouts/chat-list/chat-list.component';
+import {ChatComponent} from "./layouts/chat/chat.component";
 
 @NgModule({
-  declarations: [ProfilComponent, EditProfilComponent,HomeComponent,CardImageComponent],
+  declarations: [ProfilComponent, EditProfilComponent, HomeComponent, CardImageComponent, ChatListComponent, ChatComponent],
   imports: [SharedModule, UserRoutingModule],
   exports: [],
 })
