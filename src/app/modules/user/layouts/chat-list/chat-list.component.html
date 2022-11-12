@@ -1,0 +1,23 @@
+<div class="container border mt-5">
+  <div class="row">
+    <div class="col-4 border">
+
+      <span *ngFor="let chatRoom of chatRooms">
+        <div class="row" *ngFor="let user of chatRoom.users">
+          <div class="col d-flex align-items-center justify-content-left link-chat border" (click)="openChat(user.id)">
+              <div class="">
+                <strong class="">{{user.pseudo}}</strong>
+              </div>
+          </div>
+        </div>
+      </span>
+
+    </div>
+    <div class="col-8 border">
+      <span *ngIf="chatWithUser !== undefined">
+        <app-chat [chatWithUser]="chatWithUser"></app-chat>
+      </span>
+    </div>
+  </div>
+</div>
+

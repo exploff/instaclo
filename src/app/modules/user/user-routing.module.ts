@@ -1,12 +1,13 @@
 import { HomeResolverResolver } from './services/resolver/home-resolver.resolver';
 import { PhotosComponent } from './layouts/photos/photos.component';
-import { ChatComponent } from './layouts/chat/chat.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './layouts/home/home.component';
 import { ProfilComponent } from './layouts/profil/profil.component';
 import { EditProfilComponent } from './layouts/edit-profil/edit-profil.component';
 import { UsersResolverResolver } from './services/resolver/users-resolver.resolver';
+import {ChatListComponent} from "./layouts/chat-list/chat-list.component";
+import {ChatRoomResolverResolver} from "./services/resolver/chat-room-resolver.resolver";
 
 const routes: Routes = [
   {
@@ -25,6 +26,14 @@ const routes: Routes = [
         }
       },
       {
+        path: 'profil',
+        component: ProfilComponent,
+        resolve: {
+          user: UsersResolverResolver
+        },
+        pathMatch: 'full'
+      },
+      {
         path: 'profil/:id',
         component: ProfilComponent,
         resolve: {
@@ -33,7 +42,19 @@ const routes: Routes = [
       },
       {
         path: 'chat',
-        component: ChatComponent,
+        component: ChatListComponent,
+        resolve: {
+          chatRooms: ChatRoomResolverResolver,
+        },
+        pathMatch: 'full'
+      },
+      {
+        path: 'chat/:id',
+        component: ChatListComponent,
+        resolve: {
+          chatRooms: ChatRoomResolverResolver,
+          chatWithUser: UsersResolverResolver
+        }
       },
       {
         path: 'photos',

@@ -18,12 +18,12 @@
             <span class="secondTitleNumber">Publications</span>
           </div>
           <div class="col-4 text-center">
-            <span class="fw-bold">{{ user.follows.length }}</span>
+            <span class="fw-bold">{{ user.followers.length }}</span>
             <br>
             <span class="secondTitleNumber">Followers</span>
           </div>
           <div class="col-4 text-center">
-            <span class="fw-bold">{{ user.followers.length }}</span>
+            <span class="fw-bold">{{ user.follows.length }}</span>
             <br>
             <span class="secondTitleNumber">Suivi(e)s</span>
           </div>
@@ -32,6 +32,27 @@
           <div class="col-12" *ngIf="isUserCo">
             <button class="btn btn-secondary w-100 btn-sm mt-2" routerLink="/user/edit-profil">
               Modifier le profil
+            </button>
+          </div>
+          <div class="col-12 d-flex justify-content-evenly" *ngIf="!isUserCo">
+            <div *ngIf="errorMessage !== ''">
+              <div class="alert alert-danger mx-auto" role="alert">
+                <i class="bi bi-exclamation-triangle" style="font-size: 1.05rem"></i>
+                {{ errorMessage }}
+              </div>
+            </div>
+
+            <button class="btn btn-secondary w-25 btn-sm mt-2" (click)="sendChat(user.id)">
+              Ecrire
+            </button>
+
+            <button class="btn btn-secondary w-25 btn-sm mt-2" (click)="onFollowUser()">
+              <span *ngIf="!user.followers.includes(userUid)">
+                Follow
+              </span>
+              <span *ngIf="user.followers.includes(userUid)">
+                Unfollow
+              </span>
             </button>
           </div>
         </div>

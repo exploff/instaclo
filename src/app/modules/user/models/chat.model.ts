@@ -1,6 +1,9 @@
+import {User} from "../../../core/models/user.model";
+
 export interface Chat {
   id : string;
-  fromUser : string;
-  toUser : string;
-  message: string
+  id_chat_room : Pick<Chat , 'id'>;
+  id_user : Pick<User , 'id'>;
+  message : string;
+  date_created : string;
 }
