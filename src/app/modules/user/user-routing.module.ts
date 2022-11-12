@@ -22,6 +22,14 @@ const routes: Routes = [
         component: HomeComponent,
       },
       {
+        path: 'profil',
+        component: ProfilComponent,
+        resolve: {
+          user: UsersResolverResolver
+        },
+        pathMatch: 'full'
+      },
+      {
         path: 'profil/:id',
         component: ProfilComponent,
         resolve: {
@@ -32,7 +40,16 @@ const routes: Routes = [
         path: 'chat',
         component: ChatListComponent,
         resolve: {
-          chatRooms: ChatRoomResolverResolver
+          chatRooms: ChatRoomResolverResolver,
+        },
+        pathMatch: 'full'
+      },
+      {
+        path: 'chat/:id',
+        component: ChatListComponent,
+        resolve: {
+          chatRooms: ChatRoomResolverResolver,
+          chatWithUser: UsersResolverResolver
         }
       },
       {

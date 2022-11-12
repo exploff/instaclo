@@ -39,7 +39,12 @@ export class ChatRoomService {
   }
 
   public addNewChatRoom(chatRoom: ChatRoom): Promise<DocumentReference<DocumentData>> {
-    return this.genericFirestoreService.create(this.chatRoomCollection, chatRoom);
+    const doc = this.genericFirestoreService.create(this.chatRoomCollection, chatRoom);
+    doc.then((docRef) => {
+      chatRoom.id = docRef.id;
+      this.updateChatRoom(chatRoom);
+    });
+    return doc;
   }
 
   public updateChatRoom(chatRoom: ChatRoom): Promise<void> {
