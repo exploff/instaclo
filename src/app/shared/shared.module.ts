@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialDesignModule } from '../shared/material-design.module';
 import {ClickOutsideDirective} from "./directive/click-outside.directive";
+import { QRCodeModule } from "angularx-qrcode";
 
 const MODULES = [
   CommonModule,
@@ -11,6 +12,7 @@ const MODULES = [
   ReactiveFormsModule,
   RouterModule,
   MaterialDesignModule,
+  QRCodeModule
 ];
 
 const PIPES: any = [];

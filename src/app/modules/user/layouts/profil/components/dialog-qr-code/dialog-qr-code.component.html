@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>QRCode</h1>
+<div mat-dialog-content>
+  <p>Veuillez scanner ce QRCode pour ajouter en ami</p>
+  {{ data.userId }}
+
+  <qrcode (qrCodeURL)="onChangeURL($event)" elementType="img" [qrdata]="urlQrcode" [width]="250" [errorCorrectionLevel]="'M'"></qrcode>
+
+</div>
+<div mat-dialog-actions>
+  <a [href]="qrCodeDownloadLink" download="{{ qrCodeDownloadTitle }}">Télécharger</a>
+  <button mat-button (click)="onNoClick()">Quitter</button>
+</div>

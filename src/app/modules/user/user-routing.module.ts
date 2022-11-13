@@ -8,6 +8,7 @@ import { EditProfilComponent } from './layouts/edit-profil/edit-profil.component
 import { UsersResolverResolver } from './services/resolver/users-resolver.resolver';
 import {ChatListComponent} from "./layouts/chat-list/chat-list.component";
 import {ChatRoomResolverResolver} from "./services/resolver/chat-room-resolver.resolver";
+import { QrcodeComponent } from './layouts/qrcode/qrcode.component';
 
 const routes: Routes = [
   {
@@ -63,6 +64,14 @@ const routes: Routes = [
       {
         path: 'edit-profil',
         component: EditProfilComponent,
+      },
+      {
+        path: 'qrcode/:id',
+        component: QrcodeComponent,
+        resolve: {
+          userToAdd: UsersResolverResolver
+        },
+        pathMatch: 'full'
       },
       {
         path: '**',
