@@ -9,6 +9,8 @@ import { Image } from "../../models/image.model";
 import { lastValueFrom, take } from 'rxjs';
 import { ChatRoomService } from '../../services/chat-room/chat-room.service';
 import { ChatRoom } from '../../models/chat-room.model';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogQrCodeComponent } from './components/dialog-qr-code/dialog-qr-code.component';
 
 @Component({
   selector: 'app-profil',
@@ -28,11 +30,27 @@ export class ProfilComponent implements OnInit {
   public userId!:string
 
   constructor(private authenticationService: AuthenticationService, private userService: UserService, private router: Router,
-    private route: ActivatedRoute, private imageService:ImageService, private chatRoomService: ChatRoomService) {
+    private route: ActivatedRoute, private imageService:ImageService, private chatRoomService: ChatRoomService,
+    public dialog: MatDialog) {
     this.route.params.subscribe(() => {
       this.getUser()
     });
     this.userUid = this.authenticationService.getUserUID()!;
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogQrCodeComponent, {
+      width: '300px',
+      data: {
+        userId: this.userId,
+        firstName: this.user.firstName,
+        lastName: this.user.lastName
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
   ngOnInit(): void {

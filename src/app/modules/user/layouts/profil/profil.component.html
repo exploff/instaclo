@@ -1,5 +1,10 @@
 <div class="main container-fluid mx-auto pt-5 pb-5">
   <div class="profil container">
+    <div class="row">
+      <div class="col offset-md-8 justify-content-center d-flex">
+        <button mat-raised-button (click)="openDialog()">Open QrCode</button>
+      </div>
+    </div>
     <div class="row gx-5">
       <div class="col-4 col-xs-4 d-flex align-items-center">
         <img class="rounded-circle imgProfil" [style.background-image]="'url(' + user.profilImage + ')'">
