@@ -47,10 +47,10 @@
             </button>
 
             <button class="btn btn-secondary w-25 btn-sm mt-2" (click)="onFollowUser()">
-              <span *ngIf="!user.followers.includes(userUid)">
+              <span *ngIf="!user.followers.includes(userId)">
                 Follow
               </span>
-              <span *ngIf="user.followers.includes(userUid)">
+              <span *ngIf="user.followers.includes(userId)">
                 Unfollow
               </span>
             </button>

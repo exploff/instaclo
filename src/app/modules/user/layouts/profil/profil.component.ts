@@ -25,6 +25,7 @@ export class ProfilComponent implements OnInit {
   public imageLength: number = 0;
   public errorMessage:string = '';
   public userUid;
+  public userId!:string
 
   constructor(private authenticationService: AuthenticationService, private userService: UserService, private router: Router,
     private route: ActivatedRoute, private imageService:ImageService, private chatRoomService: ChatRoomService) {
@@ -36,6 +37,7 @@ export class ProfilComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser()
+    this.getCurrentUserid()
   }
 
   getUser() {
@@ -73,34 +75,31 @@ export class ProfilComponent implements OnInit {
 
   async onFollowUser(){
     let userUid = this.authenticationService.getUserUID();
-    console.log(userUid)
-    if (userUid != null) {
+    if (userUid) {
       //check if userID existe
-      if(!this.user.followers.includes(userUid)){
+      let currentUser = await this.userService.getCurrentUser(userUid)
+
+      if(!this.user.followers.includes(currentUser.id)){
         //Follow users
-        this.user.followers.push(userUid);
+        this.user.followers.push(currentUser.id);
         //update current user
         this.userService.updateUser(this.user);
-        let currentUsers = await lastValueFrom(this.userService.fetchUserByUID(userUid).pipe(take(1)));
-        let currentUser = currentUsers[0];
-        currentUser.follows.push(this.user.uid);
+        currentUser.follows.push(this.user.id);
         // update followed user
         this.userService.updateUser(currentUser);
       }else{
         //Unfollow users
         //update current user
         for( var i = 0; i < this.user.followers.length; i++){
-          if ( this.user.followers[i] === userUid) {
+          if ( this.user.followers[i] === currentUser.id) {
             this.user.followers.splice(i, 1);
           }
         }
         this.userService.updateUser(this.user);
 
         // update followed user
-        let currentUsers = await lastValueFrom(this.userService.fetchUserByUID(userUid).pipe(take(1)));
-        let currentUser = currentUsers[0];
         for( var i = 0; i < currentUser.follows.length; i++){
-          if (currentUser.follows[i] === this.user.uid) {
+          if (currentUser.follows[i] === this.user.id) {
             currentUser.follows.splice(i, 1);
           }
         }
@@ -153,6 +152,12 @@ export class ProfilComponent implements OnInit {
     } else {
       //TODO : Gestion erreur
       this.errorMessage = "Erreur lors de l'envoie d'un message";
+    }
+  }
+   getCurrentUserid():void{
+    let uid =this.authenticationService.getUserUID()
+    if(uid){
+       this.userService.getCurrentUser(uid).then(user => this.userId= user.id)
     }
   }
 }

@@ -109,7 +109,6 @@ export class UserService {
   }
 
   public updateUser(user: User): Promise<void> {
-    console.log(user);
     return this.genericFirestoreService.update(
       FIREBASE_COLLECTION_PATHS.USER,
       user
