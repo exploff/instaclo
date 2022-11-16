@@ -134,7 +134,7 @@ export class ProfilComponent implements OnInit {
       if (uid != null) {
         this.userService.fetchUserByUID(uid).subscribe((users: User[]) => {
           let userConnected = users[0];
-          this.chatRoomService.fetchChatRoomByUserUid(uid!).subscribe((chatRooms) => {
+          this.chatRoomService.fetchChatRoomByUserUidFromORUserUidTo(uid!).subscribe((chatRooms) => {
             let chatRoomFound: ChatRoom | undefined;
             chatRooms.forEach((chatRoom) => {
               chatRoom.users.forEach((user) => {
@@ -147,8 +147,7 @@ export class ProfilComponent implements OnInit {
               //Ouvre chat room d'un seul côté car aucun message n'a encore été envoyé
               const chatRoom: ChatRoom = {
                 id: '',
-                user_uid_from: userConnected.uid,
-                user_uid_to: this.user.uid,
+                uid_user: [this.user.uid, userConnected.uid],
                 created_date: new Date().toTimeString(),
                 users: [
                   this.user,

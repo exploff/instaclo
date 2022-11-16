@@ -23,29 +23,39 @@ export class ChatListComponent implements OnInit {
   public chatRoomsForComponentChat!: ChatRoom;
   public chatWithUser: User | undefined;
   public messageRoom!: Chat[];
+  public boolIsUserCo:Boolean = false;
+  public uid: string | null = '';
 
   constructor(private route : ActivatedRoute, private chatRoomService: ChatRoomService, private chatService: ChatService, private userService: UserService, private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
     this.chatRooms = this.route.snapshot.data['chatRooms'];
+    this.uid = this.authService.getUserUID();
+    if (this.uid){
+        if (this.chatRoomsForComponentChat.users[0].uid === this.uid) {
+          this.boolIsUserCo = true;
+        }else{
+          this.boolIsUserCo = false;
+        }
+      }
     // this.chatWithUser = this.route.snapshot.data['chatWithUser'] instanceof Array ? this.route.snapshot.data['chatWithUser'][0]
     //                                                                               : this.route.snapshot.data['chatWithUser'];
   }
+
 
   openChat(chatId: string) {
 
     this.userService.fetchUserById(chatId).subscribe((user: User) => {
       this.chatWithUser = user;
       for (let i = 0; i < this.chatRooms.length; i++) {
-          if(this.chatRooms[i].user_uid_to === user.uid) {
+        for (let j = 0; j < this.chatRooms[i].users.length; j++) {
+          if (this.chatRooms[i].uid_user[j] === user.uid) {
             this.chatRoomsForComponentChat = this.chatRooms[i];
-
             this.chatService.fetchChatByChatRoomId(this.chatRoomsForComponentChat.id).subscribe((data) => {
               this.messageRoom = data;
-              console.log(data)
             });
-            console.log(this.chatRoomsForComponentChat)
+          }
         }
       }
     });

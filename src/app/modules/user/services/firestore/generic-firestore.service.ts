@@ -3,7 +3,7 @@ import { addDoc, collectionData, deleteDoc, docData, getCountFromServer, Documen
 import { CollectionReference, doc, DocumentData } from "@firebase/firestore";
 import { AggregateField, AggregateQuerySnapshot } from "@firebase/firestore";
 import { Observable } from "rxjs";
-
+import firebase from "firebase/compat";
 
 @Injectable({
   providedIn: "root",
@@ -49,10 +49,10 @@ export class GenericFirestoreService {
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 
-  public fetchByPropertySpecialChatInOrder<T>(collection: CollectionReference<DocumentData>, propertyName1: string, propertyName2: string, propertyValue: string, directionproperty:string,
+  public fetchByPropertySpecialChatInOrder<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValue: string, directionproperty:string,
                                     direction: "asc" | "desc" = "desc"):
     Observable<T[]> {
-    const request = query(collection, orderBy(directionproperty, direction), where(propertyName1, "==", propertyValue), where(propertyName2, "==", propertyValue));
+    const request = query(collection, orderBy(directionproperty, direction), where(propertyName, "array-contains", propertyValue));
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 
