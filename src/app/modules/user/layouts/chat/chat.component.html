@@ -1,0 +1,49 @@
+<div class="card-header">
+    <div class="row">
+      <div class="col-md-2">
+        <img class="img imgProfil rounded-circle" src="{{chatRoomsForComponentChat.users[0].profilImage}}" >
+      </div>
+      <div class="col-md-10">
+        <span>{{chatRoomsForComponentChat.users[0].firstName}} {{ chatRoomsForComponentChat.users[0].lastName}}</span>
+      </div>
+    </div>
+</div>
+
+<div *ngFor="let message of messageRoom">
+
+  {{message.message}}
+</div>
+<!--<div class="card" *ngFor="let message of messageRoom">-->
+<!--    <div class="card-content">-->
+<!--      <div class="media">-->
+<!--        <div class="media-left">-->
+<!--          <figure class="image is-48x48">-->
+<!--&lt;!&ndash;            <img src="{{message.user.profilImage}}" alt="Placeholder image">&ndash;&gt;-->
+<!--          </figure>-->
+<!--        </div>-->
+<!--        <div class="media-content">-->
+<!--&lt;!&ndash;          <p class="title is-4">{{message.user.firstName}} {{message.user.lastName}}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;          <p class="title is-4">{{message.message}}</p>&ndash;&gt;-->
+<!--          <p class="subtitle is-6">{{message.date_created | date:'short'}}</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="content">-->
+<!--        {{message.message}}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--</div>-->
+
+
+
+<form (ngSubmit)="onSubmit()" class="mt-5">
+  <input type="text"  class="form-control" required  [formControl]="message" >
+  <button type="submit" color="primary" >
+    Send
+  </button>
+</form>
+<!-- TODO :
+  Attention, si c'est la premiere fois qu'on discute avec l'user, ne pas oublier de créer la chatRoom
+  de son côté aussi lorsqu'on envoie le premier message
+-->
+
+

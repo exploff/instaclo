@@ -49,6 +49,13 @@ export class GenericFirestoreService {
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 
+  public fetchByPropertySpecialChatInOrder<T>(collection: CollectionReference<DocumentData>, propertyName1: string, propertyName2: string, propertyValue: string, directionproperty:string,
+                                    direction: "asc" | "desc" = "desc"):
+    Observable<T[]> {
+    const request = query(collection, orderBy(directionproperty, direction), where(propertyName1, "==", propertyValue), where(propertyName2, "==", propertyValue));
+    return collectionData(request, { idField: "id" }) as Observable<T[]>;
+  }
+
   public fetchByKeywords<T>(collection: CollectionReference<DocumentData>, propertyValue: string, max: number = 50):
     Observable<T[]> {
     //const request = query(collection, orderBy(propertyName, "asc"), startAt(propertyValue.toUpperCase()), endAt(propertyValue.toLowerCase() + "\uf8ff"), limit(maxResult));

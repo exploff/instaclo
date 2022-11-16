@@ -147,19 +147,17 @@ export class ProfilComponent implements OnInit {
               //Ouvre chat room d'un seul côté car aucun message n'a encore été envoyé
               const chatRoom: ChatRoom = {
                 id: '',
-                user_id: userConnected.id,
-                user_uid: uid!,
+                user_uid_from: userConnected.uid,
+                user_uid_to: this.user.uid,
                 created_date: new Date().toTimeString(),
-                users: [{
-                  id: userId,
-                  pseudo: this.user.pseudo
-                }]
+                users: [
+                  this.user,
+                  userConnected
+                ],
               }
-              //Creation de la chatroom
-              console.log(chatRoom)
               this.chatRoomService.addNewChatRoom(chatRoom);
             }
-            //redirection vers la chatroom avec son id pour l'ouvrir ?
+
             this.router.navigate(['/user/chat/' + userId]);
           });
         });

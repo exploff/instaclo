@@ -7,7 +7,7 @@ import { ProfilComponent } from './layouts/profil/profil.component';
 
 import { UserRoutingModule } from './user-routing.module';
 import { ChatListComponent } from './layouts/chat-list/chat-list.component';
-import {ChatComponent} from "./layouts/chat-list/chat/chat.component";
+import {ChatComponent} from "./layouts/chat/chat.component";
 import { DialogQrCodeComponent } from './layouts/profil/components/dialog-qr-code/dialog-qr-code.component';
 import { QrcodeComponent } from './layouts/qrcode/qrcode.component';
 
