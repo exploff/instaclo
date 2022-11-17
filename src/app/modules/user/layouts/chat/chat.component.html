@@ -1,29 +1,21 @@
 <div class="card-header">
     <div class="row">
-
-
       <div class="col-md-5">
         <span *ngIf="chatRoomsForComponentChat.users[0].uid === uid; else testImage">
           <img class="img imgProfil rounded-circle" src="{{chatRoomsForComponentChat.users[1].profilImage}}">
         </span>
         <ng-template #testImage><img class="img imgProfil rounded-circle" src="{{chatRoomsForComponentChat.users[0].profilImage}}"></ng-template>
       </div>
-
-
-
       <div class="col-md-7">
         <span *ngIf="chatRoomsForComponentChat.users[0].uid === uid; else test">
           <strong class="">{{chatRoomsForComponentChat.users[1].pseudo}}</strong>
         </span>
         <ng-template #test><strong>{{chatRoomsForComponentChat.users[0].pseudo}}</strong></ng-template>
       </div>
-
-
     </div>
 </div>
 
 <div style="height: 250px; overflow-y: scroll">
-
     <div *ngFor="let message of messageRoom" [ngClass]="uid === message.uid_user ? 'text-end' : 'text-start'">
       <div *ngIf="chatRoomsForComponentChat.users[0].uid === message.uid_user; else testMessage">
         <span class="bg-info">{{message.message}}</span>
@@ -33,41 +25,13 @@
         <small>{{message.pseudo_user}}</small>
       </p>
     </div>
-
-
 </div>
 
-<!--<div class="card" *ngFor="let message of messageRoom">-->
-<!--    <div class="card-content">-->
-<!--      <div class="media">-->
-<!--        <div class="media-left">-->
-<!--          <figure class="image is-48x48">-->
-<!--&lt;!&ndash;            <img src="{{message.user.profilImage}}" alt="Placeholder image">&ndash;&gt;-->
-<!--          </figure>-->
-<!--        </div>-->
-<!--        <div class="media-content">-->
-<!--&lt;!&ndash;          <p class="title is-4">{{message.user.firstName}} {{message.user.lastName}}</p>&ndash;&gt;-->
-<!--&lt;!&ndash;          <p class="title is-4">{{message.message}}</p>&ndash;&gt;-->
-<!--          <p class="subtitle is-6">{{message.date_created | date:'short'}}</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="content">-->
-<!--        {{message.message}}-->
-<!--      </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-
-
 <form (ngSubmit)="onSubmit()" class="mt-5">
-  <input type="text"  class="form-control" required  [formControl]="message" >
-  <button type="submit" color="primary" >
-    Send
+  <input type="text"  class="form-control" [formControl]="message" #messageInput>
+  <button type="submit" color="primary">
+    Envoyer
   </button>
 </form>
-<!-- TODO :
-  Attention, si c'est la premiere fois qu'on discute avec l'user, ne pas oublier de créer la chatRoom
-  de son côté aussi lorsqu'on envoie le premier message
--->
 
 

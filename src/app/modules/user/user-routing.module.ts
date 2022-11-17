@@ -54,7 +54,7 @@ const routes: Routes = [
         component: ChatListComponent,
         resolve: {
           chatRooms: ChatRoomResolverResolver,
-          chatWithUser: UsersResolverResolver
+          // chatWithUser: UsersResolverResolver
         }
       },
       {

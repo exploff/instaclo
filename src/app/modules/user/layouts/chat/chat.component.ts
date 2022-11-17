@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import { User } from 'src/app/core/models/user.model';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ChatRoom} from "../../models/chat-room.model";
@@ -18,6 +18,7 @@ export class ChatComponent {
 
   @Input()chatRoomsForComponentChat!: ChatRoom;
   @Input()messageRoom!: Chat[];
+  @ViewChild('messageInput') inputName: any;
 
   public chat!: Chat;
   public message = new FormControl('', [Validators.required]);
@@ -42,6 +43,7 @@ export class ChatComponent {
           }
         }
         this.chatService.addNewChat(this.chat);
+        this.message.setValue('');
       }
     }
   }
