@@ -1,10 +1,42 @@
-<div class="container">
+<div class="container d-flex flex-column" *ngIf="!takePhotoClick">
   <video #videoPlayer>
   </video>
-  <div class="buttons">
-    <button (click)="start()">Start</button>
-    <button (click)="stop()">Stop</button>
-    <button (click)="switchCamera()">SwitchCamera</button>
-    <button (click)="takePhoto()">TakePhoto</button>
+  <div class="container d-flex justify-content-center mt-4">
+    <button (click)="start()" class="btn btn-outline-secondary flex mx-2">
+      <i class="bi bi-camera-video"></i>
+      <p class="d-none d-md-block">start</p>
+    </button>
+    <button (click)="stop()" class="btn btn-outline-secondary flex mx-2">
+      <i class="bi bi-camera-video-off"></i>
+      <p class="d-none d-md-block">Stop</p>
+    </button>
+    <button (click)="switchCamera()" class="btn btn-outline-secondary flex mx-2">
+      <i class="bi bi-camera2"></i>
+      <p class="d-none d-md-block">Switch Camera</p>
+    </button>
+    <button (click)="takePhoto()" class="btn btn-outline-secondary flex mx-2">
+      <i class="bi bi-camera"></i>
+      <p class="d-none d-md-block">Take Photo</p>
+    </button>
+  </div>
+</div>
+<div class="container d-flex flex-column" *ngIf="takePhotoClick">
+  <img #imageDisplay>
+  <div class="mt-4">
+    <form [formGroup]="postForm" (ngSubmit)="onContinue()" >
+      <div class="example-container">
+        <mat-form-field>
+          <textarea matInput placeholder="Discription" formControlName="discription"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="container d-flex flex-row">
+        <button type="submit" class="btn btn-outline-secondary flex mx-2">
+          Continue
+        </button>
+        <button (click)="onBack()" class="btn btn-outline-secondary flex mx-2">
+          Back
+        </button>
+      </div>
+    </form>
   </div>
 </div>

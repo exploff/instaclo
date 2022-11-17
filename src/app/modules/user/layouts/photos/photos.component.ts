@@ -1,5 +1,12 @@
+import { StorageService } from './../../services/storage/storage.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { Image } from '../../models/image.model';
+import { Timestamp } from 'firebase/firestore';
+import { ImageService } from '../../services/image/image.service';
+import { UploadResult } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-photos',
@@ -9,26 +16,48 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 export class PhotosComponent implements OnInit {
 
   @ViewChild ("videoPlayer") videoplayer !: ElementRef
+  @ViewChild("imageDisplay") imageDisplay !: ElementRef
 
-  public photo : SafeUrl = ""
+  public photo !: File
+
+  public photoName !: string
+
+  public takePhotoClick : boolean = false
 
   private facingMode : "user" | "environment" = "user"
 
   private stream : MediaStream | undefined
 
-  constructor(private sanitizer : DomSanitizer) { }
+  //TODO validator
+  public postForm  = new FormGroup({
+    discription: new FormControl('',Validators.required),
+  });
+
+  constructor(private sanitizer : DomSanitizer, private router: Router , private storageService:StorageService, private imageService:ImageService) { }
 
   ngOnInit() {
     this.start()
+    const datePhoto=Date.now()
+    console.log(new Timestamp( datePhoto / 1000,datePhoto / 1000000 ).toDate());
+
   }
 
   public async takePhoto(){
     if(this.stream){
+      this.takePhotoClick=true
       const track : MediaStreamTrack = this.stream.getVideoTracks()[0]
       const imageCapture : ImageCapture = new ImageCapture(track)
       const photo : Blob = await imageCapture.takePhoto()
       const objectURL = URL.createObjectURL(photo)
-      this.photo = this.sanitizer.bypassSecurityTrustUrl(objectURL)
+      this.imageDisplay.nativeElement.src= objectURL
+
+
+      const date= new Date()
+      this.photoName= `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}-${date.getHours()}${date.getMinutes()}${date.getSeconds()}.jpg`
+
+      this.photo = new File([photo], this.photoName,{ type: "image/jpg",});
+      this.stop()
+
     }
   }
    public async switchCamera():Promise<void>{
@@ -62,4 +91,34 @@ export class PhotosComponent implements OnInit {
     return devices.filter((d) => d.kind === "videoinput" ).length > 1
   }
 
+  public onBack():void{
+    this.takePhotoClick=false
+    this.router.navigateByUrl('/user/photos')
+    window.location.reload();
+  }
+
+  public onContinue(){
+
+
+    this.storageService.uploadFile(this.photo,`/images/${this.photoName}`).then(async (u:UploadResult): Promise<void> => {
+      console.log(
+        u.metadata)
+      let fullpath= await this.storageService.getFileDownloadUrl(`/images/${this.photoName}`)
+      if(this.postForm.value.discription){
+      const datePhoto=Date.now()
+      let image:Image ={id:'',
+      userID:'Wx1Vl4mCelUYJIsOYZrx',
+      path:fullpath,
+      createDate:new Timestamp( datePhoto / 1000,datePhoto / 1000000 ),
+      description:this.postForm.value.discription,
+      like:[]}
+      let addImage=await this.imageService.addNewImage(image)
+      image.id=addImage.id
+      let retunval=await this.imageService.updateImage(image)
+      this.router.navigateByUrl('/user/home')
+      //TODO error camera firefox
+    }
+    })
+
+  }
 }

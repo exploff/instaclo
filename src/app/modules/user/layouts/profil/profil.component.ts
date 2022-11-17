@@ -69,11 +69,4 @@ export class ProfilComponent implements OnInit {
       throw new Error("User already followed")
     }
   }
-
-  // async getCurrentUser():Promise<void>{
-  //   let uid =this.authenticationService.getUserUID()
-  //   if(uid){
-  //     this.user= await this.userService.getCurrentUser(uid)
-  //   }
-  // }
 }
