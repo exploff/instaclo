@@ -1,26 +1,17 @@
 <div class="container border mt-5 mainContainer">
   <div class="row">
     <div class="col-4 border">
-
       <div class="row" *ngFor="let chatRoom of chatRooms">
-                    <div class="col d-flex align-items-center justify-content-left link-chat border" (click)="openChat(chatRoom.users[0].id)" >
-<!--              <div class="" *ngFor="let item of chatRoom.users">-->
-                <p *ngIf="chatRoom.users[0].uid === uid; else test">
-                <strong class="">{{chatRoom.users[1].pseudo}}</strong></p>
-                      <ng-template #test><strong>{{chatRoom.users[0].pseudo}}</strong></ng-template>
-<!--                <p *ngIf="chatRoom.users[0].uid !== uid" ></p>-->
-<!--                <strong class="">{{chatRoom.users[0].pseudo}}</strong>-->
-
-<!--              </div>-->
+          <div class="col d-flex align-items-center justify-content-left link-chat border" (click)="openChat(chatRoom.users[0].id)" >
+              <p *ngIf="chatRoom.users[0].uid === uid; else test">
+              <strong class="">{{chatRoom.users[1].pseudo}}</strong></p>
+              <ng-template #test><strong>{{chatRoom.users[0].pseudo}}</strong></ng-template>
           </div>
-
-
       </div>
-
     </div>
     <div class="col-8 border">
 
-      <span *ngIf="chatWithUser !== undefined">
+      <span *ngIf="chatRoomsForComponentChat !== undefined">
         <app-chat  [chatRoomsForComponentChat]="chatRoomsForComponentChat"  [messageRoom]="messageRoom"></app-chat>
       </span>
     </div>

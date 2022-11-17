@@ -1,18 +1,36 @@
 <div class="card-header">
     <div class="row">
-      <div class="col-md-2">
-        <img class="img imgProfil rounded-circle" src="{{chatRoomsForComponentChat.users[0].profilImage}}" >
+
+
+      <div class="col-md-5">
+        <span *ngIf="chatRoomsForComponentChat.users[0].uid === uid; else testImage">
+          <img class="img imgProfil rounded-circle" src="{{chatRoomsForComponentChat.users[1].profilImage}}">
+        </span>
+        <ng-template #testImage><img class="img imgProfil rounded-circle" src="{{chatRoomsForComponentChat.users[0].profilImage}}"></ng-template>
       </div>
-      <div class="col-md-10">
-        <span>{{chatRoomsForComponentChat.users[0].firstName}} {{ chatRoomsForComponentChat.users[0].lastName}}</span>
+
+
+
+      <div class="col-md-7">
+        <span *ngIf="chatRoomsForComponentChat.users[0].uid === uid; else test">
+          <strong class="">{{chatRoomsForComponentChat.users[1].pseudo}}</strong>
+        </span>
+        <ng-template #test><strong>{{chatRoomsForComponentChat.users[0].pseudo}}</strong></ng-template>
       </div>
+
+
     </div>
 </div>
 
-<div *ngFor="let message of messageRoom">
-
-  {{message.message}}
+<div style="min-height: 250px; overflow-y: scroll">
+  <div *ngFor="let message of messageRoom" [ngClass]="chatRoomsForComponentChat.users[0].uid === message.uid_user ? 'text-end' : ''">
+     <div *ngIf="chatRoomsForComponentChat.users[0].uid === message.uid_user; else testMessage">
+         <span class="bg-info">{{message.message}}</span>
+     </div>
+    <ng-template #testMessage><span class="bg-danger">{{message.message}}</span></ng-template>
+  </div>
 </div>
+
 <!--<div class="card" *ngFor="let message of messageRoom">-->
 <!--    <div class="card-content">-->
 <!--      <div class="media">-->

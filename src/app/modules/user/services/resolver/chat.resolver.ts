@@ -19,7 +19,7 @@ export class ChatResolver implements Resolve<Chat[]> {
     if (route.paramMap.get('id') != null) {
       let id = route.paramMap.get('id');
       if (id !== null) {
-        return this.chatService.fetchChatByChatRoomId(id);
+        return this.chatService.fetchChatByChatRoomIdInOrder(id);
       }
     }
     return new Observable<Chat[]>();
