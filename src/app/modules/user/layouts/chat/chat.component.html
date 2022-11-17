@@ -22,8 +22,8 @@
     </div>
 </div>
 
-<div style="min-height: 250px; overflow-y: scroll">
-  <div *ngFor="let message of messageRoom" [ngClass]="chatRoomsForComponentChat.users[0].uid === message.uid_user ? 'text-end' : ''">
+<div style="height: 250px; overflow-y: scroll">
+  <div *ngFor="let message of messageRoom" [ngClass]="chatRoomsForComponentChat.users[0].uid === message.uid_user ? 'text-end' : ''" [ngClass]="chatRoomsForComponentChat.users[1].uid === message.uid_user ? 'text-end' : ''">
      <div *ngIf="chatRoomsForComponentChat.users[0].uid === message.uid_user; else testMessage">
          <span class="bg-info">{{message.message}}</span>
      </div>
