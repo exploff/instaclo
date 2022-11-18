@@ -14,7 +14,7 @@ import { QrcodeComponent } from './layouts/qrcode/qrcode.component';
 
 
 @NgModule({
-  declarations: [ProfilComponent, EditProfilComponent, HomeComponent, CardImageComponent, ChatListComponent, ChatComponent, DialogQrCodeComponent, QrcodeComponent],
+  declarations: [ProfilComponent, EditProfilComponent, HomeComponent, CardImageComponent, ChatListComponent, ChatComponent, DialogQrCodeComponent, QrcodeComponent,PhotosComponent],
   imports: [SharedModule, UserRoutingModule],
   exports: [],
 })
