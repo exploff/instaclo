@@ -1,0 +1,37 @@
+<div class="card-header">
+    <div class="row">
+      <div class="col-md-5">
+        <span *ngIf="chatRoomsForComponentChat.users[0].uid === uid; else testImage">
+          <img class="img imgProfil rounded-circle" src="{{chatRoomsForComponentChat.users[1].profilImage}}">
+        </span>
+        <ng-template #testImage><img class="img imgProfil rounded-circle" src="{{chatRoomsForComponentChat.users[0].profilImage}}"></ng-template>
+      </div>
+      <div class="col-md-7">
+        <span *ngIf="chatRoomsForComponentChat.users[0].uid === uid; else test">
+          <strong class="">{{chatRoomsForComponentChat.users[1].pseudo}}</strong>
+        </span>
+        <ng-template #test><strong>{{chatRoomsForComponentChat.users[0].pseudo}}</strong></ng-template>
+      </div>
+    </div>
+</div>
+
+<div style="height: 250px; overflow-y: scroll">
+    <div *ngFor="let message of messageRoom" [ngClass]="uid === message.uid_user ? 'text-end' : 'text-start'">
+      <div *ngIf="chatRoomsForComponentChat.users[0].uid === message.uid_user; else testMessage">
+        <span class="bg-info">{{message.message}}</span>
+      </div>
+      <ng-template #testMessage><span class="bg-danger">{{message.message}}</span></ng-template>
+      <p>
+        <small>{{message.pseudo_user}}</small>
+      </p>
+    </div>
+</div>
+
+<form (ngSubmit)="onSubmit()" class="mt-5">
+  <input type="text"  class="form-control" [formControl]="message" #messageInput>
+  <button type="submit" color="primary">
+    Envoyer
+  </button>
+</form>
+
+

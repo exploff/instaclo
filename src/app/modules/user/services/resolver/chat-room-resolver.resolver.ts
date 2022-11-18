@@ -22,7 +22,7 @@ export class ChatRoomResolverResolver implements Resolve<ChatRoom[]> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ChatRoom[]> {
     let uid = this.authService.getUserUID();
     if (uid) {
-      return this.chatRoomService.fetchChatRoomByUserUid(uid)
+      return this.chatRoomService.fetchChatRoomByUserUidFromORUserUidTo(uid)
     }
     return new Observable<ChatRoom[]>();
   }

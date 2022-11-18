@@ -1,21 +1,18 @@
-<div class="container border mt-5">
+<div class="container border mt-5 mainContainer">
   <div class="row">
     <div class="col-4 border">
-
-      <span *ngFor="let chatRoom of chatRooms">
-        <div class="row" *ngFor="let user of chatRoom.users">
-          <div class="col d-flex align-items-center justify-content-left link-chat border" (click)="openChat(user.id)">
-              <div class="">
-                <strong class="">{{user.pseudo}}</strong>
-              </div>
+      <div class="row" *ngFor="let chatRoom of chatRooms">
+          <div class="col d-flex align-items-center justify-content-left link-chat border" (click)="openChat(chatRoom.users[0].id)" >
+              <p *ngIf="chatRoom.users[0].uid === uid; else test">
+              <strong class="">{{chatRoom.users[1].pseudo}}</strong></p>
+              <ng-template #test><strong>{{chatRoom.users[0].pseudo}}</strong></ng-template>
           </div>
-        </div>
-      </span>
-
+      </div>
     </div>
     <div class="col-8 border">
-      <span *ngIf="chatWithUser !== undefined">
-        <app-chat [chatWithUser]="chatWithUser"></app-chat>
+
+      <span *ngIf="chatRoomsForComponentChat !== undefined">
+        <app-chat  [chatRoomsForComponentChat]="chatRoomsForComponentChat"  [messageRoom]="messageRoom"></app-chat>
       </span>
     </div>
   </div>

@@ -1,0 +1,33 @@
+.imgProfil {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  background-size: cover;
+
+  @media (min-width: 425px) {
+    width: 120px;
+    height: 120px;
+  }
+
+  @media (min-width: 575px) {
+    width: 135px;
+    height: 135px;
+  }
+
+  @media (min-width: 768px) {
+    width: 150px;
+    height: 150px;
+  }
+
+  // Large devices (desktops, 992px and up)
+  @media (min-width: 992px) {
+    width: 180px;
+    height: 180px;
+  }
+
+  // X-Large devices (large desktops, 1200px and up)
+  @media (min-width: 1200px) {
+    width: 250px;
+    height: 250px;
+  }
+}

@@ -25,19 +25,21 @@ export class ChatService {
       return this.genericFirestoreService.fetchAll<Chat>(this.chatCollection, "id", direction);
   }
 
-  public fetchMoviesByPagination(startAfterChat: string, maxResult: number = 30, direction: "asc" | "desc" = "asc") {
-
-      return this.genericFirestoreService.fetchByPagination<Chat>(this.chatCollection, "id",
-      startAfterChat, maxResult, direction) as Observable<Chat[]>;
-  }
 
   public fetchChatById(id: string): Observable<Chat> {
       return this.genericFirestoreService.fetchById<Chat>(FIREBASE_COLLECTION_PATHS.CHAT, id);
-
   }
 
   public fetchChatFromUser(fromUser: string): Observable<Chat[]> {
       return this.genericFirestoreService.fetchByProperty<Chat>(this.chatCollection, "fromUser", fromUser, 1);
+  }
+
+  public fetchChatByChatRoomId(chat: string): Observable<Chat[]> {
+    return this.genericFirestoreService.fetchByProperty<Chat>(this.chatCollection, "id_chat_room", chat);
+  }
+
+  public fetchChatByChatRoomIdInOrder(chat: string, direction: "asc" | "desc" = "asc"): Observable<Chat[]> {
+    return this.genericFirestoreService.fetchByPropertyiInOrder<Chat>(this.chatCollection, "id_chat_room", chat, "date_created", "asc");
   }
 
   public addNewChat(chat: Chat): Promise<DocumentReference<DocumentData>> {
