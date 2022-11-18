@@ -137,6 +137,7 @@ export class UserService {
   }
   public async getCurrentUser(uid :string):Promise<User>{
     return await lastValueFrom(this.fetchUserByUID(uid).pipe(take(1),map(user=>user[0])))
+    // return this.fetchUserByUID(uid).pipe(map(user=>user[0]))
   }
 
   async getFollowedUsers(currentUser:User):Promise<User[]>{

@@ -1,5 +1,5 @@
 import { StorageService } from './../../services/storage/storage.service';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { UploadResult } from '@angular/fire/storage';
   templateUrl: './photos.component.html',
   styleUrls: ['./photos.component.css']
 })
-export class PhotosComponent implements OnInit {
+export class PhotosComponent implements OnInit, OnDestroy {
 
   @ViewChild ("videoPlayer") videoplayer !: ElementRef
   @ViewChild("imageDisplay") imageDisplay !: ElementRef
@@ -28,6 +28,8 @@ export class PhotosComponent implements OnInit {
 
   private stream : MediaStream | undefined
 
+  public showCamera :boolean = false
+
   //TODO validator
   public postForm  = new FormGroup({
     discription: new FormControl('',Validators.required),
@@ -35,11 +37,19 @@ export class PhotosComponent implements OnInit {
 
   constructor(private sanitizer : DomSanitizer, private router: Router , private storageService:StorageService, private imageService:ImageService) { }
 
-  ngOnInit() {
-    this.start()
-    const datePhoto=Date.now()
-    console.log(new Timestamp( datePhoto / 1000,datePhoto / 1000000 ).toDate());
+  async ngOnInit() {
 
+    await this.checkCamera()
+    if(this.showCamera){
+      this.start()
+    }
+
+  }
+
+  ngOnDestroy() {
+    this.stream?.getTracks()?.forEach( (track)=>{
+      track.stop()
+    } )
   }
 
   public async takePhoto(){
@@ -117,8 +127,30 @@ export class PhotosComponent implements OnInit {
       let retunval=await this.imageService.updateImage(image)
       this.router.navigateByUrl('/user/home')
       //TODO error camera firefox
+      //TODO add emoji keyboard
     }
     })
 
+  }
+
+  async checkCamera():Promise<void>{
+    try {
+      this.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: this.facingMode }})
+
+      const track : MediaStreamTrack = this.stream.getVideoTracks()[0]
+      this.stream?.getTracks()?.forEach((track) =>{
+          track.stop();
+        })
+      try {
+        const imageCapture : ImageCapture = new ImageCapture(track)
+        this.showCamera=true
+        }catch(error){
+          alert("Cette fonctionnalité n'est pas disponible sur ce support");
+          this.router.navigateByUrl('/user/home')
+        }
+      }catch(error){
+        alert("The request is not allowed by the user agent or the platform in the current context.");
+        this.router.navigateByUrl('/user/home')
+      }
   }
 }
