@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { redirectUnauthorizedTo, canActivate, redirectLoggedInTo } from "@angular/fire/auth-guard";
 import { GuestLayoutComponent } from './layouts/guest-layout/guest-layout.component';
 import { UserLayoutComponent } from './layouts/user-layout/user-layout.component';
+import { NotFoundUserComponent } from './shared/components/not-found/not-found-user.component';
+
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(["login"]);
 const redirectLoggedInToUsers = () => redirectLoggedInTo(["user"]);
@@ -19,6 +21,11 @@ const routes: Routes = [
   path: "user",
   loadChildren: () => import("./modules/user/user.module").then((module) => module.UserModule),
   ...canActivate(redirectUnauthorizedToLogin),
+},
+{
+  path: '**',
+  component : NotFoundUserComponent,
+  pathMatch: 'full',
 },
 
 ]

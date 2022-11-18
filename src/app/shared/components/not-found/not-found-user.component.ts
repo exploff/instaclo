@@ -12,10 +12,10 @@ export class NotFoundUserComponent implements OnInit {
 
   ngOnInit(): void {
 
-    setTimeout( () => {
-      this.router.navigate(['/user']);
-    },
-    3000)
+    // setTimeout( () => {
+    //   this.router.navigate(['/user']);
+    // },
+    // 5000)
   }
 
 }

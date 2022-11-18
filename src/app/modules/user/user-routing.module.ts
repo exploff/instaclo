@@ -5,7 +5,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './layouts/home/home.component';
 import { ProfilComponent } from './layouts/profil/profil.component';
 import { EditProfilComponent } from './layouts/edit-profil/edit-profil.component';
-import { NotFoundUserComponent } from './layouts/not-found-user/not-found-user.component';
 
 const routes: Routes = [
   {
@@ -19,10 +18,6 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomeComponent,
-      },
-      {
-        path :'**',
-        component:NotFoundUserComponent
       },
       {
         path: 'profil',
