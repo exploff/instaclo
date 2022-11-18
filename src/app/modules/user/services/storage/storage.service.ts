@@ -35,7 +35,7 @@ public getFileDownloadUrl(path: string): Promise<string> {
   return getDownloadURL(reference);
 }
 
-public uploadFile(file: File, path: string, metadata: UploadMetadata): Promise<UploadResult> {
+public uploadFile(file: File, path: string, metadata?: UploadMetadata): Promise<UploadResult> {
   const reference: StorageReference = ref(this.storage, path);
   return uploadBytes(reference, file, metadata);
 }

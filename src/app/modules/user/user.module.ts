@@ -1,3 +1,4 @@
+import { PhotosComponent } from './layouts/photos/photos.component';
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EditProfilComponent } from './layouts/edit-profil/edit-profil.component';

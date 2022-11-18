@@ -1,0 +1,9 @@
+
+img,video {
+  height: 250px;
+}
+ @media (min-width: 520px) {
+  img,video {
+      height: 500px;
+    }
+ }
