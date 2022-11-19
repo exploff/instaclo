@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { HomeResolverResolver } from './home-resolver.resolver';
+import { CurrentUserResolver } from './current-user.resolver';
 
-describe('HomeResolverResolver', () => {
-  let resolver: HomeResolverResolver;
+describe('CurrentUserResolver', () => {
+  let resolver: CurrentUserResolver;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    resolver = TestBed.inject(HomeResolverResolver);
+    resolver = TestBed.inject(CurrentUserResolver);
   });
 
   it('should be created', () => {

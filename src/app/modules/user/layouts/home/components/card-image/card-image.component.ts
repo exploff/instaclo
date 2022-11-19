@@ -6,6 +6,7 @@ import { UserService } from 'src/app/core/services/user/user.service';
 import { ImageService } from 'src/app/modules/user/services/image/image.service';
 import { HomeResolverModel } from '../../models/HomeResolverModel';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-card-image',
@@ -13,11 +14,10 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./card-image.component.scss']
 })
 export class CardImageComponent implements OnInit, AfterViewInit {
-  private resolverData!:HomeResolverModel;
 
   @Input()image!:Image;
 
-  user!: User;
+  user!: Observable<User>;
 
   likedImage!: string;
 
@@ -26,25 +26,10 @@ export class CardImageComponent implements OnInit, AfterViewInit {
   constructor(private userService:UserService, private imageService: ImageService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe()
-    this.resolverData=this.route.snapshot.data['user']
-
-    this.getImageUser();
-    this.likedImage = this.image.like.includes(this.user.id) ? 'red' : '';
-  }
-
-  getImageUser() {
-    let returnUser!:User
-   this.resolverData.listFollowedUsers.forEach((user:User)=>{
-    if(user.id === this.image.userID){
-      returnUser=user
-    }
-   })
-    if(returnUser){
-      this.user =returnUser
-    }else{
-       this.user =this.resolverData.currentUser
-    }
+    this.user = this.userService.fetchUserById(this.image.userID);
+    this.user.subscribe((user: User) => {
+      this.likedImage = this.image.like.includes(user.id) ? 'red' : '';
+    })
   }
 
   ngAfterViewInit() {
@@ -62,13 +47,16 @@ export class CardImageComponent implements OnInit, AfterViewInit {
   }
 
   public like() {
-    if (!this.image.like.includes(this.user.id)) {
-      this.image.like.push(this.user.id);
-      this.likedImage = 'red';
-    } else {
-      this.image.like.splice(this.image.like.indexOf(this.user.id), 1);
-      this.likedImage = '';
-    }
-    this.imageService.updateImage(this.image);
+    this.user.subscribe((user: User) => {
+      if (!this.image.like.includes(user.id)) {
+        this.image.like.push(user.id);
+        this.likedImage = 'red';
+      } else {
+        this.image.like.splice(this.image.like.indexOf(user.id), 1);
+        this.likedImage = '';
+      }
+      this.imageService.updateImage(this.image);
+    })
+
   }
 }

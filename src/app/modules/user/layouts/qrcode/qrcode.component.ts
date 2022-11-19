@@ -13,68 +13,71 @@ export class QrcodeComponent implements OnInit {
 
   private userToAdd!: User;
   public message: string = '';
+  private currentUser!: User;
 
   constructor(private authenticationService: AuthenticationService, private userService: UserService,
     private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe(() => {
-      this.getUser()
-    });
+    let uid = this.authenticationService.getUserUID();
+    if (uid != null) {
+      this.getCurrentUser();
+      this.addUserAndRedirect()
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 
-  async getUser() {
-    let uid = this.authenticationService.getUserUID();
+  getCurrentUser() {
+    if (this.route.snapshot.data['currentUser'] != undefined) {
+      this.currentUser = this.route.snapshot.data['currentUser'][0];
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  addUserAndRedirect() {
     let destinationRoute = '';
-    if (uid != null) {
-      if (this.route.snapshot.data['userToAdd'] != undefined) {
-        if (this.route.snapshot.data['userToAdd'] instanceof Array) {
-          this.userToAdd = this.route.snapshot.data['userToAdd'][0];
-        } else {
-          this.userToAdd = this.route.snapshot.data['userToAdd'];
-        }
-        if (this.userToAdd.uid == uid) {
-          destinationRoute = '/user/profil';
-          this.message = 'Vous ne pouvez pas vous ajouter vous même';
-        } else {
-          //Message avec vous allez etre redirigé et un compteur de 3 secondes avec raison
-          console.log("ajout de l ami");
-          let result = await this.followUser();
-          destinationRoute = '/user/profil/' + this.userToAdd.id;;
-          if (result) {
-            this.message = 'Vous êtes maintenant ami avec ' + this.userToAdd.firstName + ' ' + this.userToAdd.lastName;
-          } else {
-            this.message = 'Vous suivez déjà cette personne';
-          }
-        }
+    if (this.route.snapshot.data['userToAdd'] != undefined) {
+      if (this.route.snapshot.data['userToAdd'] instanceof Array) {
+        this.userToAdd = this.route.snapshot.data['userToAdd'][0];
       } else {
-        destinationRoute = '/user/home';
-        this.message = 'Utilisateur introuvable';
+        this.userToAdd = this.route.snapshot.data['userToAdd'];
+      }
+      if (this.userToAdd.uid == this.currentUser.uid) {
+        destinationRoute = '/user/profil';
+        this.message = 'Vous ne pouvez pas vous ajouter vous même';
+      } else {
+        let result = this.followUser();
+        destinationRoute = '/user/profil/' + this.userToAdd.id;
+        if (result) {
+          this.message = 'Vous êtes maintenant ami avec ' + this.userToAdd.firstName + ' ' + this.userToAdd.lastName;
+        } else {
+          this.message = 'Vous suivez déjà cette personne';
+        }
       }
     } else {
-      destinationRoute = '/login';
-      this.message = 'Vous devez être connecté pour accéder à cette page';
+      destinationRoute = '/user/home';
+      this.message = 'Utilisateur introuvable';
     }
+
     window.setTimeout(() => {
       this.router.navigate([destinationRoute]);
     }, 3000);
   }
 
 
-  async followUser(): Promise<boolean> {
-    let userUid = this.authenticationService.getUserUID();
-    if (userUid) {
-      let currentUser = await this.userService.getCurrentUser(userUid);
-      if (!currentUser.follows.includes(this.userToAdd.id)) {
-
-        this.userToAdd.followers.push(currentUser.id);
-        this.userService.updateUser(this.userToAdd);
-
-        currentUser.follows.push(this.userToAdd.id);
-        this.userService.updateUser(currentUser);
-        return true;
-      }
+  followUser(): boolean {
+    console.log(this.currentUser.follows);
+    console.log(this.userToAdd.id);
+    if (!this.currentUser.follows.includes(this.userToAdd.id)) {
+      this.userToAdd.followers.push(this.currentUser.id);
+      this.userService.updateUser(this.userToAdd);
+      this.currentUser.follows.push(this.userToAdd.id);
+      this.userService.updateUser(this.currentUser);
+      return true;
+    } else {
+      return false;
     }
-    return false;
   }
 }

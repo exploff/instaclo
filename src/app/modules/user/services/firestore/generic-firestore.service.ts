@@ -3,7 +3,7 @@ import { addDoc, collectionData, deleteDoc, docData, getCountFromServer, Documen
 import { CollectionReference, doc, DocumentData } from "@firebase/firestore";
 import { AggregateField, AggregateQuerySnapshot } from "@firebase/firestore";
 import { Observable } from "rxjs";
-
+import firebase from "firebase/compat";
 
 @Injectable({
   providedIn: "root",
@@ -42,10 +42,18 @@ export class GenericFirestoreService {
     const request = query(collection, where(propertyName, "==", propertyValue), limit(maxResult));
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
-  public fetchByPropertyiInOrder<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValue: string, directionproperty:string,
+
+  public fetchByPropertyInOrder<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValue: string, directionproperty:string,
                                      direction: "asc" | "desc" = "desc"):
     Observable<T[]> {
     const request = query(collection, orderBy(directionproperty, direction), where(propertyName, "==", propertyValue));
+    return collectionData(request, { idField: "id" }) as Observable<T[]>;
+  }
+
+  public fetchByPropertySpecialChatInOrder<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValue: string, directionproperty:string,
+                                    direction: "asc" | "desc" = "desc"):
+    Observable<T[]> {
+    const request = query(collection, orderBy(directionproperty, direction), where(propertyName, "array-contains", propertyValue));
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 
@@ -53,6 +61,15 @@ export class GenericFirestoreService {
     Observable<T[]> {
     //const request = query(collection, orderBy(propertyName, "asc"), startAt(propertyValue.toUpperCase()), endAt(propertyValue.toLowerCase() + "\uf8ff"), limit(maxResult));
     const request = query(collection, where('keywords', "array-contains", propertyValue.toLowerCase()), limit(max));
+    return collectionData(request, { idField: "id" }) as Observable<T[]>;
+  }
+
+  public fetchByPropertyContainsIn<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValues: string[], directionproperty:string,
+    direction: "asc" | "desc" = "desc",  maxResult: number = 20):
+    Observable<T[]> {
+    const request = query(collection, orderBy(directionproperty, direction),
+                                      where(propertyName, "in", propertyValues),
+                                      limit(maxResult));
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 

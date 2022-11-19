@@ -44,6 +44,7 @@ export class AuthenticationService {
     return null;
   }
 
+
   public async signIn(email: string, password: string): Promise<UserCredential | null> {
     try {
       return await signInWithEmailAndPassword(this.auth, email, password);

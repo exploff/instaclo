@@ -8,6 +8,7 @@ import {ChatRoomService} from "../../services/chat-room/chat-room.service";
 import {ChatRoom} from "../../models/chat-room.model";
 import {ActivatedRoute} from "@angular/router";
 import {Chat} from "../../models/chat.model";
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -18,25 +19,25 @@ import {Chat} from "../../models/chat.model";
 
 export class ChatListComponent implements OnInit {
 
-  public chatRooms: ChatRoom[] = [];
-
-  public chatWithUser: User | undefined;
+  public chatRooms!: ChatRoom[];
+  public chatRoomsForComponentChat!: ChatRoom;
+  public messagesRoom!: Observable<Chat[]>;
+  public uid: string | null = '';
 
   constructor(private route : ActivatedRoute, private chatRoomService: ChatRoomService, private chatService: ChatService, private userService: UserService, private authService: AuthenticationService) {
   }
 
   ngOnInit(): void {
     this.chatRooms = this.route.snapshot.data['chatRooms'];
-    this.chatWithUser = this.route.snapshot.data['chatWithUser'] instanceof Array ? this.route.snapshot.data['chatWithUser'][0]
-                                                                                  : this.route.snapshot.data['chatWithUser'];
-    console.log("chatrooms",this.chatRooms)
-
+    this.uid = this.authService.getUserUID();
   }
 
-  openChat(chatId: string) {
-    this.userService.fetchUserById(chatId).subscribe((user: User) => {
-      this.chatWithUser = user;
-    });
+
+  openChat(chatRoom: ChatRoom) {
+    let userToChat: User = chatRoom.users[0].uid == this.uid ? chatRoom.users[0] : chatRoom.users[1];
+    console.log(userToChat);
+    this.chatRoomsForComponentChat = chatRoom;
+    this.messagesRoom = this.chatService.fetchChatByChatRoomIdInOrder(this.chatRoomsForComponentChat.id);
   }
 
 }

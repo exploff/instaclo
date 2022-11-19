@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PhotosComponent } from './photos.component';
+import { NotFoundUserComponent } from './not-found-user.component';
 
-describe('PhotosComponent', () => {
-  let component: PhotosComponent;
-  let fixture: ComponentFixture<PhotosComponent>;
+describe('NotFoundUserComponent', () => {
+  let component: NotFoundUserComponent;
+  let fixture: ComponentFixture<NotFoundUserComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PhotosComponent ]
+      declarations: [ NotFoundUserComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PhotosComponent);
+    fixture = TestBed.createComponent(NotFoundUserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
