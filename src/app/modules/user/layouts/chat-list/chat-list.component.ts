@@ -19,9 +19,9 @@ import {Observable} from "rxjs";
 
 export class ChatListComponent implements OnInit {
 
-  public chatRooms: ChatRoom[] = [];
+  public chatRooms!: ChatRoom[];
   public chatRoomsForComponentChat!: ChatRoom;
-  public messageRoom!: Chat[];
+  public messagesRoom!: Observable<Chat[]>;
   public uid: string | null = '';
 
   constructor(private route : ActivatedRoute, private chatRoomService: ChatRoomService, private chatService: ChatService, private userService: UserService, private authService: AuthenticationService) {
@@ -33,22 +33,11 @@ export class ChatListComponent implements OnInit {
   }
 
 
-  openChat(chatId: string) {
-
-    this.messageRoom = [];
-    this.userService.fetchUserById(chatId).subscribe((user: User) => {
-      console.log(user);
-      for (let i = 0; i < this.chatRooms.length; i++) {
-        for (let j = 0; j < this.chatRooms[i].users.length; j++) {
-          if (this.chatRooms[i].uid_user[j] === user.uid) {
-            this.chatRoomsForComponentChat = this.chatRooms[i];
-            this.chatService.fetchChatByChatRoomIdInOrder(this.chatRoomsForComponentChat.id).subscribe((data) => {
-              this.messageRoom = data;
-            });
-          }
-        }
-      }
-    });
+  openChat(chatRoom: ChatRoom) {
+    let userToChat: User = chatRoom.users[0].uid == this.uid ? chatRoom.users[0] : chatRoom.users[1];
+    console.log(userToChat);
+    this.chatRoomsForComponentChat = chatRoom;
+    this.messagesRoom = this.chatService.fetchChatByChatRoomIdInOrder(this.chatRoomsForComponentChat.id);
   }
 
 }

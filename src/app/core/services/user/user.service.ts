@@ -134,18 +134,4 @@ export class UserService {
     }
     return keywords;
   }
-  public async getCurrentUser(uid :string):Promise<User>{
-    return await lastValueFrom(this.fetchUserByUID(uid).pipe(take(1),map(user=>user[0])))
-    // return this.fetchUserByUID(uid).pipe(map(user=>user[0]))
-  }
-
-  async getFollowedUsers(currentUser:User):Promise<User[]>{
-    let returnList:User[]=[]
-    for(let id of currentUser.follows){
-      let user = await lastValueFrom(this.fetchUserById(id).pipe(take(1)))
-      returnList.push(user)
-    }
-    return returnList
-  }
-
 }

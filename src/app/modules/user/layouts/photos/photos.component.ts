@@ -11,7 +11,7 @@ import { UploadResult } from '@angular/fire/storage';
 @Component({
   selector: 'app-photos',
   templateUrl: './photos.component.html',
-  styleUrls: ['./photos.component.css']
+  styleUrls: ['./photos.component.scss']
 })
 export class PhotosComponent implements OnInit, OnDestroy {
 

@@ -1,5 +1,3 @@
-import { HomeResolverResolver } from './services/resolver/home-resolver.resolver';
-import { PhotosComponent } from './layouts/photos/photos.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './layouts/home/home.component';
@@ -9,6 +7,8 @@ import { UsersResolverResolver } from './services/resolver/users-resolver.resolv
 import {ChatListComponent} from "./layouts/chat-list/chat-list.component";
 import {ChatRoomResolverResolver} from "./services/resolver/chat-room-resolver.resolver";
 import { QrcodeComponent } from './layouts/qrcode/qrcode.component';
+import { CurrentUserResolver } from './services/resolver/current-user.resolver';
+import { PhotosComponent } from './layouts/photos/photos.component';
 
 const routes: Routes = [
   {
@@ -23,14 +23,14 @@ const routes: Routes = [
         path: 'home',
         component: HomeComponent,
         resolve: {
-          user: HomeResolverResolver
+          currentUser: CurrentUserResolver,
         }
       },
       {
         path: 'profil',
         component: ProfilComponent,
         resolve: {
-          user: UsersResolverResolver
+          currentUser: CurrentUserResolver
         },
         pathMatch: 'full'
       },
@@ -38,7 +38,8 @@ const routes: Routes = [
         path: 'profil/:id',
         component: ProfilComponent,
         resolve: {
-          user: UsersResolverResolver
+          user: UsersResolverResolver,
+          currentUser: CurrentUserResolver
         }
       },
       {
@@ -53,13 +54,8 @@ const routes: Routes = [
         path: 'chat/:id',
         component: ChatListComponent,
         resolve: {
-          chatRooms: ChatRoomResolverResolver,
-          // chatWithUser: UsersResolverResolver
+          chatRooms: ChatRoomResolverResolver
         }
-      },
-      {
-        path: 'photos',
-        component: PhotosComponent,
       },
       {
         path: 'edit-profil',
@@ -69,9 +65,14 @@ const routes: Routes = [
         path: 'qrcode/:id',
         component: QrcodeComponent,
         resolve: {
-          userToAdd: UsersResolverResolver
+          userToAdd: UsersResolverResolver,
+          currentUser: CurrentUserResolver
         },
         pathMatch: 'full'
+      },
+      {
+        path: 'photos',
+        component: PhotosComponent
       },
       {
         path: '**',

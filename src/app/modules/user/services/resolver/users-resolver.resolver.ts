@@ -8,18 +8,17 @@ import { AuthenticationService } from 'src/app/core/services/authentification/au
 @Injectable({
   providedIn: 'root'
 })
-export class UsersResolverResolver implements Resolve<User | User[]> {
+export class UsersResolverResolver implements Resolve<User | undefined> {
   constructor(private userService: UserService, private authenticationService: AuthenticationService) {
   }
-  resolve(route: ActivatedRouteSnapshot):  Observable<User | User[]> {
+  resolve(route: ActivatedRouteSnapshot):  Observable<User | undefined> {
     let id = route.paramMap.get('id');
     if (id != null) {
       return this.userService.fetchUserById(id);
+    } else {
+      return new Observable(undefined);
     }
-    let uid = this.authenticationService.getUserUID();
-    return this.userService.fetchUserByUID(uid!).pipe(
-      take(1),
-    );
+
   }
 }
 

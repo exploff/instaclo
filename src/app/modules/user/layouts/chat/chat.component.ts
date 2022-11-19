@@ -14,10 +14,10 @@ import {UserService} from "../../../../core/services/user/user.service";
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit {
 
   @Input()chatRoomsForComponentChat!: ChatRoom;
-  @Input()messageRoom!: Chat[];
+  @Input()messageRoom!: Observable<Chat[]>;
   @ViewChild('messageInput') inputName: any;
 
   public chat!: Chat;

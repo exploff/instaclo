@@ -39,7 +39,7 @@ export class ChatService {
   }
 
   public fetchChatByChatRoomIdInOrder(chat: string, direction: "asc" | "desc" = "asc"): Observable<Chat[]> {
-    return this.genericFirestoreService.fetchByPropertyiInOrder<Chat>(this.chatCollection, "id_chat_room", chat, "date_created", "asc");
+    return this.genericFirestoreService.fetchByPropertyInOrder<Chat>(this.chatCollection, "id_chat_room", chat, "date_created", "asc");
   }
 
   public addNewChat(chat: Chat): Promise<DocumentReference<DocumentData>> {
