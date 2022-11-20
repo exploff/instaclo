@@ -4,7 +4,7 @@
     <ng-container *ngFor="let image of listImages | async">
       <div class="row justify-content-center">
         <div class="col mw-50">
-          <app-card-image [image]="image"></app-card-image>
+          <app-card-image [image]="image" [currentUser]="user"></app-card-image>
         </div>
       </div>
     </ng-container>

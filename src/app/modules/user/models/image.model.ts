@@ -1,4 +1,5 @@
 import { Timestamp } from "firebase/firestore";
+import { Comment } from "./comment.model";
 
 export interface Image {
   id : string;
@@ -7,4 +8,5 @@ export interface Image {
   createDate : Timestamp;
   description : string;
   like: string[];
+  comments: Comment[];
 }

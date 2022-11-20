@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col d-flex justify-content-between">
+    <h1 mat-dialog-title>Comments</h1>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Quitter</button>
+    </div>
+  </div>
+</div>
+<div mat-dialog-content>
+  <div style="height: 450px; overflow-y: scroll">
+    <div *ngFor="let comment of image.comments.sort(this.compareComment)">
+
+      <div class="row">
+        <div class="col-3">
+         <!-- <img class="img imgProfil rounded-circle" src="{{ (getUser(comment.userId) | async)?.profilImage }}"> -->
+          {{ comment.fullName }}
+        </div>
+        <div class="col-6">
+          {{ comment.comment }}
+        </div>
+        <div class="col-3">
+          {{ comment.createDate.toDate() | date:'dd / MM / yyyy' }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" class="mt-5">
+    <mat-error *ngIf="comment.hasError('minlength')">
+      150 caractères maximum
+    </mat-error>
+    <div class="row">
+      <div class="col-8">
+        <input type="text" placeholder="150 caractères maximum..." class="form-control" maxlength="150" [formControl]="comment" #commentInput>
+      </div>
+      <div class="col-4">
+        <button mat-button type="submit" color="primary">
+          Envoyer
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

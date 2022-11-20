@@ -119,7 +119,8 @@ export class PhotosComponent implements OnInit, OnDestroy {
       path:fullpath,
       createDate:new Timestamp( datePhoto / 1000,datePhoto / 1000000 ),
       description:this.postForm.value.discription,
-      like:[]}
+      like:[],
+      comments:[]}
       let addImage=await this.imageService.addNewImage(image)
       image.id=addImage.id
       let retunval=await this.imageService.updateImage(image)

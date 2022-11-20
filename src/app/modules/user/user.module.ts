@@ -13,9 +13,10 @@ import {ChatComponent}            from "./layouts/chat/chat.component";
 import { DialogQrCodeComponent }  from './layouts/profil/components/dialog-qr-code/dialog-qr-code.component';
 import { QrcodeComponent }        from './layouts/qrcode/qrcode.component';
 import { PhotosComponent } from './layouts/photos/photos.component';
+import { DialogCommentComponent } from './layouts/home/components/card-image/dialog-comment/dialog-comment.component';
 
 @NgModule({
-  declarations: [ProfilComponent, EditProfilComponent, HomeComponent, CardImageComponent, ChatListComponent, ChatComponent, DialogQrCodeComponent, QrcodeComponent, PhotosComponent],
+  declarations: [ProfilComponent, EditProfilComponent, HomeComponent, CardImageComponent, ChatListComponent, ChatComponent, DialogQrCodeComponent, QrcodeComponent, PhotosComponent, DialogCommentComponent],
   imports: [SharedModule, UserRoutingModule],
   exports: [],
 })
