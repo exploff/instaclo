@@ -37,13 +37,11 @@ export class PhotosComponent implements OnInit, OnDestroy {
 
   constructor(private sanitizer : DomSanitizer, private router: Router , private storageService:StorageService, private imageService:ImageService) { }
 
-  async ngOnInit() {
-
-    await this.checkCamera()
+  ngOnInit() {
+    this.checkCamera()
     if(this.showCamera){
       this.start()
     }
-
   }
 
   ngOnDestroy() {
@@ -133,10 +131,11 @@ export class PhotosComponent implements OnInit, OnDestroy {
 
   }
 
-  async checkCamera():Promise<void>{
-    try {
-      this.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: this.facingMode }})
-
+  checkCamera() {
+    let flux = navigator.mediaDevices.getUserMedia({ video: { facingMode: this.facingMode }})
+    if (flux instanceof MediaStream) {
+      try {
+      this.stream = flux;
       const track : MediaStreamTrack = this.stream.getVideoTracks()[0]
       this.stream?.getTracks()?.forEach((track) =>{
           track.stop();
@@ -152,5 +151,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
         alert("The request is not allowed by the user agent or the platform in the current context.");
         this.router.navigateByUrl('/user/home')
       }
+    }
   }
+
 }

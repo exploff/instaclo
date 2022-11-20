@@ -26,8 +26,7 @@ export class ImageService {
     return this.genericFirestoreService.fetchAll<Image>(this.imageCollection, "id", direction);
   }
 
-  public fetchImagesByPagination(startAfterImage: string, maxResult: number = 30, direction: "asc" | "desc" = "asc") {
-
+  public fetchImagesByPagination(startAfterImage: string, maxResult: number = 30, direction: "asc" | "desc" = "asc"): Observable<Image[]> {
     return this.genericFirestoreService.fetchByPagination<Image>(this.imageCollection, "id",
       startAfterImage, maxResult, direction) as Observable<Image[]>;
   }
