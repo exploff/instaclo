@@ -1,18 +1,11 @@
 <div class="col-12">
   <div class="card-header">
-    <div class="row">
+    <div class="row" b *ngIf="chatRoomsForComponentChat.user.length > 0">
       <div class="col-md-5">
-        <span *ngIf="chatRoomsForComponentChat.users[0].uid === uid; else testImage">
-          <img class="img imgProfil rounded-circle" src="{{chatRoomsForComponentChat.users[1].profilImage}}">
-        </span>
-        <ng-template #testImage><img class="img imgProfil rounded-circle"
-            src="{{chatRoomsForComponentChat.users[0].profilImage}}"></ng-template>
+        <img class="img imgProfil rounded-circle" src="{{chatRoomsForComponentChat.user[0].profilImage}}">
       </div>
       <div class="col-md-7">
-        <span *ngIf="chatRoomsForComponentChat.users[0].uid === uid; else test">
-          <strong class="">{{chatRoomsForComponentChat.users[1].pseudo}}</strong>
-        </span>
-        <ng-template #test><strong>{{chatRoomsForComponentChat.users[0].pseudo}}</strong></ng-template>
+        <strong class="">{{chatRoomsForComponentChat.user[0].pseudo}}</strong>
       </div>
       <hr>
     </div>
@@ -22,7 +15,7 @@
 <div class="col-12">
   <div class="messenger" ngSwipe (swipeMove)="onSwipeMove($event)" (swipeEnd)="onSwipeEnd($event)">
     <div *ngFor=" let message of messageRoom | async" [ngClass]="uid === message.uid_user ? 'text-end' : 'text-start'">
-      <div *ngIf="chatRoomsForComponentChat.users[0].uid === message.uid_user; else testMessage">
+      <div *ngIf="chatRoomsForComponentChat.uid_user[1] === message.uid_user; else testMessage">
         <span class="bg-info">{{message.message}}
         </span>
       </div>
@@ -35,9 +28,12 @@
         message.date_created | date: 'HH:mm'
         }}
       </div>
-      <p>
-        <small>{{message.pseudo_user}}</small>
+      <p *ngIf="chatRoomsForComponentChat.uid_user[1] === message.uid_user; else pseudoMessage">
+        <small>{{chatRoomsForComponentChat.user[0].pseudo}}</small>
       </p>
+      <ng-template #pseudoMessage>
+        <small>{{user[0].pseudo}}</small>
+      </ng-template>
     </div>
   </div>
 </div>

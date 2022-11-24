@@ -47,7 +47,7 @@
               </div>
             </div>
 
-            <button class="btn btn-secondary w-25 btn-sm mt-2" (click)="sendChat(user.id)">
+            <button class="btn btn-secondary w-25 btn-sm mt-2" (click)="sendChat(user.uid)">
               Ecrire
             </button>
 
@@ -64,10 +64,10 @@
       </div>
     </div>
   </div>
-  <div class="container border mt-5" >
-    <div class="row gy-5 py-5" >
+  <div class="container border mt-5">
+    <div class="row gy-5 py-5">
       <div class="col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let image of images | async">
-        <img [src]="image.path" style="height: 300px; width : 300px" >
+        <img [src]="image.path" style="height: 300px; width : 300px">
       </div>
     </div>
   </div>

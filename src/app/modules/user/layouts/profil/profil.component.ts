@@ -23,11 +23,11 @@ export class ProfilComponent {
   public user!: User;
   public images!: Observable<Image[]>;
   public imageLength: number = 0;
-  public errorMessage:string = '';
+  public errorMessage: string = '';
   public currentUser!: User;
 
   constructor(private authenticationService: AuthenticationService, private userService: UserService, private router: Router,
-    private route: ActivatedRoute, private imageService:ImageService, private chatRoomService: ChatRoomService,
+    private route: ActivatedRoute, private imageService: ImageService, private chatRoomService: ChatRoomService,
     public dialog: MatDialog) {
     this.route.params.subscribe(() => {
       this.getCurrentUser();
@@ -54,12 +54,12 @@ export class ProfilComponent {
     this.isUserCo = this.user.id == this.currentUser.id;
   }
 
-  getUserImages(id: string):void {
+  getUserImages(id: string): void {
     this.images = this.imageService.fetchUserImages(id);
   }
 
-  onFollowUser(){
-    if(!this.user.followers.includes(this.currentUser.id)){
+  onFollowUser() {
+    if (!this.user.followers.includes(this.currentUser.id)) {
       //Follow users
       this.user.followers.push(this.currentUser.id);
       //update current user
@@ -67,18 +67,18 @@ export class ProfilComponent {
       this.currentUser.follows.push(this.user.id);
       // update followed user
       this.userService.updateUser(this.currentUser);
-    }else{
+    } else {
       //Unfollow users
       //update current user
-      for( var i = 0; i < this.user.followers.length; i++){
-        if ( this.user.followers[i] === this.currentUser.id) {
+      for (var i = 0; i < this.user.followers.length; i++) {
+        if (this.user.followers[i] === this.currentUser.id) {
           this.user.followers.splice(i, 1);
         }
       }
       this.userService.updateUser(this.user);
 
       // update followed user
-      for( var i = 0; i < this.currentUser.follows.length; i++){
+      for (var i = 0; i < this.currentUser.follows.length; i++) {
         if (this.currentUser.follows[i] === this.user.id) {
           this.currentUser.follows.splice(i, 1);
         }
@@ -103,14 +103,14 @@ export class ProfilComponent {
     });
   }
 
-  public sendChat(userId: string) {
+  public sendChat(uid_user: string) {
     //Création de la chatroom avec la personne si elle n'exite pas et on redirige vers la chatroom
-    if (userId != null) {
+    if (uid_user != null) {
       this.chatRoomService.fetchChatRoomByUserUidFromORUserUidTo(this.currentUser.uid).subscribe((chatRooms) => {
         let chatRoomFound: ChatRoom | undefined;
         chatRooms.forEach((chatRoom) => {
-          chatRoom.users.forEach((user) => {
-            if (user.id == userId) {
+          chatRoom.uid_user.forEach((uid) => {
+            if (uid == uid_user) {
               chatRoomFound = chatRoom;
             }
           })
@@ -120,14 +120,11 @@ export class ProfilComponent {
             id: '',
             uid_user: [this.user.uid, this.currentUser.uid],
             created_date: new Date().toTimeString(),
-            users: [
-              this.user,
-              this.currentUser
-            ],
+            user: [],
           }
           this.chatRoomService.addNewChatRoom(chatRoom);
         }
-        this.router.navigate(['/user/chat/' + userId]);
+        this.router.navigate(['/user/chat/' + uid_user]);
       });
     } else {
       //TODO : Gestion erreur

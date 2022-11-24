@@ -4,10 +4,11 @@
       <div class="row" *ngFor="let chatRoom of chatRooms">
         <div class="col d-flex align-items-center justify-content-left link-chat border-bottom"
           (click)="openChat(chatRoom)">
-          <p class="my-5" *ngIf="chatRoom.users[0].uid === uid; else test">
-            <strong class="">{{chatRoom.users[1].pseudo}}</strong>
+          <p class="my-5" *ngIf="chatRoom.user.length > 0">
+            <span *ngFor="let item of chatRoom.user">
+              {{item.pseudo}}
+            </span>
           </p>
-          <ng-template #test class="my-5"><strong>{{chatRoom.users[0].pseudo}}</strong></ng-template>
         </div>
       </div>
     </div>
@@ -18,4 +19,3 @@
       </div>
     </div>
   </div>
-</div>

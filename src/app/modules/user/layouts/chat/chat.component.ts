@@ -44,7 +44,6 @@ export class ChatComponent implements OnInit {
             id: '',
             id_chat_room: this.chatRoomsForComponentChat.id,
             uid_user: this.uid,
-            pseudo_user: this.user[0].pseudo,
             message: this.message.value ? this.message.value : '',
             date_created: new Date().toISOString(),
           }
@@ -56,6 +55,8 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.chatRoomsForComponentChat);
+
     this.uid = this.authService.getUserUID();
     if (this.uid != null) {
       this.userService.fetchUserByUID(this.uid).subscribe((user: User[]) => {
