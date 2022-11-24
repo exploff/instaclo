@@ -31,3 +31,10 @@
     height: 250px;
   }
 }
+.messenger{
+  height: 350px;
+  overflow-y: scroll;
+}
+.messenger::-webkit-scrollbar {
+  display: none;
+}
