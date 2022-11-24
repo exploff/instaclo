@@ -14,8 +14,9 @@
 
 <div class="col-12">
   <div class="messenger" ngSwipe (swipeMove)="onSwipeMove($event)" (swipeEnd)="onSwipeEnd($event)">
-    <div *ngFor=" let message of messageRoom | async" [ngClass]="uid === message.uid_user ? 'text-end' : 'text-start'">
-      <div *ngIf="chatRoomsForComponentChat.uid_user[1] === message.uid_user; else testMessage">
+    <div *ngFor=" let message of messageRoom | async"
+      [ngClass]="user[0].uid === message.uid_user ? 'text-end' : 'text-start'">
+      <div *ngIf="user[0].uid === message.uid_user; else testMessage">
         <span class="bg-info">{{message.message}}
         </span>
       </div>
@@ -28,11 +29,13 @@
         message.date_created | date: 'HH:mm'
         }}
       </div>
-      <p *ngIf="chatRoomsForComponentChat.uid_user[1] === message.uid_user; else pseudoMessage">
-        <small>{{chatRoomsForComponentChat.user[0].pseudo}}</small>
+      <p *ngIf="user[0].uid === message.uid_user; else pseudoMessage">
+        <small>{{user[0].pseudo}}</small>
       </p>
       <ng-template #pseudoMessage>
-        <small>{{user[0].pseudo}}</small>
+        <p>
+          <small>{{chatRoomsForComponentChat.user[0].pseudo}}</small>
+        </p>
       </ng-template>
     </div>
   </div>
