@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/core/models/user.model';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ChatRoom } from "../../models/chat-room.model";
@@ -22,17 +22,21 @@ export class ChatComponent implements OnInit {
   @Input() chatRoomsForComponentChat!: ChatRoom;
   @Input() messageRoom!: Observable<Chat[]>;
   @ViewChild('messageInput') inputName: any;
+  @ViewChild('newMessage') newMessage: ElementRef;
+  newMessageUpdate: string = "";
 
+  public isTrue : boolean = false;
   public chat!: Chat;
   public message = new FormControl('', [Validators.required]);
   public uid!: string | null;
   public user!: User[];
   public displayDate: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public TEST!: Boolean;
-  constructor(public chatService: ChatService, public route: ActivatedRoute, public authService: AuthenticationService, public userService: UserService) {
+  constructor(public chatService: ChatService, public route: ActivatedRoute, public authService: AuthenticationService, public userService: UserService, newMessage: ElementRef) {
     this.displayDate.subscribe(valeur => {
       this.TEST = valeur;
     });
+    this.newMessage = newMessage;
   }
 
 
@@ -64,6 +68,26 @@ export class ChatComponent implements OnInit {
       });
     }
   }
+
+  doubleclick(){
+    this.isTrue = true;
+    //this.chatService.deleteChat()
+
+  }
+
+
+  delete(id : string) {
+    this.chatService.deleteChat(id);
+  }
+
+  update(chat : Chat) {
+    this.newMessageUpdate = this.newMessage.nativeElement.value;
+    chat.message = this.newMessageUpdate;
+    this.chatService.updateChat(chat);
+    this.isTrue = false;
+
+  }
+
 
   onSwipeMove(event: SwipeEvent) {
     // if (event.distance < 0) {

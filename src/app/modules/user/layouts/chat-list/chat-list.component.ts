@@ -29,9 +29,6 @@ export class ChatListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
-
     this.chatRooms = this.route.snapshot.data['chatRooms'];
     this.uid = this.authService.getUserUID();
 

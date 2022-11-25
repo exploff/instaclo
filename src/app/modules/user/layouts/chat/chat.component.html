@@ -17,7 +17,8 @@
     <div *ngFor=" let message of messageRoom | async"
       [ngClass]="user[0].uid === message.uid_user ? 'text-end' : 'text-start'">
       <div *ngIf="user[0].uid === message.uid_user; else testMessage">
-        <span class="bg-info">{{message.message}}
+        <span class="bg-info" (dblclick)="doubleclick()">
+          <input type="text" value="{{message.message}}" [disabled]="!isTrue" #newMessage id="newMessage" name="newMessage" >
         </span>
       </div>
       <ng-template #testMessage>
@@ -30,13 +31,20 @@
         }}
       </div>
       <p *ngIf="user[0].uid === message.uid_user; else pseudoMessage">
-        <small>{{user[0].pseudo}}</small>
+        {{user[0].pseudo}}
       </p>
       <ng-template #pseudoMessage>
         <p>
           <small>{{chatRoomsForComponentChat.user[0].pseudo}}</small>
         </p>
       </ng-template>
+      <div *ngIf="user[0].uid === message.uid_user && isTrue">
+        <span>
+          <button (click)="update(message)" >modifier</button>
+          |
+          <a (click)="delete(message.id)">supprimer</a>
+        </span>
+      </div>
     </div>
   </div>
 </div>
