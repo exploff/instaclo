@@ -1,16 +1,21 @@
 import { Injectable } from "@angular/core";
-import { addDoc, collectionData, deleteDoc, docData, getCountFromServer, DocumentReference, Firestore, query, updateDoc, where, limit, orderBy, startAfter, WithFieldValue, getDoc, startAt, endAt } from "@angular/fire/firestore";
+import { addDoc, collectionData, deleteDoc, docData, getCountFromServer, DocumentReference, Firestore, query, updateDoc, where, limit, orderBy, startAfter, WithFieldValue, getDoc, startAt, endAt, enableIndexedDbPersistence } from "@angular/fire/firestore";
 import { CollectionReference, doc, DocumentData } from "@firebase/firestore";
 import { AggregateField, AggregateQuerySnapshot } from "@firebase/firestore";
 import { Observable } from "rxjs";
-import firebase from "firebase/compat";
 
 @Injectable({
   providedIn: "root",
 })
 export class GenericFirestoreService {
 
-  constructor(private readonly firestore: Firestore) { }
+  constructor(private readonly firestore: Firestore) {
+    enableIndexedDbPersistence(this.firestore, {
+      forceOwnership: true,
+    }).catch((reason) => {
+      console.log('NO PERSISTENCE : ', reason);
+    });
+   }
 
   public count(collection: CollectionReference<DocumentData>): Promise<AggregateQuerySnapshot<{ count: AggregateField<number> }>> {
 
