@@ -9,6 +9,7 @@ import {ChatRoomResolverResolver} from "./services/resolver/chat-room-resolver.r
 import { QrcodeComponent } from './layouts/qrcode/qrcode.component';
 import { CurrentUserResolver } from './services/resolver/current-user.resolver';
 import { PhotosComponent } from './layouts/photos/photos.component';
+import { QrcodeScannerComponent } from './layouts/qrcode-scanner/qrcode-scanner.component';
 
 const routes: Routes = [
   {
@@ -69,6 +70,10 @@ const routes: Routes = [
           currentUser: CurrentUserResolver
         },
         pathMatch: 'full'
+      },
+      {
+        path: 'scannerQrcode',
+        component: QrcodeScannerComponent
       },
       {
         path: 'photos',
