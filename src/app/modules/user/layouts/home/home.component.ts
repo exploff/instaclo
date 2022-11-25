@@ -5,7 +5,7 @@ import { UserService } from 'src/app/core/services/user/user.service';
 import { AuthenticationService } from 'src/app/core/services/authentification/authentification.service';
 import { User } from 'src/app/core/models/user.model';
 import { ImageService } from '../../services/image/image.service';
-import { Observable, BehaviorSubject, merge, tap, share } from 'rxjs';
+import { Observable, BehaviorSubject, merge, tap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
