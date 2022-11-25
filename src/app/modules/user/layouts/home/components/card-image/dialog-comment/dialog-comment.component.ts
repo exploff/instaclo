@@ -69,4 +69,11 @@ export class DialogCommentComponent {
       this.comment.reset();
     }
   }
+
+  deleteComment(comment: Comment) {
+    if (comment.userId === this.currentUser.id) {
+      this.image.comments.splice(this.image.comments.indexOf(comment), 1);
+      this.imageService.updateImage(this.image);
+    }
+  }
 }
