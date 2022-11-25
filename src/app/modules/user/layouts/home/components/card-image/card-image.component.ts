@@ -62,7 +62,7 @@ export class CardImageComponent implements OnInit, AfterViewInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogCommentComponent, {
-      width: '500px',
+      width: '600px',
       data: {
         image: this.image,
         currentUser: this.currentUser
