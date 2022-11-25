@@ -22,20 +22,22 @@
   </div>
 </div>
 <div class="container d-flex flex-column" *ngIf="takePhotoClick">
-  <img #imageDisplay>
-  <div class="mt-4">
-    <form [formGroup]="postForm" (ngSubmit)="onContinue()" >
-      <div class="example-container">
-        <mat-form-field>
-          <textarea matInput placeholder="Discription" formControlName="discription"></textarea>
+  <div class="container d-flex justify-content-center">
+    <img #imageDisplay>
+  </div>
+  <div class="container mt-4">
+    <form [formGroup]="postForm" (ngSubmit)="onContinue()" class="container d-flex flex-column justify-content-center">
+      <div class="container">
+        <mat-form-field class="container">
+          <textarea matInput placeholder="Discription" formControlName="discription" class="container"></textarea>
         </mat-form-field>
       </div>
-      <div class="container d-flex flex-row">
-        <button type="submit" class="btn btn-outline-secondary flex mx-2">
-          Continue
-        </button>
+      <div class="container d-flex flex-row justify-content-evenly">
         <button (click)="onBack()" class="btn btn-outline-secondary flex mx-2">
           Back
+        </button>
+        <button type="submit" class="btn btn-outline-secondary flex mx-2">
+          Continue
         </button>
       </div>
     </form>
