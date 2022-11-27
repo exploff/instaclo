@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit {
   @Input() messageRoom!: Observable<Chat[]>;
   @ViewChild('messageInput') inputName: any;
 
-  public isTrue: boolean = false;
+  public toggle: boolean = false;
   public chat!: Chat;
   public message = new FormControl('', [Validators.required]);
   public uid!: string | null;
@@ -29,7 +29,7 @@ export class ChatComponent implements OnInit {
   public displayDate: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
-  public TEST!: Boolean;
+  public showDate!: Boolean;
   public message_id: string = '';
 
   constructor(
@@ -39,7 +39,7 @@ export class ChatComponent implements OnInit {
     public userService: UserService
   ) {
     this.displayDate.subscribe((valeur) => {
-      this.TEST = valeur;
+      this.showDate = valeur;
     });
   }
 
@@ -62,8 +62,6 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.chatRoomsForComponentChat);
-
     this.uid = this.authService.getUserUID();
     if (this.uid != null) {
       this.userService.fetchUserByUID(this.uid).subscribe((user: User[]) => {
@@ -72,30 +70,18 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  doubleclick(messageId: string) {
-    this.isTrue = true;
-    this.message_id = messageId;
-    // if (messageId)
-  }
-
   delete(id: string) {
     this.chatService.deleteChat(id);
   }
 
   update(chat: Chat, test: any) {
-    // this.newMessageUpdate = this.newMessage.nativeElement.value;
     chat.message = test;
     this.chatService.updateChat(chat);
-    this.isTrue = false;
+    this.toggle = false;
   }
 
   handleChange() {
-    this.isTrue = false;
-    console.log('handleChange');
-  }
-  onFocus() {
-    this.isTrue = true;
-    console.log('onFocus');
+    this.toggle = false;
   }
 
   onSwipeRight() {
@@ -103,12 +89,12 @@ export class ChatComponent implements OnInit {
   }
 
   onSwipeLeft2(messageId: string) {
-    this.isTrue = true;
+    this.toggle = true;
     this.message_id = messageId;
   }
 
   onSwipeRight2() {
-    this.isTrue = false;
+    this.toggle = false;
   }
 
   onSwipeLeft() {

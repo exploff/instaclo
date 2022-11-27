@@ -36,9 +36,9 @@
         (swipeleft)="onSwipeLeft2(message.id)"
         (swiperight)="onSwipeRight2()"
       >
-        <span *ngIf="user[0].uid === message.uid_user; else testMessage">
+        <span *ngIf="user[0].uid === message.uid_user; else MateMessage">
           <span class="bulle">
-            <span *ngIf="isTrue && message_id === message.id; else notDisabled">
+            <span *ngIf="toggle && message_id === message.id; else notDisabled">
               <input
                 type="text"
                 value="{{ message.message }}"
@@ -60,17 +60,17 @@
             </ng-template>
           </span>
         </span>
-        <ng-template #testMessage>
+        <ng-template #MateMessage>
           <span class="bulle">{{ message.message }}</span>
         </ng-template>
-        <span class="text-end" *ngIf="TEST">
+        <span class="text-end" *ngIf="showDate">
           {{ message.date_created | date: "HH:mm" }}
         </span>
 
         <div
           *ngIf="
             user[0].uid === message.uid_user &&
-            isTrue &&
+            toggle &&
             message_id === message.id
           "
         >
