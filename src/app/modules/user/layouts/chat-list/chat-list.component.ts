@@ -44,7 +44,6 @@ export class ChatListComponent implements OnInit {
   }
 
   openChat(chatRoom: ChatRoom) {
-    console.log(chatRoom);
     this.chatRoomsForComponentChat = chatRoom;
     this.messagesRoom = this.chatService.fetchChatByChatRoomIdInOrder(this.chatRoomsForComponentChat.id);
   }

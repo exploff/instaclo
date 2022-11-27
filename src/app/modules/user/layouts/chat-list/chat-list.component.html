@@ -1,10 +1,10 @@
-<div class="container border rounded-1 mt-5 mainContainer">
+<div class="container border rounded-1 mt-5 mainContainer" >
   <div class="row h-100">
     <div class="col-4">
       <div class="row" *ngFor="let chatRoom of chatRooms">
         <div class="col d-flex align-items-center justify-content-left link-chat border-bottom"
           (click)="openChat(chatRoom)">
-          <p class="my-5" *ngIf="chatRoom.user.length > 0">
+          <p class="my-5" *ngIf="chatRoom.user">
             <span *ngFor="let item of chatRoom.user">
               {{item.pseudo}}
             </span>

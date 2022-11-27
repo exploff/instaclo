@@ -10,35 +10,35 @@ import { AuthenticationService } from "../../../../core/services/authentificatio
 import { UserService } from "../../../../core/services/user/user.service";
 import { SwipeEvent } from 'ng-swipe';
 import { BehaviorSubject } from 'rxjs';
+import { HammerModule } from '@angular/platform-browser';
 
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
-  styleUrls: ['./chat.component.scss']
+  styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent implements OnInit {
+
 
   @Input() chatRoomsForComponentChat!: ChatRoom;
   @Input() messageRoom!: Observable<Chat[]>;
   @ViewChild('messageInput') inputName: any;
-  @ViewChild('newMessage') newMessage: ElementRef;
-  newMessageUpdate: string = "";
 
-  public isTrue : boolean = false;
+  public isTrue: boolean = false;
   public chat!: Chat;
   public message = new FormControl('', [Validators.required]);
   public uid!: string | null;
   public user!: User[];
   public displayDate: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public TEST!: Boolean;
-  constructor(public chatService: ChatService, public route: ActivatedRoute, public authService: AuthenticationService, public userService: UserService, newMessage: ElementRef) {
+  public message_id: string = '';
+
+  constructor(public chatService: ChatService, public route: ActivatedRoute, public authService: AuthenticationService, public userService: UserService) {
     this.displayDate.subscribe(valeur => {
       this.TEST = valeur;
     });
-    this.newMessage = newMessage;
   }
-
 
   onSubmit() {
     if (this.message.value != '') {
@@ -69,40 +69,49 @@ export class ChatComponent implements OnInit {
     }
   }
 
-  doubleclick(){
+  doubleclick(messageId: string) {
     this.isTrue = true;
-    //this.chatService.deleteChat()
-
+    this.message_id = messageId;
+    // if (messageId)
   }
 
-
-  delete(id : string) {
+  delete(id: string) {
     this.chatService.deleteChat(id);
   }
 
-  update(chat : Chat) {
-    this.newMessageUpdate = this.newMessage.nativeElement.value;
-    chat.message = this.newMessageUpdate;
+  update(chat: Chat, test: any) {
+    // this.newMessageUpdate = this.newMessage.nativeElement.value;
+    chat.message = test;
     this.chatService.updateChat(chat);
     this.isTrue = false;
-
   }
 
+  handleChange() {
+    this.isTrue = false;
+    console.log("handleChange");
+  }
+  onFocus() {
+    this.isTrue = true;
+    console.log("onFocus");
+  }
 
   onSwipeMove(event: SwipeEvent) {
-    // if (event.distance < 0) {
-    //   this.displayDate.next(true);
-    // } else {
-    //   this.displayDate.next(false);
-    // }
-  }
-
-  onSwipeEnd(event: SwipeEvent) {
     if (event.distance < 0) {
       this.displayDate.next(true);
     } else {
       this.displayDate.next(false);
     }
   }
+
+  // onSwipeEnd(event: SwipeEvent) {
+  //   if (event.distance < 0) {
+  //     this.displayDate.next(true);
+  //   } else {
+  //     this.displayDate.next(false);
+  //   }
+  // }
+
+
+
 }
 
