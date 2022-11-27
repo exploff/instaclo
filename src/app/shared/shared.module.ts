@@ -7,6 +7,8 @@ import { ClickOutsideDirective } from './directive/click-outside.directive';
 import { QRCodeModule } from 'angularx-qrcode';
 import { SwipeModule } from 'ng-swipe';
 import { ClickOutsideMessageDirective } from './directive/click-outside-message.directive';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+
 
 const MODULES = [
   CommonModule,
@@ -16,6 +18,7 @@ const MODULES = [
   MaterialDesignModule,
   QRCodeModule,
   SwipeModule,
+  ZXingScannerModule
 ];
 
 const PIPES: any = [];

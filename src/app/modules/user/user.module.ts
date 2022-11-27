@@ -1,5 +1,4 @@
 import { NgModule }             from '@angular/core';
-
 import { SharedModule }         from 'src/app/shared/shared.module';
 
 import { UserRoutingModule }    from './user-routing.module';
@@ -14,9 +13,10 @@ import { DialogQrCodeComponent }  from './layouts/profil/components/dialog-qr-co
 import { QrcodeComponent }        from './layouts/qrcode/qrcode.component';
 import { PhotosComponent } from './layouts/photos/photos.component';
 import { DialogCommentComponent } from './layouts/home/components/card-image/dialog-comment/dialog-comment.component';
+import { QrcodeScannerComponent } from './layouts/qrcode-scanner/qrcode-scanner.component';
 
 @NgModule({
-  declarations: [ProfilComponent, EditProfilComponent, HomeComponent, CardImageComponent, ChatListComponent, ChatComponent, DialogQrCodeComponent, QrcodeComponent, PhotosComponent, DialogCommentComponent],
+  declarations: [ProfilComponent, EditProfilComponent, HomeComponent, CardImageComponent, ChatListComponent, ChatComponent, DialogQrCodeComponent, QrcodeComponent, PhotosComponent, DialogCommentComponent, QrcodeScannerComponent],
   imports: [SharedModule, UserRoutingModule],
   exports: [],
 })

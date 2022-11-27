@@ -1,8 +1,16 @@
-img,video {
+video {
   height: 250px;
 }
+img{
+  height: 250px;
+  width: 90%;
+}
 @media (min-width: 520px) {
-img,video {
+  video {
     height: 500px;
+  }
+  img {
+    height: 500px;
+    width: 50%;
   }
 }

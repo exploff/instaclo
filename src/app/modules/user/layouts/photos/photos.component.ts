@@ -39,9 +39,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.checkCamera()
-    if(this.showCamera){
-      this.start()
-    }
   }
 
   ngOnDestroy() {
@@ -133,26 +130,29 @@ export class PhotosComponent implements OnInit, OnDestroy {
   }
 
   checkCamera() {
-    let flux = navigator.mediaDevices.getUserMedia({ video: { facingMode: this.facingMode }})
-    if (flux instanceof MediaStream) {
-      try {
-      this.stream = flux;
-      const track : MediaStreamTrack = this.stream.getVideoTracks()[0]
-      this.stream?.getTracks()?.forEach((track) =>{
-          track.stop();
-        })
-      try {
-        const imageCapture : ImageCapture = new ImageCapture(track)
-        this.showCamera=true
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: this.facingMode }}).then(flux =>{
+
+      if (flux instanceof MediaStream) {
+        try {
+        this.stream = flux;
+        const track : MediaStreamTrack = this.stream.getVideoTracks()[0]
+        this.stream?.getTracks()?.forEach((track) =>{
+            track.stop();
+          })
+        try {
+          new ImageCapture(track)
+          this.showCamera=true
+          this.start()
+          }catch(error){
+            alert("Cette fonctionnalité n'est pas disponible sur ce support");
+            this.router.navigateByUrl('/user/home')
+          }
         }catch(error){
-          alert("Cette fonctionnalité n'est pas disponible sur ce support");
+          alert("The request is not allowed by the user agent or the platform in the current context.");
           this.router.navigateByUrl('/user/home')
         }
-      }catch(error){
-        alert("The request is not allowed by the user agent or the platform in the current context.");
-        this.router.navigateByUrl('/user/home')
       }
-    }
+    })
   }
 
 }
