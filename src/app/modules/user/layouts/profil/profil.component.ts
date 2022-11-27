@@ -1,5 +1,12 @@
+import { DialogCommentComponent } from './../home/components/card-image/dialog-comment/dialog-comment.component';
 import { ImageService } from './../../services/image/image.service';
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+  Input,
+} from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user.model';
 import { AuthenticationService } from 'src/app/core/services/authentification/authentification.service';
@@ -24,6 +31,8 @@ export class ProfilComponent {
   public imageLength: number = 0;
   public errorMessage: string = '';
   public currentUser!: User;
+  @Input() image!: Image;
+  likedImage!: string;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -38,6 +47,12 @@ export class ProfilComponent {
       this.getCurrentUser();
       this.getUser();
     });
+  }
+
+  ngOnInit(): void {
+    this.likedImage = this.image.like.includes(this.currentUser.id)
+      ? 'red'
+      : '';
   }
 
   getCurrentUser() {
@@ -136,5 +151,26 @@ export class ProfilComponent {
       //TODO : Gestion erreur
       this.errorMessage = "Erreur lors de l'envoie d'un message";
     }
+  }
+  public like() {
+    if (!this.image.like.includes(this.currentUser.id)) {
+      this.image.like.push(this.currentUser.id);
+      this.likedImage = 'red';
+    } else {
+      this.image.like.splice(this.image.like.indexOf(this.currentUser.id), 1);
+      this.likedImage = '';
+    }
+    this.imageService.updateImage(this.image);
+  }
+  openDialogComment(): void {
+    const dialogRef = this.dialog.open(DialogCommentComponent, {
+      data: {
+        image: this.image,
+        currentUser: this.currentUser,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
   }
 }

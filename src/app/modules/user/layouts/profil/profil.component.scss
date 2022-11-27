@@ -53,3 +53,18 @@
     }
   }
 }
+
+.ifUserCo {
+  .btnQrcode {
+    width: 48%;
+    @media (min-width: 992px) {
+      width: 24% !important;
+    }
+  }
+  .btnEdit {
+    width: 48%;
+    @media (min-width: 992px) {
+      width: 74% !important;
+    }
+  }
+}

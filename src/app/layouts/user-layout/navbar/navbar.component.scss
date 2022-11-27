@@ -9,7 +9,7 @@ i {
 .dropdownSearch {
   position: absolute;
   top: 46px;
-  overflow-y: scroll;
+  overflow: scroll;
 
   max-height: 100px;
   z-index: 99999;
@@ -27,6 +27,9 @@ i {
   hr {
     margin: 0;
   }
+}
+.dropdownSearch::-webkit-scrollbar {
+  display: none;
 }
 
 .text-dark {
