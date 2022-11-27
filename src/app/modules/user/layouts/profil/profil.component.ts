@@ -4,7 +4,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user.model';
 import { AuthenticationService } from 'src/app/core/services/authentification/authentification.service';
 import { UserService } from 'src/app/core/services/user/user.service';
-import { Image } from "../../models/image.model";
+import { Image } from '../../models/image.model';
 import { lastValueFrom, take } from 'rxjs';
 import { ChatRoomService } from '../../services/chat-room/chat-room.service';
 import { ChatRoom } from '../../models/chat-room.model';
@@ -15,10 +15,9 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.component.html',
-  styleUrls: ['./profil.component.scss']
+  styleUrls: ['./profil.component.scss'],
 })
 export class ProfilComponent {
-
   public isUserCo = false;
   public user!: User;
   public images!: Observable<Image[]>;
@@ -26,12 +25,18 @@ export class ProfilComponent {
   public errorMessage: string = '';
   public currentUser!: User;
 
-  constructor(private authenticationService: AuthenticationService, private userService: UserService, private router: Router,
-    private route: ActivatedRoute, private imageService: ImageService, private chatRoomService: ChatRoomService,
-    public dialog: MatDialog) {
+  constructor(
+    private authenticationService: AuthenticationService,
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private imageService: ImageService,
+    private chatRoomService: ChatRoomService,
+    public dialog: MatDialog
+  ) {
     this.route.params.subscribe(() => {
       this.getCurrentUser();
-      this.getUser()
+      this.getUser();
     });
   }
 
@@ -87,18 +92,17 @@ export class ProfilComponent {
     }
   }
 
-
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogQrCodeComponent, {
       width: '300px',
       data: {
         userId: this.user.id,
         firstName: this.user.firstName,
-        lastName: this.user.lastName
+        lastName: this.user.lastName,
       },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
   }
@@ -106,26 +110,28 @@ export class ProfilComponent {
   public sendChat(uid_user: string) {
     //Création de la chatroom avec la personne si elle n'exite pas et on redirige vers la chatroom
     if (uid_user != null) {
-      this.chatRoomService.fetchChatRoomByUserUidFromORUserUidTo(this.currentUser.uid).subscribe((chatRooms) => {
-        let chatRoomFound: ChatRoom | undefined;
-        chatRooms.forEach((chatRoom) => {
-          chatRoom.uid_user.forEach((uid) => {
-            if (uid == uid_user) {
-              chatRoomFound = chatRoom;
-            }
-          })
-        })
-        if (chatRoomFound == undefined) {
-          const chatRoom: ChatRoom = {
-            id: '',
-            uid_user: [this.user.uid, this.currentUser.uid],
-            created_date: new Date().toTimeString(),
-            user: [],
+      this.chatRoomService
+        .fetchChatRoomByUserUidFromORUserUidTo(this.currentUser.uid)
+        .subscribe((chatRooms) => {
+          let chatRoomFound: ChatRoom | undefined;
+          chatRooms.forEach((chatRoom) => {
+            chatRoom.uid_user.forEach((uid) => {
+              if (uid == uid_user) {
+                chatRoomFound = chatRoom;
+              }
+            });
+          });
+          if (chatRoomFound == undefined) {
+            const chatRoom: ChatRoom = {
+              id: '',
+              uid_user: [this.user.uid, this.currentUser.uid],
+              created_date: new Date().toTimeString(),
+              user: [],
+            };
+            this.chatRoomService.addNewChatRoom(chatRoom);
           }
-          this.chatRoomService.addNewChatRoom(chatRoom);
-        }
-        this.router.navigate(['/user/chat/' + uid_user]);
-      });
+          this.router.navigate(['/user/chat/' + uid_user]);
+        });
     } else {
       //TODO : Gestion erreur
       this.errorMessage = "Erreur lors de l'envoie d'un message";

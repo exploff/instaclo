@@ -1,21 +1,37 @@
-<div class="container border rounded-1 mt-5 mainContainer" >
+<div class="container border rounded-1 mainContainer">
   <div class="row h-100">
-    <div class="col-4">
-      <div class="row" *ngFor="let chatRoom of chatRooms">
-        <div class="col d-flex align-items-center justify-content-left link-chat border-bottom"
-          (click)="openChat(chatRoom)">
+    <div class="col-12 col-md-4">
+      <div class="d-flex justify-content-between d-md-none">
+        <div>Mes conversations</div>
+        <div (click)="clickEvent()" class="toggle">
+          <i [ngClass]="status ? 'bi bi-dash' : 'bi bi-plus'"></i>
+        </div>
+      </div>
+      <div
+        class="row listConversation"
+        [ngClass]="status ? 'd-block' : 'd-none d-md-block'"
+      >
+        <div
+          *ngFor="let chatRoom of chatRooms"
+          class="col d-flex align-items-center justify-content-left link-chat border-bottom"
+          (click)="openChat(chatRoom)"
+        >
           <p class="my-5" *ngIf="chatRoom.user">
             <span *ngFor="let item of chatRoom.user">
-              {{item.pseudo}}
+              {{ item.pseudo }}
             </span>
           </p>
         </div>
       </div>
     </div>
-    <div class="col-8 border-start">
-      <div *ngIf="chatRoomsForComponentChat !== undefined">
-        <app-chat class="h-100" [chatRoomsForComponentChat]="chatRoomsForComponentChat" [messageRoom]="messagesRoom">
+    <div class="col-12 col-md-8 border-md-start test">
+      <div *ngIf="chatRoomsForComponentChat !== undefined" class="h-100">
+        <app-chat
+          [chatRoomsForComponentChat]="chatRoomsForComponentChat"
+          [messageRoom]="messagesRoom"
+        >
         </app-chat>
       </div>
     </div>
   </div>
+</div>

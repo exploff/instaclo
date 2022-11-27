@@ -2,6 +2,11 @@
   max-width: 50vw;
 }
 
+.mainHome {
+  height: 85%;
+  overflow-y: scroll;
+}
+
 @media screen and (max-width: 768px) {
   .mw-50 {
     max-width: 100%;

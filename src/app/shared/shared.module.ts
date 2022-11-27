@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialDesignModule } from '../shared/material-design.module';
-import { ClickOutsideDirective } from "./directive/click-outside.directive";
-import { QRCodeModule } from "angularx-qrcode";
+import { ClickOutsideDirective } from './directive/click-outside.directive';
+import { QRCodeModule } from 'angularx-qrcode';
 import { SwipeModule } from 'ng-swipe';
 import { ClickOutsideMessageDirective } from './directive/click-outside-message.directive';
 
@@ -15,7 +15,7 @@ const MODULES = [
   RouterModule,
   MaterialDesignModule,
   QRCodeModule,
-  SwipeModule
+  SwipeModule,
 ];
 
 const PIPES: any = [];
@@ -30,4 +30,4 @@ const DIRECTIVES: any = [ClickOutsideDirective, ClickOutsideMessageDirective];
   exports: [...MODULES, ...COMPONENTS, ...DIRECTIVES],
   providers: [...PIPES],
 })
-export class SharedModule { }
+export class SharedModule {}

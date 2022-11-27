@@ -1,15 +1,13 @@
-<div class="main container-fluid mx-auto pt-5 pb-5">
+<div class="container-fluid mx-auto pt-5 pb-5">
   <div class="profil container">
-    <div class="row">
-      <div class="col offset-md-8 justify-content-center d-flex">
-        <button mat-raised-button (click)="openDialog()">Open QrCode</button>
+    <div class="row mt-2">
+      <div class="col col-xs-4 d-flex align-items-center">
+        <img
+          class="rounded-circle imgProfil"
+          [style.background-image]="'url(' + user.profilImage + ')'"
+        />
       </div>
-    </div>
-    <div class="row gx-5">
-      <div class="col-4 col-xs-4 d-flex align-items-center">
-        <img class="rounded-circle imgProfil" [style.background-image]="'url(' + user.profilImage + ')'">
-      </div>
-      <div class="col-8 mb-2 d-sm-none d-flex align-items-center">
+      <div class="col-7 mb-2 d-sm-none d-flex align-items-center">
         <p class="pseudo">{{ user.pseudo }}</p>
       </div>
       <div class="col-12 col-sm-8 mt-3 mt-sm-0">
@@ -19,39 +17,56 @@
           </div>
           <div class="col-4 text-center">
             <span class="fw-bold">{{ (images | async)?.length }}</span>
-            <br>
+            <br />
             <span class="secondTitleNumber">Publications</span>
           </div>
           <div class="col-4 text-center">
             <span class="fw-bold">{{ user.followers.length }}</span>
-            <br>
+            <br />
             <span class="secondTitleNumber">Followers</span>
           </div>
           <div class="col-4 text-center">
             <span class="fw-bold">{{ user.follows.length }}</span>
-            <br>
+            <br />
             <span class="secondTitleNumber">Suivi(e)s</span>
           </div>
-          <div class="col-12 firstnameLastname mt-3 mb-2 ">{{ user.firstName }} {{ user.lastName }}</div>
+          <div class="col-12 firstnameLastname mt-3 mb-2">
+            {{ user.firstName }} {{ user.lastName }}
+          </div>
           <div class="col-12">{{ user.bio }}</div>
           <div class="col-12" *ngIf="isUserCo">
-            <button class="btn btn-secondary w-100 btn-sm mt-2" routerLink="/user/edit-profil">
+            <button
+              class="btn btn-secondary w-100 btn-sm mt-2"
+              routerLink="/user/edit-profil"
+            >
               Modifier le profil
             </button>
           </div>
-          <div class="col-12 d-flex justify-content-evenly" *ngIf="!isUserCo">
+          <div
+            class="col-12 d-flex justify-content-between btnProfil"
+            *ngIf="!isUserCo"
+          >
             <div *ngIf="errorMessage !== ''">
               <div class="alert alert-danger mx-auto" role="alert">
-                <i class="bi bi-exclamation-triangle" style="font-size: 1.05rem"></i>
+                <i
+                  class="bi bi-exclamation-triangle"
+                  style="font-size: 1.05rem"
+                ></i>
                 {{ errorMessage }}
               </div>
             </div>
 
-            <button class="btn btn-secondary w-25 btn-sm mt-2" (click)="sendChat(user.uid)">
+            <button
+              class="btn btn-secondary btn-sm mt-2"
+              (click)="sendChat(user.uid)"
+            >
               Ecrire
             </button>
 
-            <button class="btn btn-secondary w-25 btn-sm mt-2" (click)="onFollowUser()">
+            <button
+              class="btn btn-secondary btn-sm mt-2"
+              (click)="onFollowUser()"
+            >
               <span *ngIf="!currentUser.follows.includes(user.id)">
                 Follow
               </span>
@@ -59,15 +74,24 @@
                 Unfollow
               </span>
             </button>
+            <button
+              class="btn btn-secondary btn-sm mt-2"
+              (click)="openDialog()"
+            >
+              Open QrCode
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="container border mt-5">
-    <div class="row gy-5 py-5">
-      <div class="col-12 col-md-6 col-lg-4 col-xl-3" *ngFor="let image of images | async">
-        <img [src]="image.path" style="height: 300px; width : 300px">
+  <div class="container border border-bottom-0 mt-5">
+    <div class="row" style="margin-bottom: 50px">
+      <div
+        class="col-12 col-md-6 col-lg-4 py-3"
+        *ngFor="let image of images | async"
+      >
+        <img [src]="image.path" class="img-thumbnail img-fluid h-100 w-100" />
       </div>
     </div>
   </div>

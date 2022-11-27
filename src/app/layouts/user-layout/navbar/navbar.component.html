@@ -1,89 +1,131 @@
 <div appClickOutside (clickedOutside)="handleChange()">
-<div class="container-fluid pt-2 d-block d-md-none bg-light headerSmallScreen" >
-  <div class="row d-flex align-items-center">
-    <div class="col-4">
-      <a class="text-dark h2" href="#"> Instaclo</a>
-    </div>
-    <div class="col-8">
-      <form class="d-flex flex-column">
-        <input class="form-control me-2" type="search" [formControl]="pseudo" (keyup)="search($event)" (focus)="onFocus()"
-          placeholder="Search by name" />
-      </form>
-      <div class="dropdownSearch me-2" *ngIf="bUser && !focus" >
-        <div *ngFor="let item of userArray">
-          <a class="dropdown-item" [routerLink]="['/user/profil/'+item.id]">{{ item.pseudo }} ({{ item.lastName
-            }}
-            {{
-            item.firstName }})</a>
-          <hr />
+  <div
+    class="container-fluid pt-2 d-block d-md-none bg-light headerSmallScreen"
+  >
+    <div class="row d-flex align-items-center">
+      <div class="col-4">
+        <a class="text-dark h2" href="#"> Instaclo</a>
+      </div>
+      <div class="col-8">
+        <form class="d-flex flex-column">
+          <input
+            class="form-control me-2"
+            type="search"
+            [formControl]="pseudo"
+            (keyup)="search($event)"
+            (focus)="onFocus()"
+            placeholder="Search by name"
+          />
+        </form>
+        <div class="dropdownSearch me-2" *ngIf="bUser && !focus">
+          <div *ngFor="let item of userArray">
+            <a class="dropdown-item" [routerLink]="['/user/profil/' + item.id]"
+              >{{ item.pseudo }} ({{ item.lastName }} {{ item.firstName }})</a
+            >
+            <hr />
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<nav class="navbar navbar-expand navbar-light bg-light" >
-  <div class="container-fluid">
-    <a class="navbar-brand ms-3 h2 text-dark" href="#"><img src="/assets/images/instaclo.png" width="36" height="36"
-        class="me-2" />
-      Instaclo</a>
-    <div class="navbarContent" id="navbarSupportedContent">
-      <form class="d-md-flex mx-auto d-none flex-column">
-        <input class="form-control me-2" type="search" [formControl]="pseudo" (keyup)="search($event)" (focus)="onFocus()"
-          placeholder="Search by name" />
-        <div class="ms-1 dropdownSearch" *ngIf="bUser && !focus" >
-          <div *ngFor="let item of userArray" >
-            <a class="dropdown-item" [routerLink]="['/user/profil/'+item.id]">{{ item.pseudo }} ({{ item.lastName
-              }}
-              {{
-              item.firstName }})</a>
-            <hr />
+  <nav class="navbar navbar-expand navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand ms-3 h2 text-dark" href="#"
+        ><img
+          src="/assets/images/instaclo.png"
+          width="36"
+          height="36"
+          class="me-2"
+        />
+        Instaclo</a
+      >
+      <div class="navbarContent" id="navbarSupportedContent">
+        <form class="d-md-flex mx-auto d-none flex-column">
+          <input
+            class="form-control me-2"
+            type="search"
+            [formControl]="pseudo"
+            (keyup)="search($event)"
+            (focus)="onFocus()"
+            placeholder="Search by name"
+          />
+          <div class="ms-1 dropdownSearch" *ngIf="bUser && !focus">
+            <div *ngFor="let item of userArray">
+              <a
+                class="dropdown-item"
+                [routerLink]="['/user/profil/' + item.id]"
+                >{{ item.pseudo }} ({{ item.lastName }} {{ item.firstName }})</a
+              >
+              <hr />
+            </div>
           </div>
-        </div>
-      </form>
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item px-3 px-md-0">
-          <a class="nav-link active" [routerLink]="['/user/home']"><i class="bi bi-house-door-fill"></i></a>
-        </li>
-        <li class="nav-item px-3 px-md-0">
-          <a class="nav-link" [routerLink]="['/user/photos']"><i class="bi bi-camera"></i>
-          </a>
-        </li>
-        <li class="nav-item px-3 px-md-0">
-          <a class="nav-link" [routerLink]="['/user/chat']"><i class="bi bi-send"></i>
-          </a>
-        </li>
-        <li class="nav-item dropdown d-none d-md-block">
-          <a class="nav-link dropdown" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            <i class="bi bi-person-circle"></i>
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li>
-              <a class="dropdown-item" *ngIf="user" [routerLink]="['/user/profil/'+user.id]">Profil</a>
-            </li>
-            <li>
-              <a class="dropdown-item" [routerLink]="['/user/edit-profil']">Paramètres</a>
-            </li>
-            <li>
-              <hr class="dropdown-divider" />
-            </li>
-            <li (click)="signOut()">
-              <a class="dropdown-item" href="#">Déconnexion</a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item px-3 px-md-0 d-block d-md-none">
-          <a class="nav-link" *ngIf="user" [routerLink]="['/user/profil/'+user.id]">
-            <i class="bi bi-person-circle"></i>
-          </a>
-        </li>
-        <li class="nav-item px-3 px-md-0 d-block d-md-none">
-          <a class="nav-link" (click)="signOut()"><i class="bi bi-power"></i>
-          </a>
-        </li>
-      </ul>
+        </form>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['/user/home']"
+              ><i class="bi bi-house-door-fill"></i
+            ></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/user/photos']"
+              ><i class="bi bi-camera"></i>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/user/chat']"
+              ><i class="bi bi-send"></i>
+            </a>
+          </li>
+          <li class="nav-item dropdown d-none d-md-block">
+            <a
+              class="nav-link dropdown"
+              href="#"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-person-circle"></i>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a
+                  class="dropdown-item"
+                  *ngIf="user"
+                  [routerLink]="['/user/profil/' + user.id]"
+                  >Profil</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" [routerLink]="['/user/edit-profil']"
+                  >Paramètres</a
+                >
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li (click)="signOut()">
+                <a class="dropdown-item" href="#">Déconnexion</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item d-block d-md-none">
+            <a
+              class="nav-link"
+              *ngIf="user"
+              [routerLink]="['/user/profil/' + user.id]"
+            >
+              <i class="bi bi-person-circle"></i>
+            </a>
+          </li>
+          <li class="nav-item d-block d-md-none">
+            <a class="nav-link" (click)="signOut()"
+              ><i class="bi bi-power"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 </div>
