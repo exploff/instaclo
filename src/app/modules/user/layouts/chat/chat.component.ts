@@ -111,6 +111,15 @@ export class ChatComponent implements OnInit {
     this.displayDate.next(false);
   }
 
+  onSwipeLeft2(messageId: string) {
+    this.isTrue = true;
+    this.message_id = messageId;
+  }
+
+  onSwipeRight2() {
+    this.isTrue = false;
+  }
+
   onSwipeLeft() {
     this.displayDate.next(true);
   }

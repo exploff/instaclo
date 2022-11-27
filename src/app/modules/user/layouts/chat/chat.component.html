@@ -33,9 +33,11 @@
         class="mt-1"
         *ngFor="let message of messageRoom | async"
         [ngClass]="user[0].uid === message.uid_user ? 'text-end' : 'text-start'"
+        (swipeleft)="onSwipeLeft2(message.id)"
+        (swiperight)="onSwipeRight2()"
       >
         <span *ngIf="user[0].uid === message.uid_user; else testMessage">
-          <span class="bulle" (dblclick)="doubleclick(message.id)">
+          <span class="bulle">
             <span *ngIf="isTrue && message_id === message.id; else notDisabled">
               <input
                 type="text"
