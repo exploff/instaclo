@@ -1,14 +1,16 @@
 <div class="container-fluid mx-auto pt-5 pb-5">
   <div class="profil container">
     <div class="row mt-2">
-      <div class="col col-xs-4 d-flex align-items-center">
+      <div class="col d-flex align-items-center">
         <img
           class="rounded-circle imgProfil"
           [style.background-image]="'url(' + user.profilImage + ')'"
         />
       </div>
       <div class="col-7 mb-2 d-sm-none d-flex align-items-center">
-        <p class="pseudo">{{ user.pseudo }}</p>
+        <p class="pseudo" style="overflow-wrap: anywhere">
+          {{ user.pseudo }}
+        </p>
       </div>
       <div class="col-12 col-sm-8 mt-3 mt-sm-0">
         <div class="row h-100">

@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../../../../core/services/authentification/authentification.service';
 import { UserService } from '../../../../core/services/user/user.service';
-import { SwipeEvent } from 'ng-swipe';
 import { BehaviorSubject } from 'rxjs';
 import { HammerModule } from '@angular/platform-browser';
 
@@ -99,14 +98,6 @@ export class ChatComponent implements OnInit {
     console.log('onFocus');
   }
 
-  onSwipeMove(event: SwipeEvent) {
-    if (event.distance < 0) {
-      this.displayDate.next(true);
-    } else {
-      this.displayDate.next(false);
-    }
-  }
-
   onSwipeRight() {
     this.displayDate.next(false);
   }
@@ -123,12 +114,4 @@ export class ChatComponent implements OnInit {
   onSwipeLeft() {
     this.displayDate.next(true);
   }
-
-  // onSwipeEnd(event: SwipeEvent) {
-  //   if (event.distance < 0) {
-  //     this.displayDate.next(true);
-  //   } else {
-  //     this.displayDate.next(false);
-  //   }
-  // }
 }

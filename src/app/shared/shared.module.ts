@@ -5,10 +5,8 @@ import { RouterModule } from '@angular/router';
 import { MaterialDesignModule } from '../shared/material-design.module';
 import { ClickOutsideDirective } from './directive/click-outside.directive';
 import { QRCodeModule } from 'angularx-qrcode';
-import { SwipeModule } from 'ng-swipe';
 import { ClickOutsideMessageDirective } from './directive/click-outside-message.directive';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-
 
 const MODULES = [
   CommonModule,
@@ -17,8 +15,7 @@ const MODULES = [
   RouterModule,
   MaterialDesignModule,
   QRCodeModule,
-  SwipeModule,
-  ZXingScannerModule
+  ZXingScannerModule,
 ];
 
 const PIPES: any = [];
