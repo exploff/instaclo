@@ -1,4 +1,3 @@
-import { lastValueFrom, take } from 'rxjs';
 import { Image } from './../../../../models/image.model';
 import {
   AfterViewInit,
@@ -13,19 +12,24 @@ import { UserService } from 'src/app/core/services/user/user.service';
 import { ImageService } from 'src/app/modules/user/services/image/image.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { DialogCommentComponent } from './dialog-comment/dialog-comment.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogCommentComponent } from '../../../home/components/card-image/dialog-comment/dialog-comment.component';
+
 
 @Component({
-  selector: 'app-card-image',
-  templateUrl: './card-image.component.html',
-  styleUrls: ['./card-image.component.scss'],
+  selector: 'app-card-image-profil',
+  templateUrl: './card-image-profil.component.html',
+  styleUrls: ['./card-image-profil.component.scss'],
 })
-export class CardImageComponent implements OnInit, AfterViewInit {
+export class CardImageProfilComponent implements OnInit, AfterViewInit {
   @Input() image!: Image;
+
   @Input() currentUser!: User;
+
   user!: Observable<User>;
+
   likedImage!: string;
+
   @ViewChild('descriptionUser') description!: ElementRef;
 
   constructor(
@@ -33,7 +37,7 @@ export class CardImageComponent implements OnInit, AfterViewInit {
     private imageService: ImageService,
     private route: ActivatedRoute,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.user = this.userService.fetchUserById(this.image.userID);
@@ -66,6 +70,11 @@ export class CardImageComponent implements OnInit, AfterViewInit {
       this.likedImage = '';
     }
     this.imageService.updateImage(this.image);
+  }
+
+
+  delete(id: string) {
+    this.imageService.deleteImage(id);
   }
 
   openDialog(): void {

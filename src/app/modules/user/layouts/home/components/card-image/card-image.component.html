@@ -3,12 +3,9 @@
     <div class="card-header">
       <div class="row">
         <div class="col-8 d-flex align-items-center">
-          <div
-            class="content-img"
-            [style.background-image]="
+          <div class="content-img" [style.background-image]="
               'url(' + (user | async)?.profilImage + ')'
-            "
-          ></div>
+            "></div>
           <div class="ms-2">{{ (user | async)?.pseudo }}</div>
         </div>
         <div class="col-4 d-flex align-items-center justify-content-end">
@@ -37,10 +34,7 @@
           <i class="bi bi-heart-fill" [style.color]="likedImage"></i>
           <div class="d-none d-md-block ms-2">Like</div>
         </a>
-        <a
-          (click)="openDialog()"
-          class="d-flex align-items-center text-muted me-4"
-        >
+        <a (click)="openDialog()" class="d-flex align-items-center text-muted me-4">
           <i class="bi bi-chat-dots"></i>
           <div class="d-none d-md-block ms-2">Comment</div>
         </a>

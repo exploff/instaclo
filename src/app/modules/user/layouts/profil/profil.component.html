@@ -2,10 +2,7 @@
   <div class="profil container">
     <div class="row mt-2">
       <div class="col d-flex align-items-center">
-        <img
-          class="rounded-circle imgProfil"
-          [style.background-image]="'url(' + user.profilImage + ')'"
-        />
+        <img class="rounded-circle imgProfil" [style.background-image]="'url(' + user.profilImage + ')'" />
       </div>
       <div class="col-7 mb-2 d-sm-none d-flex align-items-center">
         <p class="pseudo" style="overflow-wrap: anywhere">
@@ -37,49 +34,28 @@
           </div>
           <div class="col-12">{{ user.bio }}</div>
           <div class="col-12 ifUserCo" *ngIf="isUserCo">
-            <button
-              class="btn btn-secondary btn-sm mt-2 btnQrcode me-1"
-              (click)="openDialog()"
-            >
+            <button class="btn btn-secondary btn-sm mt-2 btnQrcode me-1" (click)="openDialog()">
               Open QrCode
             </button>
-            <button
-              class="btn btn-secondary btn-sm mt-2 btnEdit ms-1"
-              routerLink="/user/edit-profil"
-            >
+            <button class="btn btn-secondary btn-sm mt-2 btnEdit ms-1" routerLink="/user/edit-profil">
               Modifier le profil
             </button>
           </div>
-          <div
-            class="col-12 d-flex justify-content-between btnProfil"
-            *ngIf="!isUserCo"
-          >
+          <div class="col-12 d-flex justify-content-between btnProfil" *ngIf="!isUserCo">
             <div *ngIf="errorMessage !== ''">
               <div class="alert alert-danger mx-auto" role="alert">
-                <i
-                  class="bi bi-exclamation-triangle"
-                  style="font-size: 1.05rem"
-                ></i>
+                <i class="bi bi-exclamation-triangle" style="font-size: 1.05rem"></i>
                 {{ errorMessage }}
               </div>
             </div>
 
-            <button
-              class="btn btn-secondary btn-sm mt-2"
-              (click)="sendChat(user.uid)"
-            >
+            <button class="btn btn-secondary btn-sm mt-2" (click)="sendChat(user.uid)">
               Ecrire
             </button>
-            <button
-              class="btn btn-secondary btn-sm mt-2"
-              (click)="openDialog()"
-            >
+            <button class="btn btn-secondary btn-sm mt-2" (click)="openDialog()">
               Open QrCode
             </button>
-            <button
-              class="btn btn-secondary btn-sm mt-2"
-              (click)="onFollowUser()"
-            >
+            <button class="btn btn-secondary btn-sm mt-2" (click)="onFollowUser()">
               <span *ngIf="!currentUser.follows.includes(user.id)">
                 Follow
               </span>
@@ -94,12 +70,13 @@
   </div>
   <div class="container border border-bottom-0 mt-5">
     <div class="row">
-      <div
-        class="col-12 col-md-6 col-lg-4 py-3"
-        *ngFor="let image of images | async"
-      >
-        <img [src]="image.path" class="img-thumbnail img-fluid h-100 w-100" />
-        <div class="d-flex post-actions">
+      <div class="col-12 col-md-6 col-lg-4 py-3" *ngFor="let image of images | async">
+        <!-- <img [src]="image.path" class="img-thumbnail img-fluid h-100 w-100" /> -->
+
+        <app-card-image-profil [image]="image" [currentUser]="currentUser"></app-card-image-profil>
+
+
+        <!-- <div class="d-flex post-actions">
           <a (click)="like()" class="d-flex align-items-center text-muted me-4">
             <i class="bi bi-heart-fill" [style.color]="likedImage"></i>
             <div class="d-none d-md-block ms-2">Like</div>
@@ -111,8 +88,7 @@
             <i class="bi bi-chat-dots"></i>
             <div class="d-none d-md-block ms-2">Comment</div>
           </a>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
-</div>

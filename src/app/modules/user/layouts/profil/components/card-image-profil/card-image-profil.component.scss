@@ -1,0 +1,28 @@
+.more-description {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: #999 !important;
+  cursor: pointer;
+}
+
+.content-img {
+  object-fit: cover;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-size: cover;
+}
+
+.post-actions {
+  a {
+    font-size: 1.05rem;
+    cursor: pointer;
+  }
+}
+
+.textDate {
+  white-space: nowrap;
+  @media screen and (max-width: 375px) {
+    display: none;
+  }
+}

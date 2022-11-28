@@ -1,20 +1,14 @@
 <div class="row h-100">
   <div class="col-12">
     <div class="card-header">
-      <div
-        class="row align-items-center"
-        *ngIf="chatRoomsForComponentChat.user.length > 0"
-      >
+      <div class="row align-items-center" *ngIf="chatRoomsForComponentChat.user.length > 0">
         <div class="col-3 col-lg-2">
-          <img
-            class="img imgProfil rounded-circle"
-            src="{{ chatRoomsForComponentChat.user[0].profilImage }}"
-          />
+          <img class="img imgProfil rounded-circle" src="{{ chatRoomsForComponentChat.user[0].profilImage }}" />
         </div>
-        <div class="col-9 col-lg-10">
+        <div class="col-9 col-lg-10 ps-5 ps-md-0">
           <strong class="">{{
             chatRoomsForComponentChat.user[0].pseudo
-          }}</strong>
+            }}</strong>
         </div>
         <hr class="mt-1" />
       </div>
@@ -22,41 +16,20 @@
   </div>
 
   <div class="col-12">
-    <div
-      class="messenger"
-      (swipeleft)="onSwipeLeft()"
-      (swiperight)="onSwipeRight()"
-      appClickOutsideMessage
-      (clickedOutside)="handleChange()"
-    >
-      <div
-        class="mt-1"
-        *ngFor="let message of messageRoom | async"
-        [ngClass]="user[0].uid === message.uid_user ? 'text-end' : 'text-start'"
-        (swipeleft)="onSwipeLeft2(message.id)"
-        (swiperight)="onSwipeRight2()"
-      >
+    <div class="messenger" (swipeleft)="onSwipeLeft()" (swiperight)="onSwipeRight()" appClickOutsideMessage
+      (clickedOutside)="handleChange()">
+      <div class="mt-1" *ngFor="let message of messageRoom | async"
+        [ngClass]="user[0].uid === message.uid_user ? 'text-end' : 'text-start'" (swipeleft)="onSwipeLeft2(message.id)"
+        (swiperight)="onSwipeRight2()">
         <span *ngIf="user[0].uid === message.uid_user; else MateMessage">
           <span class="bulle">
             <span *ngIf="toggle && message_id === message.id; else notDisabled">
-              <input
-                type="text"
-                value="{{ message.message }}"
-                [disabled]="false"
-                id="{{ message.id }}"
-                name="newMessage"
-                [(ngModel)]="message.message"
-              />
+              <input type="text" value="{{ message.message }}" [disabled]="false" id="{{ message.id }}"
+                name="newMessage" [(ngModel)]="message.message" />
             </span>
             <ng-template #notDisabled>
-              <input
-                type="text"
-                value="{{ message.message }}"
-                [disabled]="true"
-                id="{{ message.id }}"
-                name="newMessage"
-                [(ngModel)]="message.message"
-              />
+              <input type="text" value="{{ message.message }}" [disabled]="true" id="{{ message.id }}" name="newMessage"
+                [(ngModel)]="message.message" />
             </ng-template>
           </span>
         </span>
@@ -67,20 +40,14 @@
           {{ message.date_created | date: "HH:mm" }}
         </span>
 
-        <div
-          *ngIf="
+        <div *ngIf="
             user[0].uid === message.uid_user &&
             toggle &&
             message_id === message.id
-          "
-        >
+          ">
           <span>
-            <button
-              class="btn btn-sm"
-              type="button"
-              (click)="update(message, message.message)"
-              [disabled]="message.message === ''"
-            >
+            <button class="btn btn-sm" type="button" (click)="update(message, message.message)"
+              [disabled]="message.message === ''">
               modifier
             </button>
             |
@@ -104,15 +71,9 @@
   </div>
 
   <div class="col-12">
-    <form (ngSubmit)="onSubmit()" class="mt-5">
+    <form (ngSubmit)="onSubmit()" class="mt-1">
       <div class="input-group">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Message"
-          [formControl]="message"
-          #messageInput
-        />
+        <input type="text" class="form-control" placeholder="Message" [formControl]="message" #messageInput />
         <button class="btn btn-outline-secondary" type="submit">Envoyer</button>
       </div>
     </form>

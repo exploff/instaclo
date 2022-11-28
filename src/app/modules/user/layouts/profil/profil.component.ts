@@ -1,4 +1,4 @@
-import { DialogCommentComponent } from './../home/components/card-image/dialog-comment/dialog-comment.component';
+import { CardImageProfilComponent } from './components/card-image-profil/card-image-profil.component';
 import { ImageService } from './../../services/image/image.service';
 import {
   Component,
@@ -12,12 +12,13 @@ import { User } from 'src/app/core/models/user.model';
 import { AuthenticationService } from 'src/app/core/services/authentification/authentification.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { Image } from '../../models/image.model';
-import { lastValueFrom, take } from 'rxjs';
 import { ChatRoomService } from '../../services/chat-room/chat-room.service';
 import { ChatRoom } from '../../models/chat-room.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogQrCodeComponent } from './components/dialog-qr-code/dialog-qr-code.component';
 import { Observable } from 'rxjs';
+import { DialogCommentComponent } from '../home/components/card-image/dialog-comment/dialog-comment.component';
+
 
 @Component({
   selector: 'app-profil',
@@ -28,11 +29,8 @@ export class ProfilComponent {
   public isUserCo = false;
   public user!: User;
   public images!: Observable<Image[]>;
-  public imageLength: number = 0;
   public errorMessage: string = '';
   public currentUser!: User;
-  @Input() image!: Image;
-  likedImage!: string;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -49,15 +47,11 @@ export class ProfilComponent {
     });
   }
 
-  ngOnInit(): void {
-    this.likedImage = this.image.like.includes(this.currentUser.id)
-      ? 'red'
-      : '';
-  }
-
   getCurrentUser() {
     if (this.route.snapshot.data['currentUser'] != undefined) {
       this.currentUser = this.route.snapshot.data['currentUser'][0];
+      console.log(this.currentUser);
+
     } else {
       this.router.navigate(['/login']);
     }
@@ -74,7 +68,7 @@ export class ProfilComponent {
     this.isUserCo = this.user.id == this.currentUser.id;
   }
 
-  getUserImages(id: string): void {
+  getUserImages(id: any): void {
     this.images = this.imageService.fetchUserImages(id);
   }
 
@@ -152,25 +146,5 @@ export class ProfilComponent {
       this.errorMessage = "Erreur lors de l'envoie d'un message";
     }
   }
-  public like() {
-    if (!this.image.like.includes(this.currentUser.id)) {
-      this.image.like.push(this.currentUser.id);
-      this.likedImage = 'red';
-    } else {
-      this.image.like.splice(this.image.like.indexOf(this.currentUser.id), 1);
-      this.likedImage = '';
-    }
-    this.imageService.updateImage(this.image);
-  }
-  openDialogComment(): void {
-    const dialogRef = this.dialog.open(DialogCommentComponent, {
-      data: {
-        image: this.image,
-        currentUser: this.currentUser,
-      },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
-  }
+
 }

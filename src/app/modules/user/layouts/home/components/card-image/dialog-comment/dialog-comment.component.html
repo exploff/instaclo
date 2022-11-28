@@ -10,7 +10,7 @@
   <div style="height: 450px; overflow-y: scroll; overflow-x: hidden">
     <div *ngFor="let comment of image.comments.sort(this.compareComment)">
       <div class="row">
-        <div class="col-10">
+        <div class="col-10 text-start">
           <strong tyle="white-space: nowrap">{{ comment.fullName }}</strong>
           <p>
             {{ comment.comment }}
@@ -20,15 +20,8 @@
             </small>
           </p>
         </div>
-        <div
-          class="col-2 text-end pe-4"
-          *ngIf="comment.userId === currentUser.id"
-        >
-          <i
-            class="bi bi-trash"
-            (click)="deleteComment(comment)"
-            style="cursor: pointer"
-          ></i>
+        <div class="col-2 text-end pe-4" *ngIf="comment.userId === currentUser.id">
+          <i class="bi bi-trash" (click)="deleteComment(comment)" style="cursor: pointer"></i>
         </div>
       </div>
     </div>
@@ -39,14 +32,8 @@
       150 caractères maximum
     </mat-error>
     <div class="input-group">
-      <input
-        type="text"
-        placeholder="150 caractères maximum..."
-        class="form-control"
-        maxlength="150"
-        [formControl]="comment"
-        #commentInput
-      />
+      <input type="text" placeholder="150 caractères maximum..." class="form-control" maxlength="150"
+        [formControl]="comment" #commentInput />
       <button class="btn btn-outline-secondary" type="submit">Envoyer</button>
     </div>
   </form>
