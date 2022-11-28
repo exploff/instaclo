@@ -1,16 +1,15 @@
 video {
   height: 250px;
 }
-img{
-  height: 250px;
-  width: 90%;
-}
 @media (min-width: 520px) {
   video {
     height: 500px;
   }
-  img {
-    height: 500px;
-    width: 50%;
+}
+
+.inputStyle{
+  width: 100%;
+  @media (min-width: 768px) {
+      width: 70%;
   }
 }
