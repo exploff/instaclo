@@ -3,92 +3,67 @@
     <h2 class="text-center mb-5 mt-3" style="white-space: nowrap">
       Modifier mon profil
     </h2>
-    <form (ngSubmit)="onSubmit()">
-      <div class="row text-center mb-5">
-        <div class="col-12 mb-3">
-          <img
-            class="rounded-circle imgProfil"
-            [style.background-image]="'url(' + user?.profilImage + ')'"
-          />
-        </div>
-        <div class="col-12">Modifier la photo de profil</div>
+
+
+
+    <div class="row text-center mb-5">
+      <div class="col-12 mb-3">
+        <img class="rounded-circle imgProfil" [style.background-image]="'url(' + user?.profilImage + ')'" />
       </div>
-      <div class="mb-3 row">
-        <label class="col-sm-2 col-form-label">Email</label>
-        <div class="col-sm-10">
-          <input
-            type="text"
-            readonly
-            class="form-control-plaintext"
-            id="staticEmail"
-            value="{{ user?.email }}"
-          />
-        </div>
+      <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload style="display: none">
+      <div class="file-upload d-flex text-center align-items-center justify-content-center">
+        Modifier la photo de profil
+        <button mat-mini-fab color="primary" (click)="fileUpload.click()" class="upload-btn ms-2">
+            <mat-icon>attach_file</mat-icon>
+        </button>
       </div>
+    </div>
+
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
       <div class="mb-3 row">
-        <label for="lastName" class="col-sm-2 col-form-label">Nom</label>
-        <div class="col-sm-10">
-          <input
-            type="text"
-            value="{{ user?.lastName }}"
-            [formControl]="lastname"
-            class="form-control"
-            id="lastName"
-          />
+        <label class="col-2 col-form-label">Email</label>
+        <div class="col-10 col-form-label">
+          <p>{{ user?.email }}</p>
         </div>
       </div>
       <div class="mb-3 row">
-        <label for="lastName" class="col-sm-2 col-form-label">Prénom</label>
-        <div class="col-sm-10">
-          <input
-            type="text"
-            value="{{ user?.firstName }}"
-            [formControl]="firstname"
-            class="form-control"
-            id="lastName"
-          />
-        </div>
+        <mat-form-field appearance="fill">
+          <mat-label>Nom</mat-label>
+          <input matInput placeholder="nom" formControlName="lastname" required />
+          <mat-error *ngIf="editForm.hasError('required', 'lastName')">Veuillez entrez votre nom</mat-error>
+        </mat-form-field>
       </div>
       <div class="mb-3 row">
-        <label for="pseudo" class="col-sm-2 col-form-label"
-          >Nom d'utilisateur</label
-        >
-        <div class="col-sm-10">
-          <input
-            type="text"
-            value="{{ user?.pseudo }}"
-            [formControl]="pseudo"
-            class="form-control"
-            id="pseudo"
-          />
-        </div>
+        <mat-form-field appearance="fill">
+          <mat-label>Prénom</mat-label>
+          <input matInput placeholder="prenom" formControlName="firstname" required />
+          <mat-error *ngIf="editForm.hasError('required', 'firstName')">Veuillez entrez votre prénom</mat-error>
+        </mat-form-field>
       </div>
       <div class="mb-3 row">
-        <label for="bio" class="col-sm-2 col-form-label">Bio</label>
-        <div class="col-sm-10">
-          <textarea
-            id="bio"
-            rows="5"
-            cols="33"
-            type="text"
-            value="{{ user?.bio }}"
-            [formControl]="bio"
-            class="form-control"
-          >
-            It my story...
-          </textarea>
-        </div>
+        <mat-form-field appearance="fill">
+          <mat-label>Pseudo</mat-label>
+          <input matInput placeholder="pseudo" formControlName="pseudo" required />
+          <mat-error *ngIf="editForm.hasError('required', 'pseudo')">Veuillez entrez un pseudo</mat-error>
+          <mat-error *ngIf="editForm.hasError('maxlength', 'pseudo')">Veuillez entrez un pseudo plus court</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="mb-3 row">
+        <mat-form-field appearance="fill">
+          <mat-label>Bio</mat-label>
+          <input matInput placeholder="bio" formControlName="bio" />
+          <mat-error *ngIf="editForm.hasError('maxlength', 'bio')">Veuillez entre une bio plus courte</mat-error>
+        </mat-form-field>
       </div>
       <div class="text-center mt-5">
-        <button
-          [routerLink]="['/user/profil/' + user?.id]"
-          class="btn btn-secondary me-1"
-        >
+        <button [routerLink]="['/user/profil/' + user?.id]" class="btn btn-secondary me-1">
           Annuler
         </button>
-
-        <button type="submit" class="btn btn-secondary ms-1">Terminé</button>
+        <button mat-raised-button type="submit" color="primary" [disabled]="!editForm.valid">
+          Valider
+        </button>
       </div>
+
     </form>
   </div>
 </div>

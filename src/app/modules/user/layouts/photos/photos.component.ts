@@ -103,8 +103,6 @@ export class PhotosComponent implements OnInit, OnDestroy {
   }
 
   public onContinue() {
-
-
     this.storageService.uploadFile(this.photo, `/images/${this.photoName}`).then(async (u: UploadResult): Promise<void> => {
       console.log(
         u.metadata)
