@@ -3,6 +3,7 @@ import { addDoc, collectionData, deleteDoc, docData, getCountFromServer, Documen
 import { CollectionReference, doc, DocumentData } from "@firebase/firestore";
 import { AggregateField, AggregateQuerySnapshot } from "@firebase/firestore";
 import { Observable } from "rxjs";
+import { Timestamp } from "firebase/firestore";
 
 @Injectable({
   providedIn: "root",
@@ -80,11 +81,11 @@ export class GenericFirestoreService {
 
   public fetchByPropertyContainsInPagination<T>(collection: CollectionReference<DocumentData>, propertyName: string,
     propertyValues: string[], directionproperty:string, direction: "asc" | "desc" = "desc",
-    startAfterProperty: T, maxResult: number = 5):
+    startAfterPropertyTimestamp: Timestamp, maxResult: number = 5):
     Observable<T[]> {
       const request = query(collection, where(propertyName, "in", propertyValues),
                                       orderBy(directionproperty, direction),
-                                      startAfter(startAfterProperty),
+                                      startAfter(startAfterPropertyTimestamp),
                                       limit(maxResult));
 
       return collectionData(request, { idField: "id" }) as Observable<T[]>;

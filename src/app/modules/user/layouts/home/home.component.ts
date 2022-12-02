@@ -5,7 +5,7 @@ import { UserService } from 'src/app/core/services/user/user.service';
 import { AuthenticationService } from 'src/app/core/services/authentification/authentification.service';
 import { User } from 'src/app/core/models/user.model';
 import { ImageService } from '../../services/image/image.service';
-import { Observable, BehaviorSubject, merge, tap } from 'rxjs';
+import { Observable, BehaviorSubject, merge, tap, share } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -21,25 +21,19 @@ export class HomeComponent implements OnInit {
   public listImages!: Observable<Image[]>;
   public images$: BehaviorSubject<Image[]> = new BehaviorSubject<Image[]>([]);
 
-  constructor(private authenticationService: AuthenticationService, private imageService: ImageService, private userService: UserService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private imageService: ImageService, private router: Router, private route: ActivatedRoute) { }
 
   @HostListener('window:scroll', ['$event']) onScrollEvent(event: any){
     let pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
     let max = document.documentElement.scrollHeight;
     if (pos >= max) {
-
       let lastImage = this.images$.value[this.images$.value.length - 1];
       console.log(lastImage)
-      this.imageService.fetchUsersImagesByPagination(this.follows, lastImage).pipe(
-        tap(images => {
-          console.log(images)
-          const currentImages = this.images$.value;
-          this.images$.next(currentImages.concat(images));
-        })
-      ).subscribe();
-      console.log("bottom");
+      const values = this.images$.value;
+      this.imageService.fetchUsersImagesByPagination(this.follows, lastImage.createDate).subscribe(images => {
+        this.images$.next(values.concat(images));
+      });
     }
-
   }
 
   ngOnInit(): void {
@@ -64,8 +58,5 @@ export class HomeComponent implements OnInit {
         this.images$.next(images);
       })
     ).subscribe();
-
-    // this.listImages = this.imageService.fetchUsersImages(this.follows);
   }
-
 }

@@ -6,6 +6,7 @@ import { lastValueFrom, map, Observable, take } from "rxjs";
 import { FIREBASE_COLLECTION_PATHS } from 'src/app/core/constants/firestore-collection.constant';
 import { GenericFirestoreService } from '../firestore/generic-firestore.service';
 import { User } from 'src/app/core/models/user.model';
+import { Timestamp } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -58,7 +59,7 @@ export class ImageService {
     return this.genericFirestoreService.fetchByPropertyContainsIn<Image>(this.imageCollection, "userID", userIds, "createDate", direction, maxResult);
   }
 
-  public fetchUsersImagesByPagination(userIds: string[], startAfter: Image, maxResult: number = 5, direction: "asc" | "desc" = "desc"): Observable<Image[]> {
-    return this.genericFirestoreService.fetchByPropertyContainsInPagination<Image>(this.imageCollection, "userID", userIds, "createDate", direction, startAfter, maxResult);
+  public fetchUsersImagesByPagination(userIds: string[], startAfterImageId: Timestamp, maxResult: number = 5, direction: "asc" | "desc" = "desc"): Observable<Image[]> {
+    return this.genericFirestoreService.fetchByPropertyContainsInPagination<Image>(this.imageCollection, "userID", userIds, "createDate", direction, startAfterImageId, maxResult);
   }
 }
