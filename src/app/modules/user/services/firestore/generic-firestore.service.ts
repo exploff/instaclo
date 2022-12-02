@@ -3,6 +3,7 @@ import { addDoc, collectionData, deleteDoc, docData, getCountFromServer, Documen
 import { CollectionReference, doc, DocumentData } from "@firebase/firestore";
 import { AggregateField, AggregateQuerySnapshot } from "@firebase/firestore";
 import { Observable } from "rxjs";
+import { Timestamp } from "firebase/firestore";
 
 @Injectable({
   providedIn: "root",
@@ -27,13 +28,6 @@ export class GenericFirestoreService {
   public fetchAll<T>(collection: CollectionReference<DocumentData>, propertyName: string, direction: "asc" | "desc" = "asc"): Observable<T[]> {
 
     const request = query(collection, orderBy(propertyName, direction));
-    return collectionData(request, { idField: "id" }) as Observable<T[]>;
-  }
-
-  public fetchByPagination<T>(collection: CollectionReference<DocumentData>, propertyName: string, startAfterProperty:
-    string, maxResult: number = 30, direction: "asc" | "desc" = "asc") {
-
-    const request = query(collection, orderBy(propertyName, direction), limit(maxResult), startAfter(startAfterProperty));
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 
@@ -69,13 +63,32 @@ export class GenericFirestoreService {
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 
+  public fetchByPagination<T>(collection: CollectionReference<DocumentData>, propertyName: string, startAfterProperty:
+    string, maxResult: number = 5, direction: "asc" | "desc" = "asc") {
+
+    const request = query(collection, orderBy(propertyName, direction), limit(maxResult), startAfter(startAfterProperty));
+    return collectionData(request, { idField: "id" }) as Observable<T[]>;
+  }
+
   public fetchByPropertyContainsIn<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValues: string[], directionproperty:string,
-    direction: "asc" | "desc" = "desc",  maxResult: number = 20):
+    direction: "asc" | "desc" = "desc",  maxResult: number = 5):
     Observable<T[]> {
     const request = query(collection, orderBy(directionproperty, direction),
                                       where(propertyName, "in", propertyValues),
                                       limit(maxResult));
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
+  }
+
+  public fetchByPropertyContainsInPagination<T>(collection: CollectionReference<DocumentData>, propertyName: string,
+    propertyValues: string[], directionproperty:string, direction: "asc" | "desc" = "desc",
+    startAfterPropertyTimestamp: Timestamp, maxResult: number = 5):
+    Observable<T[]> {
+      const request = query(collection, where(propertyName, "in", propertyValues),
+                                      orderBy(directionproperty, direction),
+                                      startAfter(startAfterPropertyTimestamp),
+                                      limit(maxResult));
+
+      return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 
   public create<T>(collection: CollectionReference<T>, object: WithFieldValue<T>): Promise<DocumentReference<T>> {
@@ -92,5 +105,4 @@ export class GenericFirestoreService {
     const documentReference = doc(this.firestore, `${path}/${id}`);
     return deleteDoc(documentReference);
   }
-
 }

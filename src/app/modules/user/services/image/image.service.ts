@@ -6,6 +6,7 @@ import { lastValueFrom, map, Observable, take } from "rxjs";
 import { FIREBASE_COLLECTION_PATHS } from 'src/app/core/constants/firestore-collection.constant';
 import { GenericFirestoreService } from '../firestore/generic-firestore.service';
 import { User } from 'src/app/core/models/user.model';
+import { Timestamp } from "firebase/firestore";
 
 @Injectable({
   providedIn: 'root'
@@ -26,9 +27,9 @@ export class ImageService {
     return this.genericFirestoreService.fetchAll<Image>(this.imageCollection, "id", direction);
   }
 
-  public fetchImagesByPagination(startAfterImage: string, maxResult: number = 30, direction: "asc" | "desc" = "asc"): Observable<Image[]> {
+  public fetchImagesByPagination(startAfterImageId: string, maxResult: number = 30, direction: "asc" | "desc" = "asc"): Observable<Image[]> {
     return this.genericFirestoreService.fetchByPagination<Image>(this.imageCollection, "id",
-      startAfterImage, maxResult, direction) as Observable<Image[]>;
+      startAfterImageId, maxResult, direction) as Observable<Image[]>;
   }
 
   public fetchImageById(id: string): Observable<Image> {
@@ -54,7 +55,11 @@ export class ImageService {
     return this.genericFirestoreService.fetchByPropertyInOrder<Image>(this.imageCollection, "userID", userID ,"createDate");
   }
 
-  public fetchUsersImages(userIds: string[]): Observable<Image[]> {
-    return this.genericFirestoreService.fetchByPropertyContainsIn<Image>(this.imageCollection, "userID", userIds, "createDate");
+  public fetchUsersImages(userIds: string[], maxResult: number = 5, direction: "asc" | "desc" = "desc"): Observable<Image[]> {
+    return this.genericFirestoreService.fetchByPropertyContainsIn<Image>(this.imageCollection, "userID", userIds, "createDate", direction, maxResult);
+  }
+
+  public fetchUsersImagesByPagination(userIds: string[], startAfterImageId: Timestamp, maxResult: number = 5, direction: "asc" | "desc" = "desc"): Observable<Image[]> {
+    return this.genericFirestoreService.fetchByPropertyContainsInPagination<Image>(this.imageCollection, "userID", userIds, "createDate", direction, startAfterImageId, maxResult);
   }
 }
