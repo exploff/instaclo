@@ -15,69 +15,69 @@ import { UploadResult } from '@angular/fire/storage';
 })
 export class PhotosComponent implements OnInit, OnDestroy {
 
-  @ViewChild ("videoPlayer") videoplayer !: ElementRef
+  @ViewChild("videoPlayer") videoplayer !: ElementRef
   @ViewChild("imageDisplay") imageDisplay !: ElementRef
 
   public photo !: File
 
   public photoName !: string
 
-  public takePhotoClick : boolean = false
+  public takePhotoClick: boolean = false
 
-  private facingMode : "user" | "environment" = "user"
+  private facingMode: "user" | "environment" = "user"
 
-  private stream : MediaStream | undefined
+  private stream: MediaStream | undefined
 
-  public showCamera :boolean = false
+  public showCamera: boolean = false
 
   //TODO validator
-  public postForm  = new FormGroup({
-    discription: new FormControl('',Validators.required),
+  public postForm = new FormGroup({
+    description: new FormControl('', Validators.required),
   });
 
-  constructor(private sanitizer : DomSanitizer, private router: Router , private storageService:StorageService, private imageService:ImageService) { }
+  constructor(private sanitizer: DomSanitizer, private router: Router, private storageService: StorageService, private imageService: ImageService) { }
 
   ngOnInit() {
     this.checkCamera()
   }
 
   ngOnDestroy() {
-    this.stream?.getTracks()?.forEach( (track)=>{
+    this.stream?.getTracks()?.forEach((track) => {
       track.stop()
-    } )
+    })
   }
 
-  public async takePhoto(){
-    if(this.stream){
-      this.takePhotoClick=true
-      const track : MediaStreamTrack = this.stream.getVideoTracks()[0]
-      const imageCapture : ImageCapture = new ImageCapture(track)
-      const photo : Blob = await imageCapture.takePhoto()
+  public async takePhoto() {
+    if (this.stream) {
+      this.takePhotoClick = true
+      const track: MediaStreamTrack = this.stream.getVideoTracks()[0]
+      const imageCapture: ImageCapture = new ImageCapture(track)
+      const photo: Blob = await imageCapture.takePhoto()
       const objectURL = URL.createObjectURL(photo)
-      this.imageDisplay.nativeElement.src= objectURL
+      this.imageDisplay.nativeElement.src = objectURL
 
 
-      const date= new Date()
-      this.photoName= `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}-${date.getHours()}${date.getMinutes()}${date.getSeconds()}.jpg`
+      const date = new Date()
+      this.photoName = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}-${date.getHours()}${date.getMinutes()}${date.getSeconds()}.jpg`
 
-      this.photo = new File([photo], this.photoName,{ type: "image/jpg",});
+      this.photo = new File([photo], this.photoName, { type: "image/jpg", });
       this.stop()
 
     }
   }
-   public async switchCamera():Promise<void>{
-    if(await this.hasMultipleCamera()){
-      this.facingMode = this.facingMode === "user" ? "environment": "user"
+  public async switchCamera(): Promise<void> {
+    if (await this.hasMultipleCamera()) {
+      this.facingMode = this.facingMode === "user" ? "environment" : "user"
     }
-    this.stream?.getTracks()?.forEach( (track)=>{
+    this.stream?.getTracks()?.forEach((track) => {
       track.stop()
-    } )
+    })
     this.start()
   }
 
-  public async start():Promise<void> {
+  public async start(): Promise<void> {
     try {
-      this.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: this.facingMode }})
+      this.stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: this.facingMode } })
       this.videoplayer.nativeElement.srcObject = this.stream;
       this.videoplayer.nativeElement.play()
     } catch (error) {
@@ -85,69 +85,71 @@ export class PhotosComponent implements OnInit, OnDestroy {
     }
   }
 
-  public stop():void{
-    this.stream?.getTracks()?.forEach((track) =>{
+  public stop(): void {
+    this.stream?.getTracks()?.forEach((track) => {
       track.stop();
     })
   }
 
-  public async hasMultipleCamera():Promise<boolean>{
+  public async hasMultipleCamera(): Promise<boolean> {
     const devices = await navigator.mediaDevices.enumerateDevices();
-    return devices.filter((d) => d.kind === "videoinput" ).length > 1
+    return devices.filter((d) => d.kind === "videoinput").length > 1
   }
 
-  public onBack():void{
-    this.takePhotoClick=false
+  public onBack(): void {
+    this.takePhotoClick = false
     this.router.navigateByUrl('/user/photos')
     window.location.reload();
   }
 
-  public onContinue(){
+  public onContinue() {
 
 
-    this.storageService.uploadFile(this.photo,`/images/${this.photoName}`).then(async (u:UploadResult): Promise<void> => {
+    this.storageService.uploadFile(this.photo, `/images/${this.photoName}`).then(async (u: UploadResult): Promise<void> => {
       console.log(
         u.metadata)
-      let fullpath= await this.storageService.getFileDownloadUrl(`/images/${this.photoName}`)
-      if(this.postForm.value.discription){
-      const datePhoto=Date.now()
-      let image:Image ={id:'',
-      userID:'Wx1Vl4mCelUYJIsOYZrx',
-      path:fullpath,
-      createDate:new Timestamp( datePhoto / 1000,datePhoto / 1000000 ),
-      description:this.postForm.value.discription,
-      like:[],
-      comments:[]}
-      let addImage=await this.imageService.addNewImage(image)
-      image.id=addImage.id
-      let retunval=await this.imageService.updateImage(image)
-      this.router.navigateByUrl('/user/home')
-      //TODO error camera firefox
-      //TODO add emoji keyboard
-    }
+      let fullpath = await this.storageService.getFileDownloadUrl(`/images/${this.photoName}`)
+      if (this.postForm.value.description) {
+        const datePhoto = Date.now()
+        let image: Image = {
+          id: '',
+          userID: 'Wx1Vl4mCelUYJIsOYZrx',
+          path: fullpath,
+          createDate: new Timestamp(datePhoto / 1000, datePhoto / 1000000),
+          description: this.postForm.value.description,
+          like: [],
+          comments: []
+        }
+        let addImage = await this.imageService.addNewImage(image)
+        image.id = addImage.id
+        let retunval = await this.imageService.updateImage(image)
+        this.router.navigateByUrl('/user/home')
+        //TODO error camera firefox
+        //TODO add emoji keyboard
+      }
     })
 
   }
 
   checkCamera() {
-    navigator.mediaDevices.getUserMedia({ video: { facingMode: this.facingMode }}).then(flux =>{
+    navigator.mediaDevices.getUserMedia({ video: { facingMode: this.facingMode } }).then(flux => {
 
       if (flux instanceof MediaStream) {
         try {
-        this.stream = flux;
-        const track : MediaStreamTrack = this.stream.getVideoTracks()[0]
-        this.stream?.getTracks()?.forEach((track) =>{
+          this.stream = flux;
+          const track: MediaStreamTrack = this.stream.getVideoTracks()[0]
+          this.stream?.getTracks()?.forEach((track) => {
             track.stop();
           })
-        try {
-          new ImageCapture(track)
-          this.showCamera=true
-          this.start()
-          }catch(error){
+          try {
+            new ImageCapture(track)
+            this.showCamera = true
+            this.start()
+          } catch (error) {
             alert("Cette fonctionnalité n'est pas disponible sur ce support");
             this.router.navigateByUrl('/user/home')
           }
-        }catch(error){
+        } catch (error) {
           alert("The request is not allowed by the user agent or the platform in the current context.");
           this.router.navigateByUrl('/user/home')
         }

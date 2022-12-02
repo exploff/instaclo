@@ -1,20 +1,41 @@
-<div class="container border mt-5 mainContainer">
-  <div class="row">
-    <div class="col-4 border">
-      <div class="row" *ngFor="let chatRoom of chatRooms">
-          <div class="col d-flex align-items-center justify-content-left link-chat border" (click)="openChat(chatRoom)" >
-              <p *ngIf="chatRoom.users[0].uid === uid; else test">
-              <strong class="">{{chatRoom.users[1].pseudo}}</strong></p>
-              <ng-template #test><strong>{{chatRoom.users[0].pseudo}}</strong></ng-template>
-          </div>
+<div class="container border rounded-1 mainContainer">
+  <div class="row h-100">
+    <div class="col-12 col-md-4">
+      <div class="d-flex justify-content-between d-md-none">
+        <div><h3>Mes conversations</h3></div>
+        <div (click)="clickEvent()" class="toggle">
+          <i [ngClass]="status ? 'bi bi-dash' : 'bi bi-plus'"></i>
+        </div>
+      </div>
+      <div
+        class="row listConversation"
+        [ngClass]="status ? 'd-block' : 'd-none d-md-block'"
+      >
+        <div
+          *ngFor="let chatRoom of chatRooms"
+          class="col d-flex align-items-center justify-content-left link-chat border-bottom"
+          (click)="openChat(chatRoom)"
+        >
+          <p class="my-5" *ngIf="chatRoom.user">
+            <span *ngFor="let item of chatRoom.user">
+              {{ item.pseudo }}
+            </span>
+          </p>
+        </div>
       </div>
     </div>
-    <div class="col-8 border">
-
-      <span *ngIf="chatRoomsForComponentChat !== undefined">
-        <app-chat  [chatRoomsForComponentChat]="chatRoomsForComponentChat"  [messageRoom]="messagesRoom"></app-chat>
-      </span>
+    <div class="col-12 col-md-8 border-md-start colChat">
+      <div
+        *ngIf="chatRoomsForComponentChat !== undefined"
+        class="h-100"
+        [ngClass]="!status ? 'd-block' : 'd-none d-md-block'"
+      >
+        <app-chat
+          [chatRoomsForComponentChat]="chatRoomsForComponentChat"
+          [messageRoom]="messagesRoom"
+        >
+        </app-chat>
+      </div>
     </div>
   </div>
 </div>
-

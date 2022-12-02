@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MaterialDesignModule } from '../shared/material-design.module';
-import {ClickOutsideDirective} from "./directive/click-outside.directive";
-import { QRCodeModule } from "angularx-qrcode";
+import { ClickOutsideDirective } from './directive/click-outside.directive';
+import { QRCodeModule } from 'angularx-qrcode';
+import { ClickOutsideMessageDirective } from './directive/click-outside-message.directive';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
-
 
 const MODULES = [
   CommonModule,
@@ -15,14 +15,14 @@ const MODULES = [
   RouterModule,
   MaterialDesignModule,
   QRCodeModule,
-  ZXingScannerModule
+  ZXingScannerModule,
 ];
 
 const PIPES: any = [];
 
 const COMPONENTS = [...PIPES];
 
-const DIRECTIVES: any = [ClickOutsideDirective];
+const DIRECTIVES: any = [ClickOutsideDirective, ClickOutsideMessageDirective];
 
 @NgModule({
   declarations: [...COMPONENTS, ...DIRECTIVES],

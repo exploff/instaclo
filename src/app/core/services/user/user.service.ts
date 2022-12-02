@@ -99,7 +99,6 @@ export class UserService {
   }
 
   public addNewUser(user: User): Promise<DocumentReference<DocumentData>> {
-
     const doc = this.genericFirestoreService.create(this.userCollection, user);
     doc.then((docRef) => {
       user.id = docRef.id;

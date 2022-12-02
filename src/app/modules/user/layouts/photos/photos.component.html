@@ -1,46 +1,57 @@
 <ng-container *ngIf="showCamera">
-<div class="container d-flex flex-column" *ngIf="!takePhotoClick">
-  <video #videoPlayer>
-  </video>
-  <div class="container d-flex justify-content-center mt-4">
-    <button (click)="start()" class="btn btn-outline-secondary flex mx-2">
-      <i class="bi bi-camera-video"></i>
-      <p class="d-none d-md-block">start</p>
-    </button>
-    <button (click)="stop()" class="btn btn-outline-secondary flex mx-2">
-      <i class="bi bi-camera-video-off"></i>
-      <p class="d-none d-md-block">Stop</p>
-    </button>
-    <button (click)="switchCamera()" class="btn btn-outline-secondary flex mx-2">
-      <i class="bi bi-camera2"></i>
-      <p class="d-none d-md-block">Switch Camera</p>
-    </button>
-    <button (click)="takePhoto()" class="btn btn-outline-secondary flex mx-2">
-      <i class="bi bi-camera"></i>
-      <p class="d-none d-md-block">Take Photo</p>
-    </button>
-  </div>
-</div>
-<div class="container d-flex flex-column" *ngIf="takePhotoClick">
-  <div class="container d-flex justify-content-center">
-    <img #imageDisplay>
-  </div>
-  <div class="container mt-4">
-    <form [formGroup]="postForm" (ngSubmit)="onContinue()" class="container d-flex flex-column justify-content-center">
-      <div class="container">
-        <mat-form-field class="container">
-          <textarea matInput placeholder="Discription" formControlName="discription" class="container"></textarea>
-        </mat-form-field>
+  <div class="d-flex align-items-center justify-content-center h-100" *ngIf="!takePhotoClick">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <video #videoPlayer>
+          </video>
+        </div>
+        <div class="col-12 text-center">
+          <button (click)="start()" class="btn btn-outline-secondary flex mx-2">
+            <i class="bi bi-camera-video"></i>
+            <p class="d-none d-md-block">start</p>
+          </button>
+          <button (click)="stop()" class="btn btn-outline-secondary flex mx-2">
+            <i class="bi bi-camera-video-off"></i>
+            <p class="d-none d-md-block">Stop</p>
+          </button>
+          <button (click)="switchCamera()" class="btn btn-outline-secondary flex mx-2">
+            <i class="bi bi-camera2"></i>
+            <p class="d-none d-md-block">Switch Camera</p>
+          </button>
+          <button (click)="takePhoto()" class="btn btn-outline-secondary flex mx-2">
+            <i class="bi bi-camera"></i>
+            <p class="d-none d-md-block">Take Photo</p>
+          </button>
+        </div>
       </div>
-      <div class="container d-flex flex-row justify-content-evenly">
-        <button (click)="onBack()" class="btn btn-outline-secondary flex mx-2">
-          Back
-        </button>
-        <button type="submit" class="btn btn-outline-secondary flex mx-2">
-          Continue
-        </button>
-      </div>
-    </form>
+    </div>
   </div>
-</div>
+
+  <div class="d-flex align-items-center justify-content-center h-100">
+    <div class="container" *ngIf="takePhotoClick">
+      <div class="row">
+        <div class="col-12 text-center mt-2">
+          <img #imageDisplay class="img-fluid">
+        </div>
+        <div class="col-12">
+          <form [formGroup]="postForm" (ngSubmit)="onContinue()">
+            <div class="container text-center">
+              <mat-form-field class="inputStyle">
+                <textarea matInput placeholder="Description" formControlName="description"></textarea>
+              </mat-form-field>
+            </div>
+            <div class="container text-center">
+              <button (click)=" onBack()" class="btn btn-outline-secondary  mx-2">
+                Back
+              </button>
+              <button type="submit" class="btn btn-outline-secondary  mx-2">
+                Continue
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </ng-container>

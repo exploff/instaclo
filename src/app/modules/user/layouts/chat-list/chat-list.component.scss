@@ -1,5 +1,4 @@
 .link-chat {
-  background-color: #ffffff;
   text-decoration: none;
   cursor: pointer;
   height: 2rem;
@@ -7,10 +6,35 @@
 .link-chat:hover {
   background-color: #e4e4e4;
 }
-.mainContainer{
-  height: 100%;
+.mainContainer {
+  height: 80%;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-top: 30px;
+  @media (min-width: 768px) {
+    margin-top: 3rem !important;
+  }
+}
+.colChat {
+  @media (min-width: 768px) {
+    border-left: 1px solid #dee2e6;
+  }
+}
+
+.listConversation {
+  display: none;
+
+  max-height: 100%;
+
+  overflow-y: scroll;
+}
+.listConversation::-webkit-scrollbar {
+  display: none;
+}
+
+.toggle {
+  font-size: 1.25rem;
+  cursor: pointer;
 }

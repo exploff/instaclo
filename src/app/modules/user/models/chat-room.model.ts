@@ -1,8 +1,8 @@
-import {User} from "../../../core/models/user.model";
+import { User } from "../../../core/models/user.model";
 
 export interface ChatRoom {
-  id : string;
-  created_date : string;
-  uid_user : String[];
-  users: User[];
+  id: string;
+  created_date: string;
+  uid_user: String[];
+  user: User[];
 }

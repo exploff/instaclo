@@ -1,33 +1,43 @@
 .imgProfil {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   object-fit: cover;
   background-size: cover;
 
-  @media (min-width: 425px) {
-    width: 120px;
-    height: 120px;
+  @media (max-width: 425px) {
+    width: 100px;
+    height: 100px;
   }
+}
+.messenger {
+  height: 430px;
+  overflow-y: scroll;
+}
+.messenger::-webkit-scrollbar {
+  display: none;
+}
 
-  @media (min-width: 575px) {
-    width: 135px;
-    height: 135px;
+.bulle {
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  padding: 3px;
+}
+
+.messenger {
+  input {
+    border: none;
+    background: none;
+    &:focus {
+      border: none;
+      outline: none !important;
+    }
   }
-
-  @media (min-width: 768px) {
-    width: 150px;
-    height: 150px;
-  }
-
-  // Large devices (desktops, 992px and up)
-  @media (min-width: 992px) {
-    width: 180px;
-    height: 180px;
-  }
-
-  // X-Large devices (large desktops, 1200px and up)
-  @media (min-width: 1200px) {
-    width: 250px;
-    height: 250px;
+  .btn {
+    text-decoration: underline;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+      border: none;
+    }
   }
 }

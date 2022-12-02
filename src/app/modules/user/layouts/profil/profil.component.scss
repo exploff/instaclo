@@ -1,6 +1,6 @@
 .imgProfil {
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   object-fit: cover;
   background-size: cover;
 
@@ -37,6 +37,34 @@
   font-size: 20px;
   font-weight: 700;
 }
-.firstnameLastname{
+.firstnameLastname {
   font-size: 15px;
+}
+
+::ng-deep .cdk-overlay-pane {
+  width: 300px;
+  max-width: none !important;
+  text-align: center;
+}
+.btnProfil {
+  .btn {
+    @media (min-width: 375px) {
+      width: 25% !important;
+    }
+  }
+}
+
+.ifUserCo {
+  .btnQrcode {
+    width: 48%;
+    @media (min-width: 992px) {
+      width: 24% !important;
+    }
+  }
+  .btnEdit {
+    width: 48%;
+    @media (min-width: 992px) {
+      width: 74% !important;
+    }
+  }
 }

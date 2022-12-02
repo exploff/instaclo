@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, HostListener, OnInit, Output} from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user.model';

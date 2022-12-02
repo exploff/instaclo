@@ -1,43 +1,44 @@
 <div class="container-fluid my-3">
   <div class="card rounded">
-      <div class="card-header">
-        <div class="row row-cols-3">
-          <div class="col-7 d-flex align-items-center">
-              <div class="content-img" [style.background-image]="'url(' + (user | async)?.profilImage+ ')'">
-              </div>
-              <div class="ms-2">{{ (user | async)?.pseudo }}</div>
-          </div>
-          <div class="col-5 d-flex align-items-center text-center justify-content-center">
-            <div class="tx-11 me-2 text-muted">{{ image.createDate.toDate() | date:'dd / MM / yyyy'  }}</div>
+    <div class="card-header">
+      <div class="row">
+        <div class="col-8 d-flex align-items-center">
+          <div class="content-img" [style.background-image]="
+              'url(' + (user | async)?.profilImage + ')'
+            "></div>
+          <div class="ms-2">{{ (user | async)?.pseudo }}</div>
+        </div>
+        <div class="col-4 d-flex align-items-center justify-content-end">
+          <div class="tx-11 me-2 text-muted textDate">
+            {{ image.createDate.toDate() | date: "dd / MM / yyyy" }}
           </div>
         </div>
       </div>
+    </div>
+    <div>
       <div>
-        <div>
-          <img class="img-fluid w-100 h-100" [src]="image.path" alt="">
-        </div>
-        <div class="bg-light border p-2 fw-bold">
-          {{ image.like.length }} Like
-        </div>
-        <div class="p-2">
-          <p #descriptionUser class="text-break m-0" style="text-align: justify">{{ image.description }}</p>
-        </div>
+        <img class="img-fluid w-100 h-100" [src]="image.path" alt="" />
       </div>
-      <div class="card-footer">
-          <div class="d-flex post-actions">
-              <a (click)="like()" class="d-flex align-items-center text-muted me-4">
-                  <i class="bi bi-heart-fill" [style.color]="likedImage"></i>
-                  <div class="d-none d-md-block ms-2">Like</div>
-              </a>
-              <a (click)="openDialog()" class="d-flex align-items-center text-muted me-4">
-                  <i class="bi bi-chat-dots"></i>
-                  <div class="d-none d-md-block ms-2">Comment</div>
-              </a>
-              <a class="d-flex align-items-center text-muted">
-                  <i class="bi bi-share"></i>
-                  <div class="d-none d-md-block ms-2">Share</div>
-              </a>
-          </div>
+      <div class="bg-light border p-2 fw-bold">
+        {{ image.like.length }} Like
       </div>
+      <div class="p-2">
+        <p #descriptionUser class="text-break m-0" style="text-align: justify">
+          {{ image.description }}
+        </p>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="d-flex post-actions">
+        <a (click)="like()" class="d-flex align-items-center text-muted me-4">
+          <i class="bi bi-heart-fill" [style.color]="likedImage"></i>
+          <div class="d-none d-md-block ms-2">Like</div>
+        </a>
+        <a (click)="openDialog()" class="d-flex align-items-center text-muted me-4">
+          <i class="bi bi-chat-dots"></i>
+          <div class="d-none d-md-block ms-2">Comment</div>
+        </a>
+      </div>
+    </div>
   </div>
 </div>

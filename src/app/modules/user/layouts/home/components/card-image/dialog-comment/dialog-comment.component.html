@@ -7,24 +7,23 @@
   </div>
 </div>
 <div mat-dialog-content>
-  <div style="height: 450px; overflow-y: scroll">
+  <div style="height: 450px; overflow-y: scroll; overflow-x: hidden">
     <div *ngFor="let comment of image.comments.sort(this.compareComment)">
-
       <div class="row">
-        <div class="col-3">
-          {{ comment.fullName }}
+        <div class="col-10 text-start">
+          <strong tyle="white-space: nowrap">{{ comment.fullName }}</strong>
+          <p>
+            {{ comment.comment }}
+            <br />
+            <small style="white-space: nowrap">
+              {{ comment.createDate.toDate() | date: "dd / MM / yyyy" }}
+            </small>
+          </p>
         </div>
-        <div class="col-5">
-          {{ comment.comment }}
-        </div>
-        <div class="col-3">
-          {{ comment.createDate.toDate() | date:'dd / MM / yyyy' }}
-        </div>
-        <div class="col-1" *ngIf="comment.userId === currentUser.id">
+        <div class="col-2 text-end pe-4" *ngIf="comment.userId === currentUser.id">
           <i class="bi bi-trash" (click)="deleteComment(comment)" style="cursor: pointer"></i>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -32,15 +31,10 @@
     <mat-error *ngIf="comment.hasError('minlength')">
       150 caractères maximum
     </mat-error>
-    <div class="row">
-      <div class="col-8">
-        <input type="text" placeholder="150 caractères maximum..." class="form-control" maxlength="150" [formControl]="comment" #commentInput>
-      </div>
-      <div class="col-4">
-        <button mat-button type="submit" color="primary">
-          Envoyer
-        </button>
-      </div>
+    <div class="input-group">
+      <input type="text" placeholder="150 caractères maximum..." class="form-control" maxlength="150"
+        [formControl]="comment" #commentInput />
+      <button class="btn btn-outline-secondary" type="submit">Envoyer</button>
     </div>
   </form>
 </div>

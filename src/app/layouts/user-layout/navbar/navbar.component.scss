@@ -2,15 +2,15 @@ i {
   font-size: 1.5rem;
   margin: 5px;
 }
-.headerSmallScreen{
+.headerSmallScreen {
   padding-bottom: 10px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }
 .dropdownSearch {
   position: absolute;
   top: 46px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: scroll;
+
   max-height: 100px;
   z-index: 99999;
   background-color: rgb(248, 249, 250);
@@ -21,12 +21,15 @@ i {
     top: 52px;
     width: 233px;
   }
-  .dropdown-item{
+  .dropdown-item {
     margin: 0.5rem 0rem 0.5rem 0.3rem;
   }
-  hr{
+  hr {
     margin: 0;
   }
+}
+.dropdownSearch::-webkit-scrollbar {
+  display: none;
 }
 
 .text-dark {
@@ -85,7 +88,3 @@ input[type="search"]::-webkit-search-results-decoration {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-
-
-
-
