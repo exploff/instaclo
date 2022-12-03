@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/core/models/user.model';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { ChatRoom } from '../../models/chat-room.model';
 import { ChatService } from '../../services/chat/chat.service';
 import { Chat } from '../../models/chat.model';
@@ -16,7 +16,7 @@ import { HammerModule } from '@angular/platform-browser';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit  {
   @Input() chatRoomsForComponentChat!: ChatRoom;
   @Input() messageRoom!: Observable<Chat[]>;
   @ViewChild('messageInput') inputName: any;
@@ -61,7 +61,9 @@ export class ChatComponent implements OnInit {
     }
   }
 
+
   ngOnInit(): void {
+
     this.uid = this.authService.getUserUID();
     if (this.uid != null) {
       this.userService.fetchUserByUID(this.uid).subscribe((user: User[]) => {

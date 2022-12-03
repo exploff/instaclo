@@ -42,11 +42,6 @@
   font-size: 15px;
 }
 
-::ng-deep .cdk-overlay-pane {
-  width: 300px;
-  max-width: none !important;
-  text-align: center;
-}
 .btnProfil {
   .btn {
     @media (min-width: 375px) {

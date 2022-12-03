@@ -1,13 +1,7 @@
-::ng-deep .cdk-overlay-pane {
-  width: 300px;
-  max-width: none !important;
-  @media screen and (min-width: 375px) {
-    width: 360px;
-  }
-  @media screen and (min-width: 425px) {
-    width: 400px;
-  }
-  @media screen and (min-width: 500px) {
-    width: 450px;
-  }
+
+
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
