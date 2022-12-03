@@ -6,8 +6,8 @@
     </div>
   </div>
 </div>
-<div mat-dialog-content>
-  <div style="height: 450px; overflow-y: scroll; overflow-x: hidden">
+<div mat-dialog-content class="dialog-content">
+  <div style="height: 60vh; overflow-y: scroll; overflow-x: hidden">
     <div *ngFor="let comment of image.comments.sort(this.compareComment)">
       <div class="row">
         <div class="col-10 text-start">

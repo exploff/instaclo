@@ -27,6 +27,31 @@ a {
   height: 100%;
 }
 
+.custom-dialog-comment-container {
+  max-width: none !important;
+  height: 90vh;
+  width: 100vw;
+  position: fixed !important;
+  top: 0;
+
+  @media screen and (min-width: 375px) {
+  }
+  @media screen and (min-width: 425px) {
+  }
+  @media screen and (min-width: 500px) {
+    height: auto;
+    width: auto;
+    position: static !important;;
+    width: 450px;
+  }
+}
+
+.custom-dialog-qr-code-container {
+  max-width: none !important;
+  text-align: center;
+}
+
+
 $my-app-accent: mat-palette($mat-pink, 500, 900, A100);
 $my-app-warn: mat-palette($mat-deep-orange);
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);

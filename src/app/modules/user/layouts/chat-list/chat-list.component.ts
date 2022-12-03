@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { ChatService } from '../../services/chat/chat.service';
 import { UserService } from '../../../../core/services/user/user.service';
@@ -32,6 +32,7 @@ export class ChatListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.chatRooms = this.route.snapshot.data['chatRooms'];
     this.uid = this.authService.getUserUID();
 

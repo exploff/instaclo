@@ -10,8 +10,16 @@
   }
 }
 .messenger {
-  height: 430px;
-  overflow-y: scroll;
+  height: 40vh;
+  //overflow-y: scroll;
+  max-height: auto;
+  overflow: auto;
+  @media screen and (min-height: 800px) {
+    height: 50vh;
+  }
+  @media screen and (min-height: 1000px) {
+    height: 70vh;
+  }
 }
 .messenger::-webkit-scrollbar {
   display: none;

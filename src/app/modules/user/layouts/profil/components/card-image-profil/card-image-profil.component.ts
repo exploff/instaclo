@@ -79,6 +79,7 @@ export class CardImageProfilComponent implements OnInit, AfterViewInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogCommentComponent, {
+      panelClass: 'custom-dialog-comment-container',
       data: {
         image: this.image,
         currentUser: this.currentUser,

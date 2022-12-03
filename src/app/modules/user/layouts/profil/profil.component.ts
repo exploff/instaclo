@@ -104,6 +104,7 @@ export class ProfilComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogQrCodeComponent, {
       width: '300px',
+      panelClass: 'custom-dialog-qr-code-container',
       data: {
         userId: this.user.id,
         firstName: this.user.firstName,
