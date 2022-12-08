@@ -27,6 +27,7 @@ export class RegisterComponent {
       pseudo: new FormControl('', [
         Validators.required,
         Validators.minLength(4),
+        Validators.maxLength(12)
       ]),
       password: new FormControl('', [
         Validators.required,
