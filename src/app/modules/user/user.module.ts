@@ -10,7 +10,7 @@ import { CardImageComponent } from './layouts/home/components/card-image/card-im
 import { HomeComponent } from './layouts/home/home.component';
 import { ProfilComponent } from './layouts/profil/profil.component';
 import { ChatListComponent } from './layouts/chat-list/chat-list.component';
-import { ChatComponent } from "./layouts/chat/chat.component";
+import { ChatComponent } from './layouts/chat/chat.component';
 import { DialogQrCodeComponent } from './layouts/profil/components/dialog-qr-code/dialog-qr-code.component';
 import { QrcodeComponent } from './layouts/qrcode/qrcode.component';
 import { PhotosComponent } from './layouts/photos/photos.component';
@@ -18,11 +18,25 @@ import { DialogCommentComponent } from './layouts/home/components/card-image/dia
 import { QrcodeScannerComponent } from './layouts/qrcode-scanner/qrcode-scanner.component';
 import { DialogLikeComponent } from './layouts/home/components/card-image/dialog-like/dialog-like.component';
 
-
 @NgModule({
-  declarations: [ProfilComponent, EditProfilComponent, HomeComponent, CardImageComponent, ChatListComponent, ChatComponent, DialogQrCodeComponent, QrcodeComponent, PhotosComponent, DialogCommentComponent, QrcodeScannerComponent, CardImageProfilComponent, DialogLikeComponent],
+  declarations: [
+    ProfilComponent,
+    EditProfilComponent,
+    HomeComponent,
+    CardImageComponent,
+    ChatListComponent,
+    ChatComponent,
+    DialogQrCodeComponent,
+    QrcodeComponent,
+    PhotosComponent,
+    DialogCommentComponent,
+    QrcodeScannerComponent,
+    CardImageProfilComponent,
+    DialogComponent,
+    DialogLikeComponent,
+  ],
   imports: [SharedModule, UserRoutingModule],
   exports: [],
 })
-export class UserModule { }
+export class UserModule {}
 //TODO guest module
