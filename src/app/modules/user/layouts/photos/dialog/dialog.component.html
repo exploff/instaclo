@@ -1,0 +1,14 @@
+<div mat-dialog-content >
+  <div>
+    <p> {{data.message}}</p>
+    <p *ngIf="data.type==='compatibilite'"> voulez vous choisir une photo depuis votre appareil ?</p>
+  </div>
+  <div  *ngIf="data.type==='compatibilite'">
+    <input type="file" accept="image/*" [formControl]="imagefield" (change)="onchange($event)">
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button color="primary" (click)="onChoisir()" *ngIf="data.type==='compatibilite'">Choisir</button>
+  <button mat-button color="primary" (click)="onAutoriser()" *ngIf="data.type!=='compatibilite'">Autoriser</button>
+  <button mat-button color="primary" (click)="onNoClick()">Quitter</button>
+</div>

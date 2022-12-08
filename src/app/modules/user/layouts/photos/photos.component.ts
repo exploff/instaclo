@@ -1,12 +1,15 @@
+import { DialogComponent } from './dialog/dialog.component';
 import { StorageService } from './../../services/storage/storage.service';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Image } from '../../models/image.model';
 import { Timestamp } from 'firebase/firestore';
 import { ImageService } from '../../services/image/image.service';
 import { UploadResult } from '@angular/fire/storage';
+import { MatDialog } from '@angular/material/dialog';
+import { User } from 'src/app/core/models/user.model';
 
 @Component({
   selector: 'app-photos',
@@ -30,15 +33,17 @@ export class PhotosComponent implements OnInit, OnDestroy {
 
   public showCamera: boolean = false
 
-  //TODO validator
+  public user!: User;
+
   public postForm = new FormGroup({
     description: new FormControl('', Validators.required),
   });
 
-  constructor(private sanitizer: DomSanitizer, private router: Router, private storageService: StorageService, private imageService: ImageService) { }
+  constructor(private sanitizer: DomSanitizer, private router: Router, private storageService: StorageService, private imageService: ImageService,public dialog: MatDialog, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.checkCamera()
+    this.getCurrentUser()
   }
 
   ngOnDestroy() {
@@ -47,6 +52,10 @@ export class PhotosComponent implements OnInit, OnDestroy {
     })
   }
 
+  public choosePhoto(){
+    this.takePhotoClick = true
+    this.openDialog("","compatibilite")
+  }
   public async takePhoto() {
     if (this.stream) {
       this.takePhotoClick = true
@@ -111,7 +120,7 @@ export class PhotosComponent implements OnInit, OnDestroy {
         const datePhoto = Date.now()
         let image: Image = {
           id: '',
-          userID: 'Wx1Vl4mCelUYJIsOYZrx',
+          userID: this.user.id,
           path: fullpath,
           createDate: new Timestamp(datePhoto / 1000, datePhoto / 1000000),
           description: this.postForm.value.description,
@@ -133,26 +142,56 @@ export class PhotosComponent implements OnInit, OnDestroy {
     navigator.mediaDevices.getUserMedia({ video: { facingMode: this.facingMode } }).then(flux => {
 
       if (flux instanceof MediaStream) {
+        this.stream = flux;
+        const track: MediaStreamTrack = this.stream.getVideoTracks()[0]
+        this.stream?.getTracks()?.forEach((track) => {
+          track.stop();
+        })
         try {
-          this.stream = flux;
-          const track: MediaStreamTrack = this.stream.getVideoTracks()[0]
-          this.stream?.getTracks()?.forEach((track) => {
-            track.stop();
-          })
-          try {
-            new ImageCapture(track)
-            this.showCamera = true
-            this.start()
-          } catch (error) {
-            alert("Cette fonctionnalité n'est pas disponible sur ce support");
-            this.router.navigateByUrl('/user/home')
-          }
+          new ImageCapture(track)
+          this.showCamera = true
+          this.start()
         } catch (error) {
-          alert("The request is not allowed by the user agent or the platform in the current context.");
-          this.router.navigateByUrl('/user/home')
+
+          this.openDialog("Cette fonctionnalité n'est pas disponible sur ce support","compatibilite")
         }
       }
+    }).catch(error =>{
+     this.openDialog("Merci de bien vouloir autoriser la caméra","autorisation")
     })
   }
+
+  openDialog(message:string,type:"autorisation"|"compatibilite"): void {
+    this.stop()
+    let dialogRef = this.dialog.open(DialogComponent, {
+      width: 'auto',
+      data:{message: message,type:type}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result==="Autoriser"){
+        this.router.navigateByUrl('/user/photos')
+      }else if (result==="Quitter"){
+        this.router.navigateByUrl('/user/home')
+      }else{
+        this.showCamera=true
+        this.takePhotoClick = true
+
+        const blob = new Blob([result],{type: result.type})
+        let url = URL.createObjectURL(blob);
+
+        setTimeout(()=>this.imageDisplay.nativeElement.src = url, 30);
+        this.photo = result;
+      }
+    });
+  }
+  getCurrentUser() {
+    if (this.route.snapshot.data['currentUser'] != undefined) {
+      this.user = this.route.snapshot.data['currentUser'][0];
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
+
 
 }

@@ -77,7 +77,10 @@ const routes: Routes = [
       },
       {
         path: 'photos',
-        component: PhotosComponent
+        component: PhotosComponent,
+        resolve: {
+          currentUser: CurrentUserResolver
+        }
       },
       {
         path: '**',
