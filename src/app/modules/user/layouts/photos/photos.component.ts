@@ -181,7 +181,10 @@ export class PhotosComponent implements OnInit, OnDestroy {
         let url = URL.createObjectURL(blob);
 
         setTimeout(()=>this.imageDisplay.nativeElement.src = url, 30);
-        this.photo = result;
+         const date = new Date()
+          this.photoName = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}-${date.getHours()}${date.getMinutes()}${date.getSeconds()}.jpg`
+
+          this.photo = new File([blob], this.photoName);
       }
     });
   }
