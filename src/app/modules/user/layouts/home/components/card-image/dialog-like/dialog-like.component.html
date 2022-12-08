@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col d-flex justify-content-between">
+    <h1 mat-dialog-title>Likes</h1>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Quitter</button>
+    </div>
+  </div>
+</div>
+<div mat-dialog-content class="dialog-content">
+  <div style="height: 60vh; overflow-y: scroll; overflow-x: hidden">
+    <div *ngIf="user">
+      <div *ngFor="let item of user">
+        <div class="row my-1">
+          <div
+            class="col text-start d-flex align-items-center"
+            [routerLink]="['/user/profil/' + item.id]"
+            style="cursor: pointer"
+          >
+            <div
+              class="content-img"
+              [style.background-image]="'url(' + item.profilImage + ')'"
+            ></div>
+            <div class="ms-1">
+              <strong tyle="white-space: nowrap">{{ item.pseudo }}</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
