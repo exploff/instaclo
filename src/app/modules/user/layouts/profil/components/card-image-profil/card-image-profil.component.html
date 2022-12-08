@@ -12,26 +12,32 @@
       {{ image.description }}
     </p>
   </div>
-  <div class="card-footer">
-    <div class="d-flex post-actions">
-      <a (click)="like()" class="d-flex align-items-center text-muted me-4">
-        <i class="bi bi-heart-fill" [style.color]="likedImage"></i>
-        <div class="d-none d-md-block ms-2">Like</div>
-      </a>
-      <a
-        (click)="openDialog()"
-        class="d-flex align-items-center text-muted me-4"
-      >
-        <i class="bi bi-chat-dots"></i>
-        <div class="d-none d-md-block ms-2">Comment</div>
-      </a>
-      <a
-        (click)="delete(image.id)"
-        class="d-flex align-items-center text-muted me-4"
+  <div class="card-footer post-actions">
+    <div class="row">
+      <div class="col d-flex">
+        <a (click)="like()" class="d-flex align-items-center text-muted me-4">
+          <i class="bi bi-heart-fill" [style.color]="likedImage"></i>
+          <div class="d-none d-md-block ms-2">Like</div>
+        </a>
+        <a
+          (click)="openDialog()"
+          class="d-flex align-items-center text-muted me-4"
+        >
+          <i class="bi bi-chat-dots"></i>
+          <div class="d-none d-md-block ms-2">Comment</div>
+        </a>
+      </div>
+      <div
+        class="col d-flex justify-content-end"
         *ngIf="currentUser.id === image.userID"
       >
-        <i class="bi bi-trash"></i>
-      </a>
+        <a (click)="update(image.id)" class="me-3 text-muted"
+          ><i class="bi bi-pencil-square"></i
+        ></a>
+        <a (click)="delete(image.id)" class="text-muted">
+          <i class="bi bi-trash"></i>
+        </a>
+      </div>
     </div>
   </div>
 </div>
