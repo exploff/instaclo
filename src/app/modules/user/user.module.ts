@@ -17,6 +17,7 @@ import { PhotosComponent } from './layouts/photos/photos.component';
 import { DialogCommentComponent } from './layouts/home/components/card-image/dialog-comment/dialog-comment.component';
 import { QrcodeScannerComponent } from './layouts/qrcode-scanner/qrcode-scanner.component';
 import { DialogLikeComponent } from './layouts/home/components/card-image/dialog-like/dialog-like.component';
+import { DialogUpdateComponent } from './layouts/profil/components/card-image-profil/dialog-update/dialog-update.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { DialogLikeComponent } from './layouts/home/components/card-image/dialog
     CardImageProfilComponent,
     DialogComponent,
     DialogLikeComponent,
+    DialogUpdateComponent,
   ],
   imports: [SharedModule, UserRoutingModule],
   exports: [],
