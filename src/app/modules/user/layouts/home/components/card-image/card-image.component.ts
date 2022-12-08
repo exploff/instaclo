@@ -15,6 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DialogCommentComponent } from './dialog-comment/dialog-comment.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogLikeComponent } from './dialog-like/dialog-like.component';
 
 @Component({
   selector: 'app-card-image',
@@ -74,6 +75,18 @@ export class CardImageComponent implements OnInit, AfterViewInit {
       data: {
         image: this.image,
         currentUser: this.currentUser,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openDialogLike(): void {
+    const dialogRef = this.dialog.open(DialogLikeComponent, {
+      panelClass: 'custom-dialog-comment-container',
+      data: {
+        image: this.image,
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
