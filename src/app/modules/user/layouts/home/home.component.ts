@@ -28,7 +28,6 @@ export class HomeComponent implements OnInit {
     let max = document.documentElement.scrollHeight;
     if (pos >= max) {
       let lastImage = this.images$.value[this.images$.value.length - 1];
-      console.log(lastImage)
       const values = this.images$.value;
       this.imageService.fetchUsersImagesByPagination(this.follows, lastImage.createDate).subscribe(images => {
         this.images$.next(values.concat(images));
