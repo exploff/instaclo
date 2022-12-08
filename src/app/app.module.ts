@@ -25,6 +25,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     swipe: { enable: true, direction: Hammer.DIRECTION_ALL },
     pinch: { enable: false },
     rotate: { enable: false },
+    pan: { enable: false },
   };
 }
 

@@ -41,7 +41,7 @@ a {
   @media screen and (min-width: 500px) {
     height: auto;
     width: auto;
-    position: static !important;;
+    position: static !important;
     width: 450px;
   }
 }
@@ -50,7 +50,6 @@ a {
   max-width: none !important;
   text-align: center;
 }
-
 
 $my-app-accent: mat-palette($mat-pink, 500, 900, A100);
 $my-app-warn: mat-palette($mat-deep-orange);
