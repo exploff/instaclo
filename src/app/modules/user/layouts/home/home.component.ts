@@ -58,4 +58,8 @@ export class HomeComponent implements OnInit {
       })
     ).subscribe();
   }
+
+  trackImage(index:number,image:Image){
+    return image.id
+  }
 }

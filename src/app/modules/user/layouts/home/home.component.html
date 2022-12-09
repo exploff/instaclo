@@ -1,6 +1,6 @@
 <div class="mainHome container-fluid mx-auto pt-2">
   <div class="container">
-    <ng-container *ngFor="let image of images$ | async">
+    <ng-container *ngFor="let image of images$ | async ; trackBy trackImage">
       <div class="row justify-content-center">
         <div class="col mw-50">
           <app-card-image [image]="image" [currentUser]="user"></app-card-image>
