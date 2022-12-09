@@ -1,7 +1,11 @@
 <div class="container">
   <div class="row">
     <div class="col-10 offset-1">
-      <zxing-scanner [formats]="allowedFormats"></zxing-scanner>
+      <ngx-scanner-qrcode #action="scanner"></ngx-scanner-qrcode>
+      <p class="data">{{ action.data | async }}</p>
+      <p *ngIf="action.isLoading">⌛ Loading...</p>
+      <button (click)="action.start()">{{action.isStart ? 'Stop' : 'Start'}}</button>
+
     </div>
   </div>
 </div>
