@@ -1,23 +1,26 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgxScannerQrcodeService } from 'ngx-scanner-qrcode';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { NgxScannerQrcodeComponent } from 'ngx-scanner-qrcode';
 
 @Component({
   selector: 'app-qrcode-scanner',
   templateUrl: './qrcode-scanner.component.html',
   styleUrls: ['./qrcode-scanner.component.scss']
 })
-export class QrcodeScannerComponent {
+export class QrcodeScannerComponent implements AfterViewInit {
 
   public link!: string;
 
-  constructor(private qrcode: NgxScannerQrcodeService, private router:Router) { }
+  @ViewChild('action') scanner!: NgxScannerQrcodeComponent;
 
-
+  constructor() { }
 
   onQrCodeScan(response: string): void {
     if (response != null) {
       window.location.href = response;
     }
+  }
+
+  ngAfterViewInit() {
+    this.scanner.start();
   }
 }
