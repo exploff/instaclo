@@ -8,5 +8,6 @@ export const environment = {
     authDomain: 'instaclo-d1953.firebaseapp.com',
     messagingSenderId: '380399534978',
   },
+  publicVAPID: 'BBve57rPyL0_ppzSwEaRZwsF7b28i3Piv6QMT7u3Jy_hCOhgzx_agYvCAn6vOj1wgk9etutrmaSlwi-LTMoMkSA',
   production: true
 };
