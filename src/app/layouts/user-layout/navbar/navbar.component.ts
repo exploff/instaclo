@@ -93,21 +93,18 @@ export class NavbarComponent implements OnInit {
 
   checkNewMessage() {
     this.chatService.checkNewMessage(this.user.uid).subscribe((data) => {
+      console.log(data)
       if (data.length > 0) {
         this.newMessage = true;
-        data.forEach((chat: Chat) => {
-          this.sendNotification(chat.uid_user, chat.message);
-        });
+        this.sendNotification("Messages", "Vous avez de nouveaux messages en attente");
+      } else {
+        this.newMessage = false;
       }
     });
   }
 
-  sendNotification(uidUser: string, message: string ) {
-    this.userService.fetchUserByUID(uidUser).subscribe((users) => {
-      if (users.length == 1) {
-        this.notificationsService.generateNotification("Nouveau message de " + users[0].pseudo, message);
-      }
-    });
+  sendNotification(title: string, message: string ) {
+    this.notificationsService.generateNotification(title, message);
   }
 }
 
