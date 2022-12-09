@@ -109,7 +109,7 @@ export class RegisterComponent {
               profilImage:"/assets/images/blank-profile.png",
               firstName: displayName ? displayName.split(' ')[0] : '',
               lastName: displayName ? displayName.split(' ')[1] : '',
-              pseudo: displayName ? displayName : '',
+              pseudo: displayName ? `${displayName.split(' ')[0].slice(0,1)}.${displayName.split(' ')[1]}` : '',
               bio: "",
               email: result.user.email ? result.user.email : '',
               keywords: this.userService.generateKeywords(displayName ? displayName : ''),
