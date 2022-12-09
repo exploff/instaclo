@@ -14,7 +14,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCommentComponent } from '../../../home/components/card-image/dialog-comment/dialog-comment.component';
-
+import { DialogLikeComponent } from '../../../home/components/card-image/dialog-like/dialog-like.component';
+import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
 
 @Component({
   selector: 'app-card-image-profil',
@@ -37,7 +38,7 @@ export class CardImageProfilComponent implements OnInit, AfterViewInit {
     private imageService: ImageService,
     private route: ActivatedRoute,
     public dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.user = this.userService.fetchUserById(this.image.userID);
@@ -72,7 +73,6 @@ export class CardImageProfilComponent implements OnInit, AfterViewInit {
     this.imageService.updateImage(this.image);
   }
 
-
   delete(id: string) {
     this.imageService.deleteImage(id);
   }
@@ -88,5 +88,33 @@ export class CardImageProfilComponent implements OnInit, AfterViewInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log('The dialog was closed');
     });
+  }
+
+  openDialogLike(): void {
+    const dialogRef = this.dialog.open(DialogLikeComponent, {
+      panelClass: 'custom-dialog-comment-container',
+      data: {
+        image: this.image,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  openDialogUpdate(): void {
+    const dialogRef = this.dialog.open(DialogUpdateComponent, {
+      panelClass: 'custom-dialog-comment-container',
+      data: {
+        image: this.image,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  update($id: any) {
+    this.openDialogUpdate();
   }
 }

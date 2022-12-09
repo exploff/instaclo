@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>Description</h1>
+
+<div mat-dialog-content class="dialog-content">
+  {{ image.description }}
+</div>
+
+<form (ngSubmit)="onSubmit()" class="mt-5">
+  <mat-error *ngIf="description.hasError('minlength')">
+    150 caractères maximum
+  </mat-error>
+  <div class="input-group">
+    <input
+      type="text"
+      placeholder="150 caractères maximum..."
+      class="form-control"
+      maxlength="150"
+      [formControl]="description"
+      #descriptionInput
+    />
+    <button class="btn btn-outline-secondary" type="submit">Envoyer</button>
+  </div>
+</form>
