@@ -1,3 +1,4 @@
+import { NotificationsService } from './../../services/notifications/notifications.service';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/core/models/user.model';
 import { FormControl, Validators } from '@angular/forms';
@@ -16,7 +17,7 @@ import { HammerModule } from '@angular/platform-browser';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit  {
+export class ChatComponent implements OnInit {
   @Input() chatRoomsForComponentChat!: ChatRoom;
   @Input() messageRoom!: Observable<Chat[]>;
   @ViewChild('messageInput') inputName: any;
@@ -36,7 +37,8 @@ export class ChatComponent implements OnInit  {
     public chatService: ChatService,
     public route: ActivatedRoute,
     public authService: AuthenticationService,
-    public userService: UserService
+    public userService: UserService,
+    private readonly notificationService: NotificationsService
   ) {
     this.displayDate.subscribe((valeur) => {
       this.showDate = valeur;
@@ -63,11 +65,21 @@ export class ChatComponent implements OnInit  {
 
 
   ngOnInit(): void {
-
+    this.receiveMessage();
     this.uid = this.authService.getUserUID();
     if (this.uid != null) {
       this.userService.fetchUserByUID(this.uid).subscribe((user: User[]) => {
         this.user = user;
+      });
+    }
+  }
+
+  receiveMessage() {
+    if (this.chatRoomsForComponentChat.id != null) {
+      this.chatService.fetchChatByChatRoomId(this.chatRoomsForComponentChat.id).subscribe((message) => {
+        if (message[0].uid_user != this.uid) {
+          this.sendNotification(this.user[0].pseudo, message[0].message);
+        }
       });
     }
   }
@@ -101,5 +113,11 @@ export class ChatComponent implements OnInit  {
 
   onSwipeLeft() {
     this.displayDate.next(true);
+  }
+
+  private sendNotification(name: string, body: string | null): void {
+    if (body != null) {
+      this.notificationService.generateNotification(`Message de ${name}`, body);
+    }
   }
 }
