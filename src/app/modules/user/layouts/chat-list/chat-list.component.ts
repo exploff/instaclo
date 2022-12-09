@@ -55,6 +55,9 @@ export class ChatListComponent implements OnInit {
     this.messagesRoom = this.chatService.fetchChatByChatRoomIdInOrder(
       this.chatRoomsForComponentChat.id
     );
+
+    //Passage de tous les chats read à true quand le toUserUid me concerne et le chatroomid est celui que l'on ouvre
+    this.chatService.readAllChatOfTheRoom(chatRoom.id, this.uid!);
   }
 
   clickEvent() {

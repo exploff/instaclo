@@ -57,4 +57,17 @@ export class ChatService {
   public deleteChat(id: string) {
     return this.genericFirestoreService.delete(FIREBASE_COLLECTION_PATHS.CHAT, id);
   }
+
+  public readAllChatOfTheRoom(idRoom: string, toUserUid: string) {
+    if (toUserUid != null && idRoom != null) {
+      this.fetchChatByChatRoomId(idRoom).subscribe((chats) => {
+        chats.forEach((chat) => {
+          if (chat.toUserUid == toUserUid) {
+            chat.read = true;
+            this.updateChat(chat);
+          }
+        });
+      });
+    }
+  }
 }

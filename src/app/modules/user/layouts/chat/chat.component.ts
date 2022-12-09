@@ -49,12 +49,16 @@ export class ChatComponent implements OnInit {
     if (this.message.value != '') {
       if (this.uid != null) {
         if (this.user != null) {
+          let toUserUid = this.chatRoomsForComponentChat.user[0].uid == this.uid ?
+                            this.chatRoomsForComponentChat.user[1].uid : this.chatRoomsForComponentChat.user[0].uid;
           this.chat = {
             id: '',
             id_chat_room: this.chatRoomsForComponentChat.id,
             uid_user: this.uid,
             message: this.message.value ? this.message.value : '',
             date_created: new Date().toISOString(),
+            toUserUid: toUserUid,
+            read: false
           };
         }
         this.chatService.addNewChat(this.chat);
