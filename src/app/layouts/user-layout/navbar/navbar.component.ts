@@ -4,6 +4,8 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user.model';
 import { AuthenticationService } from 'src/app/core/services/authentification/authentification.service';
 import { UserService } from 'src/app/core/services/user/user.service';
+import { ChatService } from 'src/app/modules/user/services/chat/chat.service';
+import { AggregateQuerySnapshot, AggregateField } from "firebase/firestore";
 
 @Component({
   selector: 'app-navbar',
@@ -16,10 +18,12 @@ export class NavbarComponent implements OnInit {
   public pseudo = new FormControl('');
   public bUser: boolean = false;
   public focus: boolean = false;
+  public numberChat!: number;
 
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
+    private chatService: ChatService,
     private userService: UserService,
 
   ) {
@@ -75,6 +79,14 @@ export class NavbarComponent implements OnInit {
         this.userService.fetchUserByUID(uid).subscribe((user) => {
           this.user = user[0];
         });
+
+        //Prepare to count unread chat
+        // this.chatService.countAllChatUnreadByUserUid(uid).then((value) => {
+        //   this.numberChat = value.data().count;
+        //   console.log(this.numberChat);
+
+        // });
+
       } else {
         this.router.navigate(['/login']);
       }

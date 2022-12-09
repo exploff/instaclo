@@ -30,7 +30,12 @@ export class CardImageProfilComponent implements OnInit, AfterViewInit {
 
   likedImage!: string;
 
+  isEditableDescription: boolean = false;
+
   @ViewChild('descriptionUser') description!: ElementRef;
+
+  @ViewChild('moreDescription') moreDescription!: ElementRef;
+
 
   constructor(
     private userService: UserService,
@@ -49,16 +54,17 @@ export class CardImageProfilComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     var max = 50;
     if (this.description.nativeElement.innerHTML.length > max) {
-      this.description.nativeElement.innerHTML =
-        this.description.nativeElement.innerHTML.substring(0, max) + ' ... ';
-      let href = document.createElement('a');
-      href.textContent = 'lire la suite';
-      href.classList.add('more-description');
-      href.addEventListener('click', () => {
-        this.description.nativeElement.innerHTML = this.image.description;
-      });
-      this.description.nativeElement.append(href);
+      this.description.nativeElement.innerHTML = (
+        this.description.nativeElement.innerHTML.substring(0, max) + ' ... ').replace(/<[^>]*>?/gm, '');
+    } else {
+      this.moreDescription.nativeElement.remove();
     }
+  }
+
+  public displayDescription() {
+    this.description.nativeElement.innerHTML = this.image.description;
+    this.moreDescription.nativeElement.remove();
+    this.isEditableDescription = true;
   }
 
   public like() {
@@ -75,6 +81,17 @@ export class CardImageProfilComponent implements OnInit, AfterViewInit {
 
   delete(id: string) {
     this.imageService.deleteImage(id);
+  }
+
+  saveEdit() {
+    if (this.isEditableDescription) {
+      this.image.description = (this.description.nativeElement.innerHTML).replace(/<[^>]*>?/gm, '');
+      this.imageService.updateImage(this.image);
+    } else {
+      this.description.nativeElement.innerHTML = this.image.description;
+      this.isEditableDescription = true;
+      this.moreDescription.nativeElement.remove();
+    }
   }
 
   openDialog(): void {

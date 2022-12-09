@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Firestore } from "@angular/fire/firestore";
 import { AggregateField, AggregateQuerySnapshot, collection, CollectionReference, DocumentData, DocumentReference } from "firebase/firestore";
 import { Observable } from "rxjs";
+import { Tuple } from "src/app/core/models/tuple.model";
 import { FIREBASE_COLLECTION_PATHS } from "../../../../core/constants/firestore-collection.constant";
 import { Chat } from "../../models/chat.model";
 import { GenericFirestoreService } from "../firestore/generic-firestore.service";
@@ -41,6 +42,24 @@ export class ChatService {
   public fetchChatByChatRoomIdInOrder(chat: string, direction: "asc" | "desc" = "asc"): Observable<Chat[]> {
     return this.genericFirestoreService.fetchByPropertyInOrder<Chat>(this.chatCollection, "id_chat_room", chat, "date_created", "asc");
   }
+
+  public countAllChatUnreadByUserUid(uidUser: string): Promise<AggregateQuerySnapshot<{ count: AggregateField<number> }>> {
+    //TODO
+    let properties: Tuple<string, string>[] = [];
+    properties.push({propertyName: "toUserUid", propertyValue: uidUser});
+    properties.push({propertyName: "read", propertyValue: "false"});
+    return this.genericFirestoreService.countByProperties(this.chatCollection, properties);
+  }
+
+
+  public readAllChatByRoomIdAndNotUserUid(idChatRoom: string, uidUser: string): void {
+//TODO
+  }
+
+  public countAllChatUnreadByChatRoomIdAndNotUserUid(idChatRoom: string, uidUser: string): void {
+//TODO
+  }
+
 
   public addNewChat(chat: Chat): Promise<DocumentReference<DocumentData>> {
     const doc = this.genericFirestoreService.create(this.chatCollection, chat);

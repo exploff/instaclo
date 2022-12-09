@@ -41,18 +41,22 @@ export class ChatComponent implements OnInit  {
     this.displayDate.subscribe((valeur) => {
       this.showDate = valeur;
     });
+
   }
 
   onSubmit() {
     if (this.message.value != '') {
       if (this.uid != null) {
         if (this.user != null) {
+          let toUser = this.chatRoomsForComponentChat.uid_user[0] == this.uid ? this.chatRoomsForComponentChat.uid_user[1] : this.chatRoomsForComponentChat.uid_user[0];
           this.chat = {
             id: '',
             id_chat_room: this.chatRoomsForComponentChat.id,
             uid_user: this.uid,
             message: this.message.value ? this.message.value : '',
             date_created: new Date().toISOString(),
+            read: "false",
+            toUserUid: toUser
           };
         }
         this.chatService.addNewChat(this.chat);

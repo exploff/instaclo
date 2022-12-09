@@ -6,4 +6,6 @@ export interface Chat {
   uid_user: string;
   message: string;
   date_created: string;
+  read: string;
+  toUserUid: string;
 }

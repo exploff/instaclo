@@ -2,7 +2,7 @@
   <div class="card rounded">
     <div class="card-header">
       <div class="row">
-        <div class="col-8 d-flex align-items-center" [routerLink]="['/user/profil/' + (user | async)?.id]">
+        <div class="col-8 d-flex align-items-center" style="cursor: pointer;" [routerLink]="['/user/profil/' + (user | async)?.id]">
           <div class="content-img" [style.background-image]="
               'url(' + (user | async)?.profilImage + ')'
             "></div>

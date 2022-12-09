@@ -4,9 +4,15 @@
     {{ image.like.length }} Like
   </div>
   <div class="p-2">
-    <p #descriptionUser class="text-break m-0" style="text-align: justify">
+    <p #descriptionUser class="text-break m-0" [attr.contenteditable]="(currentUser.id === image.userID) && isEditableDescription"
+      style="text-align: justify" onkeypress="return (this.innerText.length <= 256)">
       {{ image.description }}
     </p>
+    <a #moreDescription (click)="displayDescription()" class="more-description">lire la suite</a>
+    <a (click)="saveEdit()" class="d-flex align-items-center text-muted me-4"
+      *ngIf="currentUser.id === image.userID">
+      <i class="bi bi-pencil"></i> <span class="ms-1">{{isEditableDescription ? 'sauvegarder' : 'modifier'}}</span>
+    </a>
   </div>
   <div class="card-footer">
     <div class="d-flex post-actions">

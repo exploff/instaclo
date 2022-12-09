@@ -55,6 +55,9 @@ export class ChatListComponent implements OnInit {
     this.messagesRoom = this.chatService.fetchChatByChatRoomIdInOrder(
       this.chatRoomsForComponentChat.id
     );
+
+    //TODO : passer en read tous les messages de la room pour cet utilisateur
+
   }
 
   clickEvent() {

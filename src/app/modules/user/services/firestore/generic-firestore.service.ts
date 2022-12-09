@@ -4,6 +4,7 @@ import { CollectionReference, doc, DocumentData } from "@firebase/firestore";
 import { AggregateField, AggregateQuerySnapshot } from "@firebase/firestore";
 import { Observable } from "rxjs";
 import { Timestamp } from "firebase/firestore";
+import { Tuple } from "src/app/core/models/tuple.model";
 
 @Injectable({
   providedIn: "root",
@@ -20,6 +21,18 @@ export class GenericFirestoreService {
 
   public count(collection: CollectionReference<DocumentData>): Promise<AggregateQuerySnapshot<{ count: AggregateField<number> }>> {
 
+    const request = query(collection);
+    return getCountFromServer(request);
+
+  }
+
+  public countByProperties(collection: CollectionReference<DocumentData>, properties: Tuple<string, string>[]): Promise<AggregateQuerySnapshot<{ count: AggregateField<number> }>> {
+
+    // query(collection,
+    //   properties.forEach((property) => {
+    //     return where(property.item1, "==", property.item2)
+    //   })
+    // );
     const request = query(collection);
     return getCountFromServer(request);
 
