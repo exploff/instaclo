@@ -93,8 +93,9 @@ export class NavbarComponent implements OnInit {
 
   checkNewMessage() {
     this.chatService.checkNewMessage(this.user.uid).subscribe((data) => {
-      console.log(data)
-      if (data.length > 0) {
+      if (data.length > 0 && !this.newMessage) {
+        console.log(data)
+        console.log("envoie d'une notification")
         this.newMessage = true;
         this.sendNotification("Messages", "Vous avez de nouveaux messages en attente");
       } else {
