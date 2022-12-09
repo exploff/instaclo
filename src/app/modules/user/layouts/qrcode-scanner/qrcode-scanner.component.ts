@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgxScannerQrcodeService } from 'ngx-scanner-qrcode';
 
 @Component({
   selector: 'app-qrcode-scanner',
@@ -7,5 +9,15 @@ import { Component } from '@angular/core';
 })
 export class QrcodeScannerComponent {
 
-  constructor() { }
+  public link!: string;
+
+  constructor(private qrcode: NgxScannerQrcodeService, private router:Router) { }
+
+
+
+  onQrCodeScan(response: string): void {
+    if (response != null) {
+      window.location.href = response;
+    }
+  }
 }

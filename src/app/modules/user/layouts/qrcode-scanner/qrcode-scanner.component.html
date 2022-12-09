@@ -1,10 +1,12 @@
 <div class="container">
   <div class="row">
     <div class="col-10 offset-1">
-      <ngx-scanner-qrcode #action="scanner"></ngx-scanner-qrcode>
-      <p class="data">{{ action.data | async }}</p>
-      <p *ngIf="action.isLoading">⌛ Loading...</p>
-      <button (click)="action.start()">{{action.isStart ? 'Stop' : 'Start'}}</button>
+      <ngx-scanner-qrcode (event)="onQrCodeScan($event)" #action="scanner"></ngx-scanner-qrcode>
+      <a *ngIf="action.data" href="{{ action.data | async }}"></a>
+      <p *ngIf="action.isLoading">
+        <img src="/assets/images/waiting.gif" alt="waiting" style="max-width: 250px">
+      </p>
+      <button class="btn btn-primary" (click)="action.start()">{{action.isStart ? 'Stop' : 'Start'}}</button>
 
     </div>
   </div>
