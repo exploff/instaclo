@@ -51,6 +51,9 @@ export class ChatComponent implements OnInit {
         if (this.user != null) {
           let toUserUid = this.chatRoomsForComponentChat.user[0].uid == this.uid ?
                             this.chatRoomsForComponentChat.user[1].uid : this.chatRoomsForComponentChat.user[0].uid;
+
+
+          console.log(this.chatRoomsForComponentChat);
           this.chat = {
             id: '',
             id_chat_room: this.chatRoomsForComponentChat.id,
@@ -58,7 +61,7 @@ export class ChatComponent implements OnInit {
             message: this.message.value ? this.message.value : '',
             date_created: new Date().toISOString(),
             toUserUid: toUserUid,
-            read: false
+            read: "false"
           };
         }
         this.chatService.addNewChat(this.chat);
@@ -69,21 +72,10 @@ export class ChatComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.receiveMessage();
     this.uid = this.authService.getUserUID();
     if (this.uid != null) {
       this.userService.fetchUserByUID(this.uid).subscribe((user: User[]) => {
         this.user = user;
-      });
-    }
-  }
-
-  receiveMessage() {
-    if (this.chatRoomsForComponentChat.id != null) {
-      this.chatService.fetchChatByChatRoomId(this.chatRoomsForComponentChat.id).subscribe((message) => {
-        if (message[0].uid_user != this.uid) {
-          this.sendNotification(this.user[0].pseudo, message[0].message);
-        }
       });
     }
   }
@@ -119,9 +111,4 @@ export class ChatComponent implements OnInit {
     this.displayDate.next(true);
   }
 
-  private sendNotification(name: string, body: string | null): void {
-    if (body != null) {
-      this.notificationService.generateNotification(`Message de ${name}`, body);
-    }
-  }
 }

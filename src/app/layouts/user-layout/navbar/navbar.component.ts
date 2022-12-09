@@ -5,6 +5,8 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user.model';
 import { AuthenticationService } from 'src/app/core/services/authentification/authentification.service';
 import { UserService } from 'src/app/core/services/user/user.service';
+import { Chat } from 'src/app/modules/user/models/chat.model';
+import { NotificationsService } from 'src/app/modules/user/services/notifications/notifications.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,12 +19,14 @@ export class NavbarComponent implements OnInit {
   public pseudo = new FormControl('');
   public bUser: boolean = false;
   public focus: boolean = false;
+  public newMessage: boolean = false;
 
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
     private userService: UserService,
-    private ChatService: ChatService
+    private chatService: ChatService,
+    private notificationsService: NotificationsService
   ) {
   }
 
@@ -88,12 +92,23 @@ export class NavbarComponent implements OnInit {
   }
 
   checkNewMessage() {
-    let test = this.ChatService.checkNewMessage(this.user.uid).subscribe((data) => {
-      console.log(data);
+    this.chatService.checkNewMessage(this.user.uid).subscribe((data) => {
+      if (data.length > 0) {
+        this.newMessage = true;
+        data.forEach((chat: Chat) => {
+          this.sendNotification(chat.uid_user, chat.message);
+        });
+      }
     });
-
   }
 
+  sendNotification(uidUser: string, message: string ) {
+    this.userService.fetchUserByUID(uidUser).subscribe((users) => {
+      if (users.length == 1) {
+        this.notificationsService.generateNotification("Nouveau message de " + users[0].pseudo, message);
+      }
+    });
+  }
 }
 
 

@@ -63,7 +63,7 @@ export class ChatService {
       this.fetchChatByChatRoomId(idRoom).subscribe((chats) => {
         chats.forEach((chat) => {
           if (chat.toUserUid == toUserUid) {
-            chat.read = true;
+            chat.read = "true";
             this.updateChat(chat);
           }
         });

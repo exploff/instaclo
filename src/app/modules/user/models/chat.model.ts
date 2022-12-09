@@ -7,5 +7,5 @@ export interface Chat {
   message: string;
   date_created: string;
   toUserUid: string;
-  read: boolean;
+  read: string;
 }

@@ -78,8 +78,11 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/user/chat']"
-              ><i class="bi bi-send"></i>
+            <a class="nav-link position-relative" [routerLink]="['/user/chat']">
+              <i class="bi bi-send"></i>
+              <span *ngIf="newMessage" class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+                <span class="visually-hidden">New alerts</span>
+              </span>
             </a>
           </li>
           <li class="nav-item dropdown d-none d-md-block">
