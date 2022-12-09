@@ -1,3 +1,9 @@
+# Pour installer les dépendances, il y a un conflit avec ngx-scanner-qrcode et angular 14, il faut utiliser le --f : 
+`npm i --f `
+
+Si il y a des problèmes, vérifier également la version dans le package.json 
+On doit utiliser obligatoirement : "ngx-scanner-qrcode": "1.0.25"
+
 # Version
 - Node : 16.17.1
 - NPM : 8.15.0
