@@ -98,7 +98,7 @@ export class NavbarComponent implements OnInit {
         console.log("envoie d'une notification")
         this.newMessage = true;
         this.sendNotification("Messages", "Vous avez de nouveaux messages en attente");
-      } else {
+      } else if (data.length == 0 && this.newMessage) {
         this.newMessage = false;
       }
     });
