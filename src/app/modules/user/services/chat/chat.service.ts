@@ -70,4 +70,10 @@ export class ChatService {
       });
     }
   }
+
+  public checkNewMessage(toUserUid: string) {
+    return this.genericFirestoreService.fetchByPropertyNewChat<Chat>(this.chatCollection, "toUserUid", toUserUid, "read", "false");
+  }
+
+
 }

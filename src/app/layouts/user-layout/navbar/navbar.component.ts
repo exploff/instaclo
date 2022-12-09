@@ -1,3 +1,4 @@
+import { ChatService } from './../../../modules/user/services/chat/chat.service';
 import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
@@ -21,7 +22,7 @@ export class NavbarComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private router: Router,
     private userService: UserService,
-
+    private ChatService: ChatService
   ) {
   }
 
@@ -69,11 +70,13 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     let uid = this.authenticationService.getUserUID();
     try {
       if (uid != null) {
         this.userService.fetchUserByUID(uid).subscribe((user) => {
           this.user = user[0];
+          this.checkNewMessage();
         });
       } else {
         this.router.navigate(['/login']);
@@ -82,6 +85,13 @@ export class NavbarComponent implements OnInit {
       console.error(error);
       this.router.navigate(['/login']);
     }
+  }
+
+  checkNewMessage() {
+    let test = this.ChatService.checkNewMessage(this.user.uid).subscribe((data) => {
+      console.log(data);
+    });
+
   }
 
 }

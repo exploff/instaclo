@@ -16,7 +16,7 @@ export class GenericFirestoreService {
     }).catch((reason) => {
       console.log('NO PERSISTENCE : ', reason);
     });
-   }
+  }
 
   public count(collection: CollectionReference<DocumentData>): Promise<AggregateQuerySnapshot<{ count: AggregateField<number> }>> {
 
@@ -42,15 +42,15 @@ export class GenericFirestoreService {
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 
-  public fetchByPropertyInOrder<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValue: string, directionproperty:string,
-                                     direction: "asc" | "desc" = "desc"):
+  public fetchByPropertyInOrder<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValue: string, directionproperty: string,
+    direction: "asc" | "desc" = "desc"):
     Observable<T[]> {
     const request = query(collection, orderBy(directionproperty, direction), where(propertyName, "==", propertyValue));
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 
-  public fetchByPropertySpecialChatInOrder<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValue: string, directionproperty:string,
-                                    direction: "asc" | "desc" = "desc"):
+  public fetchByPropertySpecialChatInOrder<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValue: string, directionproperty: string,
+    direction: "asc" | "desc" = "desc"):
     Observable<T[]> {
     const request = query(collection, orderBy(directionproperty, direction), where(propertyName, "array-contains", propertyValue));
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
@@ -70,25 +70,25 @@ export class GenericFirestoreService {
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 
-  public fetchByPropertyContainsIn<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValues: string[], directionproperty:string,
-    direction: "asc" | "desc" = "desc",  maxResult: number = 5):
+  public fetchByPropertyContainsIn<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValues: string[], directionproperty: string,
+    direction: "asc" | "desc" = "desc", maxResult: number = 5):
     Observable<T[]> {
     const request = query(collection, orderBy(directionproperty, direction),
-                                      where(propertyName, "in", propertyValues),
-                                      limit(maxResult));
+      where(propertyName, "in", propertyValues),
+      limit(maxResult));
     return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 
   public fetchByPropertyContainsInPagination<T>(collection: CollectionReference<DocumentData>, propertyName: string,
-    propertyValues: string[], directionproperty:string, direction: "asc" | "desc" = "desc",
+    propertyValues: string[], directionproperty: string, direction: "asc" | "desc" = "desc",
     startAfterPropertyTimestamp: Timestamp, maxResult: number = 5):
     Observable<T[]> {
-      const request = query(collection, where(propertyName, "in", propertyValues),
-                                      orderBy(directionproperty, direction),
-                                      startAfter(startAfterPropertyTimestamp),
-                                      limit(maxResult));
+    const request = query(collection, where(propertyName, "in", propertyValues),
+      orderBy(directionproperty, direction),
+      startAfter(startAfterPropertyTimestamp),
+      limit(maxResult));
 
-      return collectionData(request, { idField: "id" }) as Observable<T[]>;
+    return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 
   public create<T>(collection: CollectionReference<T>, object: WithFieldValue<T>): Promise<DocumentReference<T>> {
@@ -104,5 +104,11 @@ export class GenericFirestoreService {
   public delete(path: string, id: string) {
     const documentReference = doc(this.firestore, `${path}/${id}`);
     return deleteDoc(documentReference);
+  }
+
+  public fetchByPropertyNewChat<T>(collection: CollectionReference<DocumentData>, propertyName: string, propertyValue: string, propertyName2: string, propertyValue2: string):
+    Observable<T[]> {
+    const request = query(collection, where(propertyName, "==", propertyValue), where(propertyName2, "==", propertyValue2));
+    return collectionData(request, { idField: "id" }) as Observable<T[]>;
   }
 }
