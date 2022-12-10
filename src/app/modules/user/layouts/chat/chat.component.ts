@@ -1,11 +1,11 @@
 import { NotificationsService } from './../../services/notifications/notifications.service';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { User } from 'src/app/core/models/user.model';
 import { FormControl, Validators } from '@angular/forms';
 import { ChatRoom } from '../../models/chat-room.model';
 import { ChatService } from '../../services/chat/chat.service';
 import { Chat } from '../../models/chat.model';
-import { Observable } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../../../../core/services/authentification/authentification.service';
 import { UserService } from '../../../../core/services/user/user.service';
@@ -17,16 +17,18 @@ import { HammerModule } from '@angular/platform-browser';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit {
+export class ChatComponent implements OnInit, OnDestroy {
   @Input() chatRoomsForComponentChat!: ChatRoom;
   @Input() messageRoom!: Observable<Chat[]>;
   @ViewChild('messageInput') inputName: any;
+
+  private ngUnsubscribe = new Subject<void>();
 
   public toggle: boolean = false;
   public chat!: Chat;
   public message = new FormControl('', [Validators.required]);
   public uid!: string | null;
-  public user!: User[];
+  public user!: User;
   public displayDate: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
@@ -38,7 +40,7 @@ export class ChatComponent implements OnInit {
     public route: ActivatedRoute,
     public authService: AuthenticationService,
     public userService: UserService,
-    private readonly notificationService: NotificationsService
+    private router: Router
   ) {
     this.displayDate.subscribe((valeur) => {
       this.showDate = valeur;
@@ -51,9 +53,6 @@ export class ChatComponent implements OnInit {
         if (this.user != null) {
           let toUserUid = this.chatRoomsForComponentChat.user[0].uid == this.uid ?
                             this.chatRoomsForComponentChat.user[1].uid : this.chatRoomsForComponentChat.user[0].uid;
-
-
-          console.log(this.chatRoomsForComponentChat);
           this.chat = {
             id: '',
             id_chat_room: this.chatRoomsForComponentChat.id,
@@ -70,13 +69,34 @@ export class ChatComponent implements OnInit {
     }
   }
 
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
 
   ngOnInit(): void {
+    this.getCurrentUser();
     this.uid = this.authService.getUserUID();
-    if (this.uid != null) {
-      this.userService.fetchUserByUID(this.uid).subscribe((user: User[]) => {
-        this.user = user;
-      });
+
+    this.messageRoom
+    .pipe(takeUntil(this.ngUnsubscribe))
+    .subscribe((chats: Chat[]) => {
+      if (chats.length > 0) {
+        for (let i = 0; i < chats.length; i++) {
+          if (chats[i].toUserUid == this.uid && chats[i].read == "false") {
+            chats[i].read = "true";
+            this.chatService.updateChat(chats[i]);
+          }
+        }
+      }
+    });
+  }
+
+  getCurrentUser() {
+    if (this.route.snapshot.data['currentUser'] != undefined) {
+      this.user = this.route.snapshot.data['currentUser'][0];
+    } else {
+      this.router.navigate(['/login']);
     }
   }
 

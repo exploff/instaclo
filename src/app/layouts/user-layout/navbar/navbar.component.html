@@ -100,8 +100,8 @@
               <li>
                 <a
                   class="dropdown-item"
-                  *ngIf="user"
-                  [routerLink]="['/user/profil/' + user.id]"
+                  *ngIf="uid"
+                  [routerLink]="['/user/profil']"
                   >Profil</a
                 >
               </li>
@@ -121,8 +121,8 @@
           <li class="nav-item d-block d-md-none">
             <a
               class="nav-link"
-              *ngIf="user"
-              [routerLink]="['/user/profil/' + user.id]"
+              *ngIf="uid"
+              [routerLink]="['/user/profil']"
             >
               <i class="bi bi-person-circle"></i>
             </a>

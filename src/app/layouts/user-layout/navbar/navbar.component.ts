@@ -14,7 +14,7 @@ import { NotificationsService } from 'src/app/modules/user/services/notification
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
-  public user!: User;
+
   public userArray: any[] = [];
   public pseudo = new FormControl('');
   public bUser: boolean = false;

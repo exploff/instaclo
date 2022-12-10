@@ -33,11 +33,11 @@
       <div
         class="mt-1 messengerChild"
         *ngFor="let message of messageRoom | async"
-        [ngClass]="user[0].uid === message.uid_user ? 'text-end' : 'text-start'"
+        [ngClass]="user.uid === message.uid_user ? 'text-end' : 'text-start'"
         (swipeleft)="onSwipeLeft2(message.id)"
         (swiperight)="onSwipeRight2()"
       >
-        <span *ngIf="user[0].uid === message.uid_user; else MateMessage">
+        <span *ngIf="user.uid === message.uid_user; else MateMessage">
           <span class="bulle">
             <span *ngIf="toggle && message_id === message.id; else notDisabled">
               <input
@@ -70,7 +70,7 @@
 
         <div
           *ngIf="
-            user[0].uid === message.uid_user &&
+            user.uid === message.uid_user &&
             toggle &&
             message_id === message.id
           "
@@ -91,8 +91,8 @@
           </span>
         </div>
         <div class="mt-1">
-          <p *ngIf="user[0].uid === message.uid_user; else pseudoMessage">
-            <small>{{ user[0].pseudo }}</small>
+          <p *ngIf="user.uid === message.uid_user; else pseudoMessage">
+            <small>{{ user.pseudo }}</small>
           </p>
           <ng-template #pseudoMessage>
             <p>

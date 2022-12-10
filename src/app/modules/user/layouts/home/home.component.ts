@@ -1,20 +1,21 @@
 import { Image } from './../../models/image.model';
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { AuthenticationService } from 'src/app/core/services/authentification/authentification.service';
 import { User } from 'src/app/core/models/user.model';
 import { ImageService } from '../../services/image/image.service';
-import { Observable, BehaviorSubject, merge, tap } from 'rxjs';
+import { Observable, BehaviorSubject, merge, tap, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
-  private uid!: string | null;
+  private ngUnsubscribe = new Subject<void>();
+
   public user!: User;
   public follows: string[] = [];
 
@@ -29,7 +30,9 @@ export class HomeComponent implements OnInit {
     if (pos >= max) {
       let lastImage = this.images$.value[this.images$.value.length - 1];
       const values = this.images$.value;
-      this.imageService.fetchUsersImagesByPagination(this.follows, lastImage.createDate).subscribe(images => {
+      this.imageService.fetchUsersImagesByPagination(this.follows, lastImage.createDate)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(images => {
         this.images$.next(values.concat(images));
       });
     }
@@ -41,6 +44,11 @@ export class HomeComponent implements OnInit {
     //Parcequ'on veut voir également nos posts
     this.follows.push(this.user.id);
     this.loadImages();
+  }
+
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
   }
 
   getCurrentUser() {

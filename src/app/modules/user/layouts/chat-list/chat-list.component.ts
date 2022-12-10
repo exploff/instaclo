@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 
 import { ChatService } from '../../services/chat/chat.service';
 import { UserService } from '../../../../core/services/user/user.service';
@@ -8,14 +8,20 @@ import { ChatRoomService } from '../../services/chat-room/chat-room.service';
 import { ChatRoom } from '../../models/chat-room.model';
 import { ActivatedRoute } from '@angular/router';
 import { Chat } from '../../models/chat.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
+import { ChatComponent } from '../chat/chat.component';
 
 @Component({
   selector: 'app-chat-list',
   templateUrl: './chat-list.component.html',
   styleUrls: ['./chat-list.component.scss'],
 })
-export class ChatListComponent implements OnInit, AfterViewInit {
+export class ChatListComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  private ngUnsubscribe = new Subject<void>();
+
+  @ViewChild(ChatComponent, {static: false}) childRef!: ChatComponent;
+
   public chatRooms!: ChatRoom[];
   public chatRoomsForComponentChat!: ChatRoom;
   public messagesRoom!: Observable<Chat[]>;
@@ -43,6 +49,7 @@ export class ChatListComponent implements OnInit, AfterViewInit {
         if (chatRoom.uid_user[i] != this.uid) {
           this.userService
             .fetchUserByUID(chatRoom.uid_user[i] as any)
+            .pipe(takeUntil(this.ngUnsubscribe))
             .subscribe((user: User[]) => {
               chatRoom.user = user;
             });
@@ -54,7 +61,9 @@ export class ChatListComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     //Récupération des chats non lus
     if (this.uid) {
-      this.chatService.checkNewMessage(this.uid).subscribe(chats => {
+      this.chatService.checkNewMessage(this.uid)
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(chats => {
         if (chats.length > 0) {
           this.chatRoomUnread$.next(chats.map(chat => chat.id_chat_room));
         } else {
@@ -64,6 +73,17 @@ export class ChatListComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ngOnDestroy() {
+    this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
+  destroyChild() {
+    if (this.childRef) {
+      this.childRef.ngOnDestroy();
+      this.childRef.ngOnInit();
+    }
+  }
 
   openChat(chatRoom: ChatRoom) {
     this.chatRoomsForComponentChat = chatRoom;
@@ -71,9 +91,7 @@ export class ChatListComponent implements OnInit, AfterViewInit {
     this.messagesRoom = this.chatService.fetchChatByChatRoomIdInOrder(
       this.chatRoomsForComponentChat.id
     );
-
-    //Passage de tous les chats read à true quand le toUserUid me concerne et le chatroomid est celui que l'on ouvre
-    this.chatService.readAllChatOfTheRoom(chatRoom.id, this.uid!);
+    this.destroyChild();
   }
 
   clickEvent() {

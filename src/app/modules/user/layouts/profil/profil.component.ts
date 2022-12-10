@@ -1,15 +1,10 @@
-import { CardImageProfilComponent } from './components/card-image-profil/card-image-profil.component';
 import { ImageService } from './../../services/image/image.service';
 import {
   Component,
-  OnInit,
-  OnChanges,
-  SimpleChanges,
-  Input,
+  OnInit
 } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user.model';
-import { AuthenticationService } from 'src/app/core/services/authentification/authentification.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { Image } from '../../models/image.model';
 import { ChatRoomService } from '../../services/chat-room/chat-room.service';
@@ -17,7 +12,6 @@ import { ChatRoom } from '../../models/chat-room.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogQrCodeComponent } from './components/dialog-qr-code/dialog-qr-code.component';
 import { Observable } from 'rxjs';
-import { DialogCommentComponent } from '../home/components/card-image/dialog-comment/dialog-comment.component';
 
 
 @Component({
@@ -25,7 +19,7 @@ import { DialogCommentComponent } from '../home/components/card-image/dialog-com
   templateUrl: './profil.component.html',
   styleUrls: ['./profil.component.scss'],
 })
-export class ProfilComponent {
+export class ProfilComponent implements OnInit{
   public isUserCo = false;
   public user!: User;
   public images!: Observable<Image[]>;
@@ -33,7 +27,6 @@ export class ProfilComponent {
   public currentUser!: User;
 
   constructor(
-    private authenticationService: AuthenticationService,
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
@@ -41,17 +34,16 @@ export class ProfilComponent {
     private chatRoomService: ChatRoomService,
     public dialog: MatDialog
   ) {
-    this.route.params.subscribe(() => {
-      this.getCurrentUser();
-      this.getUser();
-    });
+  }
+
+  ngOnInit(): void {
+    this.getCurrentUser();
+    this.getUser();
   }
 
   getCurrentUser() {
     if (this.route.snapshot.data['currentUser'] != undefined) {
       this.currentUser = this.route.snapshot.data['currentUser'][0];
-      console.log(this.currentUser);
-
     } else {
       this.router.navigate(['/login']);
     }

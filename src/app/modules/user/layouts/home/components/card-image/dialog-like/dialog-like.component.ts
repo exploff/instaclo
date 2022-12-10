@@ -28,8 +28,6 @@ export class DialogLikeComponent implements OnInit {
 
   ngOnInit() {
     this.image.like.forEach((id) => {
-      console.log('test');
-
       this.userService.fetchUserById(id).subscribe((user) => {
         this.user.push(user);
         //push unique value to array

@@ -47,6 +47,7 @@ const routes: Routes = [
         path: 'chat',
         component: ChatListComponent,
         resolve: {
+          currentUser: CurrentUserResolver,
           chatRooms: ChatRoomResolverResolver,
         },
         pathMatch: 'full'
@@ -55,12 +56,16 @@ const routes: Routes = [
         path: 'chat/:id',
         component: ChatListComponent,
         resolve: {
+          currentUser: CurrentUserResolver,
           chatRooms: ChatRoomResolverResolver
         }
       },
       {
         path: 'edit-profil',
         component: EditProfilComponent,
+        resolve: {
+          currentUser: CurrentUserResolver
+        }
       },
       {
         path: 'qrcode/:id',

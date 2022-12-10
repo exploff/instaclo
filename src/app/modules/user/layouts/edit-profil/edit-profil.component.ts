@@ -1,8 +1,7 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user.model';
-import { AuthenticationService } from 'src/app/core/services/authentification/authentification.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { StorageService } from '../../services/storage/storage.service';
 import { UploadResult } from '@angular/fire/storage';
@@ -24,11 +23,10 @@ export class EditProfilComponent implements OnInit {
     }
   );
 
-
   constructor(
-    private authenticationService: AuthenticationService,
     private userService: UserService,
     private router: Router,
+    public route: ActivatedRoute,
     private storageService: StorageService
   ) {}
 
@@ -47,20 +45,23 @@ export class EditProfilComponent implements OnInit {
 
   ngOnInit(): void {
     try {
-      let uid = this.authenticationService.getUserUID();
-      if (uid != null) {
-        this.userService.fetchUserByUID(uid).subscribe((user) => {
-          this.user = user[0];
-          this.editForm.controls['bio'].setValue(this.user.bio);
-          this.editForm.controls['firstname'].setValue(this.user.firstName);
-          this.editForm.controls['lastname'].setValue(this.user.lastName);
-          this.editForm.controls['pseudo'].setValue(this.user.pseudo);
-        });
-      } else {
-        this.router.navigate(['/login']);
+      this.getCurrentUser();
+      if (this.user) {
+        this.editForm.controls['bio'].setValue(this.user.bio);
+        this.editForm.controls['firstname'].setValue(this.user.firstName);
+        this.editForm.controls['lastname'].setValue(this.user.lastName);
+        this.editForm.controls['pseudo'].setValue(this.user.pseudo);
       }
     } catch (error) {
       console.error(error);
+      this.router.navigate(['/login']);
+    }
+  }
+
+  getCurrentUser() {
+    if (this.route.snapshot.data['currentUser'] != undefined) {
+      this.user = this.route.snapshot.data['currentUser'][0];
+    } else {
       this.router.navigate(['/login']);
     }
   }
