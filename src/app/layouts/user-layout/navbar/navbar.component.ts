@@ -21,6 +21,8 @@ export class NavbarComponent implements OnInit {
   public focus: boolean = false;
   public newMessage: boolean = false;
 
+  public uid!: string | null;
+
   constructor(
     private authenticationService: AuthenticationService,
     private router: Router,
@@ -75,13 +77,10 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
 
-    let uid = this.authenticationService.getUserUID();
+    this.uid = this.authenticationService.getUserUID();
     try {
-      if (uid != null) {
-        this.userService.fetchUserByUID(uid).subscribe((user) => {
-          this.user = user[0];
-          this.checkNewMessage();
-        });
+      if (this.uid != null) {
+        this.checkNewMessage(this.uid);
       } else {
         this.router.navigate(['/login']);
       }
@@ -91,11 +90,10 @@ export class NavbarComponent implements OnInit {
     }
   }
 
-  checkNewMessage() {
-    this.chatService.checkNewMessage(this.user.uid).subscribe((data) => {
+  checkNewMessage(toUserUid: string) {
+    this.chatService.checkNewMessage(toUserUid).subscribe((data) => {
       if (data.length > 0 && !this.newMessage) {
         console.log(data)
-        console.log("envoie d'une notification")
         this.newMessage = true;
         this.sendNotification("Messages", "Vous avez de nouveaux messages en attente");
       } else if (data.length == 0 && this.newMessage) {

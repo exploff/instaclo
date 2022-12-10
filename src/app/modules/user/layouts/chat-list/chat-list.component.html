@@ -16,8 +16,8 @@
           class="col d-flex align-items-center justify-content-left link-chat border-bottom"
           (click)="openChat(chatRoom)"
         >
-          <p class="my-5" *ngIf="chatRoom.user">
-            <span *ngFor="let item of chatRoom.user">
+          <p class="my-5" *ngIf="chatRoom.user" >
+            <span *ngFor="let item of chatRoom.user" [style.color]="(chatRoomUnread$ | async)?.includes(chatRoom.id) ? 'red' : '' ">
               {{ item.pseudo }}
             </span>
           </p>
